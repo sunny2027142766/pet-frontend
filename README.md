@@ -13,5 +13,12 @@ pnpm i
 pnpm add @mui/material @emotion/react @emotion/styled
 pnpm add react-pro-sidebar
 pnpm add @mui/icons-material
-pnpm add three @types/three @react-three/fiber
+pnpm add three @types/three @react-three/fiber @react-three/drei
+pnpm add @types/three
+```
+
+3.处理模型
+
+```sh
+npx gltfjsx xxx.gltf 
 ```
