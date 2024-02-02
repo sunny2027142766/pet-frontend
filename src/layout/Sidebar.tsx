@@ -2,7 +2,7 @@
  * @Author: 晴天
  * @Date: 2024-01-31 17:36:29
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-02 15:37:57
+ * @LastEditTime: 2024-02-02 17:52:22
  * @FilePath: \pet-frontend\src\layout\sideBar.tsx
  * @Description:
  * QQ: 2027142766
@@ -126,6 +126,13 @@ const Sidebar = () => {
             <Item
               title="接口"
               to="/interface"
+              icon={<PeopleOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="登录"
+              to="/login"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
