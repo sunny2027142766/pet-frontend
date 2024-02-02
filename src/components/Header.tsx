@@ -1,3 +1,14 @@
+/*
+ * @Author: 晴天
+ * @Date: 2024-02-01 08:45:00
+ * @LastEditors: 晴天
+ * @LastEditTime: 2024-02-02 15:24:43
+ * @FilePath: \pet-frontend\src\components\Header.tsx
+ * @Description: 
+ * QQ: 2027142766
+ * Copyright (c) ${2024} by ${晴天}, All Rights Reserved. 
+ */
+
 import { Typography, Box, useTheme } from "@mui/material";
 import { tokens } from "../settings/theme";
 

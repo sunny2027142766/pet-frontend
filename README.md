@@ -15,6 +15,7 @@ pnpm add react-pro-sidebar
 pnpm add @mui/icons-material
 pnpm add three @types/three @react-three/fiber @react-three/drei
 pnpm add @types/three
+pnpm add --save ahooks@next
 ```
 
 3.处理模型
