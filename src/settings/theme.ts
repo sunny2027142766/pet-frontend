@@ -2,7 +2,7 @@
  * @Author: 晴天
  * @Date: 2024-01-31 17:25:47
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-02 15:25:56
+ * @LastEditTime: 2024-02-19 16:23:30
  * @FilePath: \pet-frontend\src\settings\theme.ts
  * @Description:
  * QQ: 2027142766
@@ -70,6 +70,17 @@ export const tokens = (mode: 'light' | 'dark') => ({
           700: '#3e4396',
           800: '#2a2d64',
           900: '#151632'
+        },
+        orange:{
+          100: '#f2b1a7',
+          200: '#e0a993',
+          300: '#d6987f',
+          400: '#cc8f6b',
+          500: '#b37c57',
+          600: '#996643',
+          700: '#7f5530',
+          800: '#664426',
+          900: '#4c331b'
         }
       }
     : {
@@ -127,6 +138,17 @@ export const tokens = (mode: 'light' | 'dark') => ({
           700: '#a4a9fc',
           800: '#c3c6fd',
           900: '#e1e2fe'
+        },
+        orange:{
+          100: '#4c331b',
+          200: '#664426',
+          300: '#7f5530',
+          400: '#996643',
+          500: '#b37c57',
+          600: '#cc8f6b',
+          700: '#d6987f',
+          800: '#e0a993',
+          900: '#f2b1a7',
         }
       })
 })

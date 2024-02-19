@@ -2,8 +2,8 @@
  * @Author: 晴天
  * @Date: 2024-01-31 17:36:29
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-02 17:52:22
- * @FilePath: \pet-frontend\src\layout\sideBar.tsx
+ * @LastEditTime: 2024-02-19 17:00:27
+ * @FilePath: \pet-frontend\src\layout\Sidebar.tsx
  * @Description:
  * QQ: 2027142766
  * Copyright (c) ${2024} by ${晴天}, All Rights Reserved.
@@ -53,6 +53,7 @@ const Sidebar = () => {
 
   return (
     <Box
+      component="div"
       sx={{
         '& .pro-sidebar-inner': {
           background: `${colors.primary[400]} !important`
@@ -83,7 +84,7 @@ const Sidebar = () => {
             }}
           >
             {!isCollapsed && (
-              <Box display="flex" justifyContent="space-between" alignItems="center" ml="15px">
+              <Box component="div" display="flex" justifyContent="space-between" alignItems="center" ml="15px">
                 <Typography variant="h4" color={colors.grey[100]}>
                   虚拟宠物互动平台
                 </Typography>
@@ -95,8 +96,8 @@ const Sidebar = () => {
           </MenuItem>
 
           {!isCollapsed && (
-            <Box mb="25px">
-              <Box display="flex" justifyContent="center" alignItems="center">
+            <Box component="div" mb="25px">
+              <Box component="div" display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-user"
                   width="100px"
@@ -105,7 +106,7 @@ const Sidebar = () => {
                   style={{ cursor: 'pointer', borderRadius: '50%' }}
                 />
               </Box>
-              <Box textAlign="center">
+              <Box component="div" textAlign="center">
                 <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" sx={{ m: '10px 0 0 0' }}>
                   张三
                 </Typography>
@@ -116,7 +117,7 @@ const Sidebar = () => {
             </Box>
           )}
 
-          <Box paddingLeft={isCollapsed ? undefined : '10%'}>
+          <Box component="div" paddingLeft={isCollapsed ? undefined : '10%'}>
             <Item title="控制台" to="/" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} />
 
             <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
@@ -133,6 +134,13 @@ const Sidebar = () => {
             <Item
               title="登录"
               to="/login"
+              icon={<PeopleOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="注册"
+              to="/register"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

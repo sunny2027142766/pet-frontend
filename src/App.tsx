@@ -2,7 +2,7 @@
  * @Author: 晴天
  * @Date: 2024-01-31 17:22:13
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-02 17:48:12
+ * @LastEditTime: 2024-02-19 16:42:05
  * @FilePath: \pet-frontend\src\App.tsx
  * @Description:
  * QQ: 2027142766
@@ -19,6 +19,7 @@ import Dashboard from './views/Dashboard'
 import Test from './views/Test'
 import InterfaceDemo from './views/InterfaceDemo'
 import Login from './views/Login'
+import Register from './views/Register'
 
 const App = () => {
   const [theme, colorMode] = useMode()
@@ -37,6 +38,7 @@ const App = () => {
               <Route path="/test" element={<Test />} />
               <Route path="/interface" element={<InterfaceDemo />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
             </Routes>
           </main>
         </div>

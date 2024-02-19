@@ -40,11 +40,11 @@ const CanvasDom: React.FC = () => {
 
 const Test = () => {
   return (
-    <Box m="20px">
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+    <Box component="div" m="20px">
+      <Box component="div" display="flex" justifyContent="space-between" alignItems="center">
         <Header title="测试" subtitle="测试小标题" />
       </Box>
-      <Box height="60vh">
+      <Box component="div" height="60vh">
         <CanvasDom />
       </Box>
     </Box>
