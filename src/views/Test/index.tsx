@@ -2,27 +2,35 @@
  * @Author: 晴天
  * @Date: 2024-02-01 08:43:56
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-02 15:44:11
+ * @LastEditTime: 2024-02-20 09:15:19
  * @FilePath: \pet-frontend\src\views\Test\index.tsx
  * @Description:
  * QQ: 2027142766
  * Copyright (c) ${2024} by ${晴天}, All Rights Reserved.
  */
 
-import React, { Suspense } from 'react'
+import React, { Suspense, useRef } from 'react'
 import { Box } from '@mui/material'
-import { Environment, OrbitControls } from '@react-three/drei'
-import { Canvas, useLoader } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 // @ts-expect-error TS_E
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import Header from '../../components/Header'
+import { Mesh } from 'three'
 
 const Model: React.FC = () => {
-  const gltf = useLoader(GLTFLoader, './Poimandres.gltf')
+  const fileUrl = '/shiba/scene.gltf'
+  const mesh = useRef<Mesh>(null!)
+  const gltf = useLoader(GLTFLoader, fileUrl)
+
+  useFrame(() => {
+    mesh.current.rotation.y += 0.01
+  })
+
   return (
-    <>
-      <primitive object={gltf.scene} scale={0.4} />
-    </>
+    <mesh ref={mesh}>
+      <primitive object={gltf.scene} />
+    </mesh>
   )
 }
 
@@ -30,9 +38,10 @@ const CanvasDom: React.FC = () => {
   return (
     <Canvas>
       <Suspense fallback={null}>
-        <Model />
         <OrbitControls />
-        <Environment preset="sunset" background />
+        <ambientLight />
+        <pointLight position={[10, 10, 10]} />
+        <Model />
       </Suspense>
     </Canvas>
   )
