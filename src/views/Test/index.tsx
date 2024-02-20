@@ -2,7 +2,7 @@
  * @Author: 晴天
  * @Date: 2024-02-01 08:43:56
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-20 09:15:19
+ * @LastEditTime: 2024-02-20 09:22:01
  * @FilePath: \pet-frontend\src\views\Test\index.tsx
  * @Description:
  * QQ: 2027142766
@@ -33,6 +33,17 @@ const Model: React.FC = () => {
     </mesh>
   )
 }
+const DogModel: React.FC = () => {
+  const fileUrl = '/dog/scene.gltf'
+  const mesh = useRef<Mesh>(null!)
+  const gltf = useLoader(GLTFLoader, fileUrl)
+
+  return (
+    <mesh ref={mesh}>
+      <primitive object={gltf.scene} />
+    </mesh>
+  )
+}
 
 const CanvasDom: React.FC = () => {
   return (
@@ -42,6 +53,7 @@ const CanvasDom: React.FC = () => {
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
         <Model />
+        <DogModel />
       </Suspense>
     </Canvas>
   )
