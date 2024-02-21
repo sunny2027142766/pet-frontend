@@ -2,7 +2,7 @@
  * @Author: 晴天
  * @Date: 2024-02-01 08:45:00
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-19 17:01:15
+ * @LastEditTime: 2024-02-21 15:02:50
  * @FilePath: \pet-frontend\src\components\Header.tsx
  * @Description:
  * QQ: 2027142766
@@ -10,7 +10,7 @@
  */
 
 import { Typography, Box, useTheme } from '@mui/material'
-import { tokens } from '../settings/theme'
+import { tokens } from '@/settings/theme'
 
 interface HeaderProps {
   title: string

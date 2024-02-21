@@ -2,8 +2,8 @@
  * @Author: 晴天
  * @Date: 2024-02-19 16:38:34
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-19 16:54:06
- * @FilePath: \pet-frontend\src\views\Register\index.tsx
+ * @LastEditTime: 2024-02-21 15:28:51
+ * @FilePath: \pet-frontend\src\views\register\index.tsx
  * @Description:
  * QQ: 2027142766
  * Copyright (c) ${2024} by ${晴天}, All Rights Reserved.
@@ -15,10 +15,13 @@ import bg from '@/assets/login/bg.png'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import { useNavigate } from 'react-router-dom'
 
 const Register: React.FC = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
+
+  const navigate = useNavigate()
 
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -30,6 +33,10 @@ const Register: React.FC = () => {
   const handleRegister = () => {
     // 处理注册逻辑，可以在这里添加实际的注册请求等
     console.log('注册中...')
+  }
+
+  const navToLogin = () => {
+    navigate('/login')
   }
 
   const inputStyles = {
@@ -63,7 +70,7 @@ const Register: React.FC = () => {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      minHeight="80vh"
+      minHeight="100vh"
       sx={{
         background: `url(${bg})`,
         backgroundSize: 'cover'
@@ -194,7 +201,7 @@ const Register: React.FC = () => {
           </Button>
           <Typography variant="body2" mt={2} color={colors.orange[400]} sx={{ textAlign: 'center' }}>
             已有账号？{' '}
-            <Link href="#" color="inherit">
+            <Link onClick={navToLogin} color="inherit">
               去登录
             </Link>
           </Typography>

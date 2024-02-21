@@ -2,7 +2,7 @@
  * @Author: 晴天
  * @Date: 2024-01-31 17:36:29
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-19 17:00:27
+ * @LastEditTime: 2024-02-21 15:19:44
  * @FilePath: \pet-frontend\src\layout\Sidebar.tsx
  * @Description:
  * QQ: 2027142766
@@ -118,7 +118,13 @@ const Sidebar = () => {
           )}
 
           <Box component="div" paddingLeft={isCollapsed ? undefined : '10%'}>
-            <Item title="控制台" to="/" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} />
+            <Item
+              title="控制台"
+              to="/dashboard"
+              icon={<HomeOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
 
             <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
               Data
@@ -133,14 +139,14 @@ const Sidebar = () => {
             />
             <Item
               title="登录"
-              to="/login"
+              to="/login/inner"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="注册"
-              to="/register"
+              to="/register/inner"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

@@ -2,23 +2,26 @@
  * @Author: 晴天
  * @Date: 2024-02-02 17:14:46
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-19 17:03:01
- * @FilePath: \pet-frontend\src\views\Login\index.tsx
+ * @LastEditTime: 2024-02-21 15:27:39
+ * @FilePath: \pet-frontend\src\views\login\index.tsx
  * @Description:
  * QQ: 2027142766
  * Copyright (c) ${2024} by ${晴天}, All Rights Reserved.
  */
 import React, { useState } from 'react'
-import { Box, Button, TextField, Typography, useTheme, Link, InputAdornment, IconButton } from '@mui/material'
+import { Box, Button, TextField, Typography, useTheme, InputAdornment, IconButton, Link } from '@mui/material'
 import { tokens } from '@/settings/theme'
 import bg from '@/assets/login/bg.png'
 import Logo from '@/components/Logo'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import { useNavigate } from 'react-router-dom'
 
 const Login: React.FC = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
+
+  const navigate = useNavigate()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -27,6 +30,11 @@ const Login: React.FC = () => {
   const handleLogin = () => {
     // 处理登录逻辑，可以在这里添加实际的登录请求等
     console.log('登录中...')
+    navigate('/dashboard')
+  }
+
+  const navToRegister = () => {
+    navigate('/register')
   }
 
   const inputStyles = {
@@ -60,7 +68,7 @@ const Login: React.FC = () => {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
-      minHeight="80vh"
+      minHeight="100vh"
       sx={{
         background: `url(${bg})`,
         backgroundSize: 'cover'
@@ -131,7 +139,7 @@ const Login: React.FC = () => {
           </Button>
           <Typography variant="body2" mt={2} color={colors.orange[400]} sx={{ textAlign: 'center' }}>
             还没有账号？{' '}
-            <Link href="#" color="inherit">
+            <Link onClick={navToRegister} color="inherit">
               去注册
             </Link>
           </Typography>
