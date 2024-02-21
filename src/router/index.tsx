@@ -2,7 +2,7 @@
  * @Author: 晴天
  * @Date: 2024-02-21 14:30:23
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-21 15:19:59
+ * @LastEditTime: 2024-02-21 16:19:06
  * @FilePath: \pet-frontend\src\router\index.tsx
  * @Description:
  * QQ: 2027142766
@@ -14,14 +14,15 @@ import { lazy } from 'react'
 import { Navigate, useRoutes } from 'react-router-dom'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 
-const rootRouter = [
+// eslint-disable-next-line react-refresh/only-export-components
+export const rootRouter = [
   {
     path: '/',
     element: <Navigate to="/login" />
   },
   {
     path: '/login',
-    element: lazyLoad(lazy(() => import('@/views/login'))),
+    element: lazyLoad(lazy(() => import('@/views/auth-page/login'))),
     meta: {
       requiresAuth: false,
       title: '登录页',
@@ -30,7 +31,7 @@ const rootRouter = [
   },
   {
     path: '/register',
-    element: lazyLoad(lazy(() => import('@/views/register'))),
+    element: lazyLoad(lazy(() => import('@/views/auth-page/register'))),
     meta: {
       requiresAuth: false,
       title: '注册页',
@@ -38,13 +39,28 @@ const rootRouter = [
     }
   },
   {
+    path: '/',
     element: <Layout />,
     meta: {
-      title: '首页'
+      title: '控制台',
+      icon: <HomeOutlinedIcon />
     },
     children: [
       {
-        path: '/dashboard',
+        path: 'dashboard',
+        element: lazyLoad(lazy(() => import('@/views/dashboard')))
+      }
+    ]
+  },
+  {
+    path: '/test',
+    element: <Layout />,
+    meta: {
+      title: '测试'
+    },
+    children: [
+      {
+        path: 'dashboard',
         element: lazyLoad(lazy(() => import('@/views/dashboard'))),
         meta: {
           title: '首页',
@@ -52,32 +68,42 @@ const rootRouter = [
         }
       },
       {
-        path: '/test',
+        path: '3D',
         element: lazyLoad(lazy(() => import('@/views/test'))),
         meta: {
-          title: '测试',
+          title: '3D测试',
           icon: <HomeOutlinedIcon />
         }
       },
       {
-        path: '/interface',
+        path: 'interface',
         element: lazyLoad(lazy(() => import('@/views/interfaceDemo'))),
         meta: {
-          title: '接口',
+          title: '接口测试',
           icon: <HomeOutlinedIcon />
         }
-      },
+      }
+    ]
+  },
+  {
+    path: '/auth-page',
+    element: <Layout />,
+    meta: {
+      title: '登录注册',
+      icon: <HomeOutlinedIcon />
+    },
+    children: [
       {
-        path: '/register/inner',
-        element: lazyLoad(lazy(() => import('@/views/register'))),
+        path: 'register',
+        element: lazyLoad(lazy(() => import('@/views/auth-page/register'))),
         meta: {
           title: '注册',
           icon: <HomeOutlinedIcon />
         }
       },
       {
-        path: '/login/inner',
-        element: lazyLoad(lazy(() => import('@/views/login'))),
+        path: 'login',
+        element: lazyLoad(lazy(() => import('@/views/auth-page/login'))),
         meta: {
           title: '登录',
           icon: <HomeOutlinedIcon />

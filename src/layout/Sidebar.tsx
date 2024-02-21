@@ -2,22 +2,21 @@
  * @Author: 晴天
  * @Date: 2024-01-31 17:36:29
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-21 15:19:44
+ * @LastEditTime: 2024-02-21 16:42:18
  * @FilePath: \pet-frontend\src\layout\Sidebar.tsx
  * @Description:
  * QQ: 2027142766
  * Copyright (c) ${2024} by ${晴天}, All Rights Reserved.
  */
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { Box, IconButton, Typography, useTheme } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { tokens } from '../settings/theme'
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined'
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined'
+import { rootRouter } from '@/router'
 
 interface ItemProps {
   title: string
@@ -45,11 +44,50 @@ const Item: React.FC<ItemProps> = ({ title, to, icon, selected, setSelected }) =
   )
 }
 
+// 递归成成菜单数据
+const generateMenuData = (rootRouter: any[], menuData: any[] = []) => {
+  rootRouter.forEach(item => {
+    // 不存在children
+    if (!item?.children?.length) {
+      const currentItem = {
+        title: item?.meta?.title,
+        path: item.path,
+        icon: item?.meta?.icon
+      }
+      return menuData.push(currentItem)
+    }
+    // children为1
+    if (item?.children?.length === 1) {
+      const currentItem = {
+        title: item?.meta?.title,
+        path: item.children[0].path,
+        icon: item?.meta?.icon
+      }
+      return menuData.push(currentItem)
+    }
+    menuData.push({
+      title: item?.meta?.title,
+      path: item.path,
+      icon: item?.meta?.icon,
+      children: generateMenuData(item.children)
+    })
+  })
+  return menuData
+}
+
 const Sidebar = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [selected, setSelected] = useState('控制台')
+
+  const [menuData, setMenuData] = useState<any[]>([])
+
+  useEffect(() => {
+    setMenuData(generateMenuData(rootRouter))
+  }, [])
+
+  console.log(menuData)
 
   return (
     <Box
@@ -118,39 +156,16 @@ const Sidebar = () => {
           )}
 
           <Box component="div" paddingLeft={isCollapsed ? undefined : '10%'}>
-            <Item
-              title="控制台"
-              to="/dashboard"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography variant="h6" color={colors.grey[300]} sx={{ m: '15px 0 5px 20px' }}>
-              Data
-            </Typography>
-            <Item title="测试" to="/test" icon={<PeopleOutlinedIcon />} selected={selected} setSelected={setSelected} />
-            <Item
-              title="接口"
-              to="/interface"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="登录"
-              to="/login/inner"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="注册"
-              to="/register/inner"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            {menuData.map(menuItem => (
+              <Item
+                key={menuItem.path} // Assuming 'path' is unique
+                title={menuItem.title}
+                to={menuItem.path}
+                icon={menuItem.icon}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            ))}
           </Box>
         </Menu>
       </ProSidebar>
