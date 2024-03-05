@@ -2,7 +2,7 @@
  * @Author: 晴天
  * @Date: 2024-02-21 14:30:23
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-21 16:19:06
+ * @LastEditTime: 2024-02-27 08:36:01
  * @FilePath: \pet-frontend\src\router\index.tsx
  * @Description:
  * QQ: 2027142766
@@ -39,7 +39,7 @@ export const rootRouter = [
     }
   },
   {
-    path: '/',
+    path: '/dashboard',
     element: <Layout />,
     meta: {
       title: '控制台',
@@ -47,7 +47,7 @@ export const rootRouter = [
     },
     children: [
       {
-        path: 'dashboard',
+        path: '',
         element: lazyLoad(lazy(() => import('@/views/dashboard')))
       }
     ]
@@ -89,8 +89,7 @@ export const rootRouter = [
     path: '/auth-page',
     element: <Layout />,
     meta: {
-      title: '登录注册',
-      icon: <HomeOutlinedIcon />
+      title: '登录注册'
     },
     children: [
       {

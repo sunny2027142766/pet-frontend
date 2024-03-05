@@ -2,7 +2,7 @@
  * @Author: 晴天
  * @Date: 2024-01-31 17:36:29
  * @LastEditors: 晴天
- * @LastEditTime: 2024-02-21 16:42:18
+ * @LastEditTime: 2024-02-27 08:32:40
  * @FilePath: \pet-frontend\src\layout\Sidebar.tsx
  * @Description:
  * QQ: 2027142766
@@ -10,7 +10,7 @@
  */
 
 import React, { useEffect, useState } from 'react'
-import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar'
+import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { Box, IconButton, Typography, useTheme } from '@mui/material'
 import { Link } from 'react-router-dom'
@@ -60,8 +60,9 @@ const generateMenuData = (rootRouter: any[], menuData: any[] = []) => {
     if (item?.children?.length === 1) {
       const currentItem = {
         title: item?.meta?.title,
-        path: item.children[0].path,
-        icon: item?.meta?.icon
+        path: item.path,
+        icon: item?.meta?.icon,
+        children: []
       }
       return menuData.push(currentItem)
     }
@@ -72,7 +73,9 @@ const generateMenuData = (rootRouter: any[], menuData: any[] = []) => {
       children: generateMenuData(item.children)
     })
   })
-  return menuData
+  return menuData.filter(item => {
+    return item.title
+  })
 }
 
 const Sidebar = () => {
@@ -84,7 +87,7 @@ const Sidebar = () => {
   const [menuData, setMenuData] = useState<any[]>([])
 
   useEffect(() => {
-    setMenuData(generateMenuData(rootRouter))
+    setMenuData(generateMenuData(rootRouter).filter(item => item.children))
   }, [])
 
   console.log(menuData)
@@ -157,14 +160,30 @@ const Sidebar = () => {
 
           <Box component="div" paddingLeft={isCollapsed ? undefined : '10%'}>
             {menuData.map(menuItem => (
-              <Item
-                key={menuItem.path} // Assuming 'path' is unique
-                title={menuItem.title}
-                to={menuItem.path}
-                icon={menuItem.icon}
-                selected={selected}
-                setSelected={setSelected}
-              />
+              <React.Fragment key={menuItem.path}>
+                {menuItem.children.length === 0 ? (
+                  <Item
+                    title={menuItem.title}
+                    to={menuItem.path}
+                    icon={menuItem.icon}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                ) : (
+                  <SubMenu title={menuItem.title} icon={menuItem.icon} placeholder="">
+                    {menuItem.children.map((subMenuItem: any) => (
+                      <Item
+                        key={subMenuItem.path}
+                        title={subMenuItem.title}
+                        to={`${menuItem.path}/${subMenuItem.path}`}
+                        icon={subMenuItem.icon}
+                        selected={selected}
+                        setSelected={setSelected}
+                      />
+                    ))}
+                  </SubMenu>
+                )}
+              </React.Fragment>
             ))}
           </Box>
         </Menu>
