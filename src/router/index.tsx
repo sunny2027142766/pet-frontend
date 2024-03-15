@@ -111,6 +111,37 @@ export const rootRouter = [
     ]
   },
   {
+    path: '/auth',
+    element: <Layout />,
+    meta: {
+      title: '权限管理',
+      icon: <HomeOutlinedIcon />
+    },
+    children: [
+      {
+        path: 'user',
+        element: lazyLoad(lazy(() => import('@/views/auth/user'))),
+        meta: {
+          title: '用户管理'
+        }
+      },
+      {
+        path: 'role',
+        element: lazyLoad(lazy(() => import('@/views/auth/role'))),
+        meta: {
+          title: '角色管理'
+        }
+      },
+      {
+        path: 'permission',
+        element: lazyLoad(lazy(() => import('@/views/auth/permission'))),
+        meta: {
+          title: '权限管理'
+        }
+      }
+    ]
+  },
+  {
     path: '*',
     element: <Navigate to="/404" />
   },
