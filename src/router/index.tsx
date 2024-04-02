@@ -18,7 +18,7 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 export const rootRouter = [
   {
     path: '/',
-    element: <Navigate to="/login" />
+    element: <Navigate to="/front" />
   },
   {
     path: '/login',
@@ -27,6 +27,15 @@ export const rootRouter = [
       requiresAuth: false,
       title: '登录页',
       key: 'login'
+    }
+  },
+  {
+    path: '/front',
+    element: lazyLoad(lazy(() => import('@/views/front/pet-show'))),
+    meta: {
+      requiresAuth: false,
+      title: '首页',
+      key: 'front'
     }
   },
   {
