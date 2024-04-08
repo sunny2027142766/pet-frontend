@@ -205,7 +205,7 @@ const Top = () => {
   )
 
   return (
-    <Box component="div" sx={{ flexGrow: 1 }}>
+    <Box component="div">
       <CssBaseline />
       <ElevationScroll>
         <AppBar position="static" sx={{ backgroundColor: '#6E2987' }}>

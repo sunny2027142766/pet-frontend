@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@mui/material'
+import { Box, Paper, Typography } from '@mui/material'
 
 const Banner = () => {
   return (
@@ -13,9 +13,9 @@ const Banner = () => {
 
 const Home = () => {
   return (
-    <div>
+    <Box component="div" display="flex" flex="1" flexDirection="column">
       <Banner />
-    </div>
+    </Box>
   )
 }
 
