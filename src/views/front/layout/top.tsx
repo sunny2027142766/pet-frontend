@@ -1,18 +1,12 @@
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import InputBase from '@mui/material/InputBase'
-import Badge from '@mui/material/Badge'
-import MenuItem from '@mui/material/MenuItem'
-import Menu from '@mui/material/Menu'
-import MenuIcon from '@mui/icons-material/Menu'
-import SearchIcon from '@mui/icons-material/Search'
-import AccountCircle from '@mui/icons-material/AccountCircle'
-import MailIcon from '@mui/icons-material/Mail'
-import NotificationsIcon from '@mui/icons-material/Notifications'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
 import {
+  AppBar,
+  Box,
+  IconButton,
+  InputBase,
+  Menu,
+  MenuItem,
+  Badge,
+  Toolbar,
   Button,
   CssBaseline,
   Drawer,
@@ -24,13 +18,54 @@ import {
   useScrollTrigger,
   useTheme
 } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
+import SearchIcon from '@mui/icons-material/Search'
+import AccountCircle from '@mui/icons-material/AccountCircle'
+import MailIcon from '@mui/icons-material/Mail'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import InboxIcon from '@mui/icons-material/MoveToInbox'
 
 import Logo from '@/assets/logo.png'
 import { useState } from 'react'
 import { tokens } from '@/settings/theme'
 import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-const pages = ['首页', '宠物互动', '宠物展示', '档案馆', '社区', '情感互动']
+// const pages = ['首页', '宠物互动', '宠物展示', '档案馆', '社区', '情感互动']
+
+const navPages = [
+  {
+    title: '首页',
+    path: 'home',
+    icon: <InboxIcon />,
+    selected: true
+  },
+  {
+    title: '宠物互动',
+    path: 'interaction',
+    icon: <MailIcon />
+  },
+  {
+    title: '宠物展示',
+    path: 'show',
+    icon: <MailIcon />
+  },
+  {
+    title: '档案馆',
+    path: 'archive',
+    icon: <MailIcon />
+  },
+  {
+    title: '社区',
+    path: 'community',
+    icon: <MailIcon />
+  },
+  {
+    title: '情感互动',
+    path: 'emotion',
+    icon: <MailIcon />
+  }
+]
 
 interface Props {
   window?: () => Window
@@ -49,7 +84,7 @@ function ElevationScroll(props: Props) {
   })
 }
 
-const Top = (props: Props) => {
+const Top = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
@@ -131,11 +166,11 @@ const Top = (props: Props) => {
   const DrawerList = (
     <Box component="div" sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {pages.map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
+        {navPages.map((page, index) => (
+          <ListItem key={page.title} disablePadding>
+            <ListItemButton onClick={() => toPage(page.path)}>
               <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={page.title} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -143,14 +178,27 @@ const Top = (props: Props) => {
     </Box>
   )
 
-  const toPage = () => {
-    console.log('跳转')
+  const navigate = useNavigate()
+  const location = useLocation()
+  const toPage = (page: string) => {
+    // console.log('跳转', page, location.pathname.split('front')[1])
+    // 进行路由跳转
+    navigate(page)
   }
   const navList = (
     <Box component="div" sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-      {pages.map(page => (
-        <Button key={page} onClick={toPage} sx={{ my: 2, color: 'white', display: 'block' }}>
-          {page}
+      {navPages.map(page => (
+        <Button
+          color={page.selected ? 'secondary' : 'success'}
+          key={page.title}
+          onClick={() => toPage(page.path)}
+          sx={{
+            my: 2,
+            color: location.pathname.split('front')[1] === '/' + page.path ? '#FFAE01' : 'white',
+            display: 'block'
+          }}
+        >
+          {page.title}
         </Button>
       ))}
     </Box>
@@ -159,7 +207,7 @@ const Top = (props: Props) => {
   return (
     <Box component="div" sx={{ flexGrow: 1 }}>
       <CssBaseline />
-      <ElevationScroll {...props}>
+      <ElevationScroll>
         <AppBar position="static" sx={{ backgroundColor: '#6E2987' }}>
           <Toolbar>
             {/* 抽屉 */}
@@ -239,7 +287,6 @@ const Top = (props: Props) => {
           {renderMenu}
         </AppBar>
       </ElevationScroll>
-      <Toolbar />
     </Box>
   )
 }

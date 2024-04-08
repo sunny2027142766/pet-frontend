@@ -10,6 +10,7 @@
  */
 import lazyLoad from '@/components/LazyLoad'
 import Layout from '@/layout/Layout'
+import Layout2 from '@/views/front/layout'
 import { lazy } from 'react'
 import { Navigate, useRoutes } from 'react-router-dom'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
@@ -31,12 +32,67 @@ export const rootRouter = [
   },
   {
     path: '/front',
-    element: lazyLoad(lazy(() => import('@/views/front/pet-show'))),
-    meta: {
-      requiresAuth: false,
-      title: '首页',
-      key: 'front'
-    }
+    element: <Layout2 />,
+    children: [
+      {
+        path: '',
+        element: <Navigate to="home" />
+      },
+      {
+        path: 'home',
+        element: lazyLoad(lazy(() => import('@/views/front/home'))),
+        meta: {
+          requiresAuth: false,
+          title: '首页',
+          key: 'front'
+        }
+      },
+      {
+        path: 'interaction',
+        element: lazyLoad(lazy(() => import('@/views/front/interaction'))),
+        meta: {
+          requiresAuth: false,
+          title: '宠物互动',
+          key: 'interaction'
+        }
+      },
+      {
+        path: 'show',
+        element: lazyLoad(lazy(() => import('@/views/front/show'))),
+        meta: {
+          requiresAuth: false,
+          title: '宠物展示',
+          key: 'show'
+        }
+      },
+      {
+        path: 'archive',
+        element: lazyLoad(lazy(() => import('@/views/front/archive'))),
+        meta: {
+          requiresAuth: false,
+          title: '档案馆',
+          key: 'archive'
+        }
+      },
+      {
+        path: 'community',
+        element: lazyLoad(lazy(() => import('@/views/front/community'))),
+        meta: {
+          requiresAuth: false,
+          title: '社区',
+          key: 'community'
+        }
+      },
+      {
+        path: 'emotion',
+        element: lazyLoad(lazy(() => import('@/views/front/emotion'))),
+        meta: {
+          requiresAuth: false,
+          title: '情感互动',
+          key: 'emotion'
+        }
+      }
+    ]
   },
   {
     path: '/register',
