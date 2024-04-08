@@ -13,7 +13,17 @@ import Layout from '@/layout/Layout'
 import Layout2 from '@/views/front/layout'
 import { lazy } from 'react'
 import { Navigate, useRoutes } from 'react-router-dom'
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined' // 首页
+import PrivacyTipIcon from '@mui/icons-material/PrivacyTip' // 权限管理
+import WebIcon from '@mui/icons-material/Web' // 登录注册界面
+import LoginIcon from '@mui/icons-material/Login'
+import HowToRegIcon from '@mui/icons-material/HowToReg'
+import BugReportIcon from '@mui/icons-material/BugReport' // 测试
+import ThreeDRotationIcon from '@mui/icons-material/ThreeDRotation'
+import ApiIcon from '@mui/icons-material/Api'
+import Face6Icon from '@mui/icons-material/Face6'
+import PeopleIcon from '@mui/icons-material/People'
+import PermIdentityIcon from '@mui/icons-material/PermIdentity'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const rootRouter = [
@@ -121,7 +131,8 @@ export const rootRouter = [
     path: '/test',
     element: <Layout />,
     meta: {
-      title: '测试'
+      title: '测试',
+      icon: <BugReportIcon />
     },
     children: [
       {
@@ -137,7 +148,7 @@ export const rootRouter = [
         element: lazyLoad(lazy(() => import('@/views/test'))),
         meta: {
           title: '3D测试',
-          icon: <HomeOutlinedIcon />
+          icon: <ThreeDRotationIcon />
         }
       },
       {
@@ -145,7 +156,7 @@ export const rootRouter = [
         element: lazyLoad(lazy(() => import('@/views/interfaceDemo'))),
         meta: {
           title: '接口测试',
-          icon: <HomeOutlinedIcon />
+          icon: <ApiIcon />
         }
       }
     ]
@@ -154,7 +165,8 @@ export const rootRouter = [
     path: '/auth-page',
     element: <Layout />,
     meta: {
-      title: '登录注册'
+      title: '页面',
+      icon: <WebIcon />
     },
     children: [
       {
@@ -162,7 +174,7 @@ export const rootRouter = [
         element: lazyLoad(lazy(() => import('@/views/auth-page/register'))),
         meta: {
           title: '注册',
-          icon: <HomeOutlinedIcon />
+          icon: <HowToRegIcon />
         }
       },
       {
@@ -170,7 +182,7 @@ export const rootRouter = [
         element: lazyLoad(lazy(() => import('@/views/auth-page/login'))),
         meta: {
           title: '登录',
-          icon: <HomeOutlinedIcon />
+          icon: <LoginIcon />
         }
       }
     ]
@@ -180,28 +192,31 @@ export const rootRouter = [
     element: <Layout />,
     meta: {
       title: '权限管理',
-      icon: <HomeOutlinedIcon />
+      icon: <PrivacyTipIcon />
     },
     children: [
       {
         path: 'user',
         element: lazyLoad(lazy(() => import('@/views/auth/user'))),
         meta: {
-          title: '用户管理'
+          title: '用户管理',
+          icon: <Face6Icon />
         }
       },
       {
         path: 'role',
         element: lazyLoad(lazy(() => import('@/views/auth/role'))),
         meta: {
-          title: '角色管理'
+          title: '角色管理',
+          icon: <PeopleIcon />
         }
       },
       {
         path: 'permission',
         element: lazyLoad(lazy(() => import('@/views/auth/permission'))),
         meta: {
-          title: '权限管理'
+          title: '权限管理',
+          icon: <PermIdentityIcon />
         }
       }
     ]
