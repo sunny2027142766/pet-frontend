@@ -16,7 +16,7 @@ const Post = ({ post }: any) => {
           <Typography variant="h5" component="div">
             {post.title}
           </Typography>
-          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+          <Typography sx={{ mb: 1.5 }} color="textSecondary">
             {post.author}
           </Typography>
           <Typography variant="body2">{post.content}</Typography>
