@@ -74,7 +74,7 @@ export const get = <U = unknown, T = unknown>(url: string, params?: U, config?: 
   axios.get<T, T>(url, {
     params: {
       ...params,
-      t: Date.now()
+      // t: Date.now()
     },
     ...config
   })

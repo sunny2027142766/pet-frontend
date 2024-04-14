@@ -1,21 +1,14 @@
-/*
- * @Author: 晴天
- * @Date: 2024-02-19 16:38:34
- * @LastEditors: 晴天
- * @LastEditTime: 2024-02-21 15:28:51
- * @FilePath: \pet-frontend\src\views\register\index.tsx
- * @Description:
- * QQ: 2027142766
- * Copyright (c) ${2024} by ${晴天}, All Rights Reserved.
- */
 import React, { useState } from 'react'
 import { Box, Button, TextField, Typography, Link, useTheme, Avatar, InputAdornment, IconButton } from '@mui/material'
+import LoadingButton from '@mui/lab/LoadingButton'
 import { tokens } from '@/settings/theme'
 import bg from '@/assets/login/bg.png'
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import { useNavigate } from 'react-router-dom'
+import { useRequest } from 'ahooks'
+import { sendCode } from '@/api/modules/auth'
 
 const Register: React.FC = () => {
   const theme = useTheme()
@@ -62,6 +55,10 @@ const Register: React.FC = () => {
       }
     }
   }
+
+  const { loading, run, data } = useRequest(sendCode, {
+    manual: true
+  })
 
   return (
     <Box
@@ -128,7 +125,7 @@ const Register: React.FC = () => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <Button
+                  <LoadingButton
                     variant="outlined"
                     sx={{
                       backgroundColor: colors.orange[500],
@@ -136,9 +133,14 @@ const Register: React.FC = () => {
                         backgroundColor: colors.orange[700]
                       }
                     }}
+                    onClick={() => {
+                      // 发送验证码逻辑
+                      run(email)
+                    }}
+                    loading={loading}
                   >
                     发送验证码
-                  </Button>
+                  </LoadingButton>
                 </InputAdornment>
               )
             }}
@@ -201,7 +203,7 @@ const Register: React.FC = () => {
           </Button>
           <Typography variant="body2" mt={2} color={colors.orange[400]} sx={{ textAlign: 'center' }}>
             已有账号？{' '}
-            <Link onClick={navToLogin} color="inherit">
+            <Link onClick={navToLogin} color="inherit" sx={{ cursor: 'pointer' }}>
               去登录
             </Link>
           </Typography>

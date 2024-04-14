@@ -1,13 +1,3 @@
-/*
- * @Author: 晴天
- * @Date: 2024-02-02 17:14:46
- * @LastEditors: 晴天
- * @LastEditTime: 2024-02-21 15:27:39
- * @FilePath: \pet-frontend\src\views\login\index.tsx
- * @Description:
- * QQ: 2027142766
- * Copyright (c) ${2024} by ${晴天}, All Rights Reserved.
- */
 import React, { useState } from 'react'
 import { Box, Button, TextField, Typography, useTheme, InputAdornment, IconButton, Link } from '@mui/material'
 import { tokens } from '@/settings/theme'
@@ -139,7 +129,7 @@ const Login: React.FC = () => {
           </Button>
           <Typography variant="body2" mt={2} color={colors.orange[400]} sx={{ textAlign: 'center' }}>
             还没有账号？{' '}
-            <Link onClick={navToRegister} color="inherit">
+            <Link onClick={navToRegister} color="inherit" sx={{ cursor: 'pointer' }}>
               去注册
             </Link>
           </Typography>
