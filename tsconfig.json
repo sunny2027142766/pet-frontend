@@ -28,6 +28,6 @@
       "@": ["src"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "vite.config.ts"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "vite.config.ts", "src/views/auth/user/index.jsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

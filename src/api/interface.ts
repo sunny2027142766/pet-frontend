@@ -7,3 +7,8 @@ export interface ResCommonType<T> {
   msg: string
   data: T
 }
+export type ResPageType<T> = {
+  data: T[] | undefined
+  success?: boolean
+  total?: number
+} & Record<string, any>

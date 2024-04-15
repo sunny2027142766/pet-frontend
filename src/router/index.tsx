@@ -1,13 +1,3 @@
-/*
- * @Author: 晴天
- * @Date: 2024-02-21 14:30:23
- * @LastEditors: 晴天
- * @LastEditTime: 2024-02-27 08:36:01
- * @FilePath: \pet-frontend\src\router\index.tsx
- * @Description:
- * QQ: 2027142766
- * Copyright (c) ${2024} by ${晴天}, All Rights Reserved.
- */
 import lazyLoad from '@/components/LazyLoad'
 import Layout from '@/layout/Layout'
 import Layout2 from '@/views/front/layout'
