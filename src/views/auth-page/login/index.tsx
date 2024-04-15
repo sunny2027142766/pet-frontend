@@ -76,8 +76,8 @@ const Login: React.FC = () => {
           backdropFilter: 'blur(10px)'
         }}
       >
+        <Logo />
         <Typography textAlign="center" variant="h2" mb={3} color={colors.orange[400]}>
-          <Logo />
           登录
         </Typography>
         <Box component="div" width={300}>
