@@ -8,7 +8,7 @@ export default function UserPage() {
   return (
     <>
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> 用户管理 | 虚拟宠物互动平台 </title>
       </Helmet>
 
       <UserView />

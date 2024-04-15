@@ -6,7 +6,7 @@ export default function LoginPage() {
   return (
     <>
       <Helmet>
-        <title>虚拟宠物互动平台 | 登录页面</title>
+        <title>登录页面 | 虚拟宠物互动平台</title>
       </Helmet>
 
       <LoginView />

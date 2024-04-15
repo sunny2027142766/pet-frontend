@@ -21,7 +21,7 @@ export default function TableNoData({ query }) {
           </Typography>
 
           <Typography variant="body2">
-            No results found for &nbsp;
+            没有数据 &nbsp;
             <strong>&quot;{query}&quot;</strong>.
             <br /> Try checking for typos or using complete words.
           </Typography>

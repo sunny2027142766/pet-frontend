@@ -28,8 +28,8 @@ import Scrollbar from 'src/components/scrollbar';
 const NOTIFICATIONS = [
   {
     id: faker.string.uuid(),
-    title: 'Your order is placed',
-    description: 'waiting for shipping',
+    title: '通知信息1',
+    description: '通知描述1',
     avatar: null,
     type: 'order_placed',
     createdAt: set(new Date(), { hours: 10, minutes: 30 }),
@@ -37,8 +37,8 @@ const NOTIFICATIONS = [
   },
   {
     id: faker.string.uuid(),
-    title: faker.person.fullName(),
-    description: 'answered to your comment on the Minimal',
+    title: '通知信息2',
+    description: '通知描述 2',
     avatar: '/assets/images/avatars/avatar_2.jpg',
     type: 'friend_interactive',
     createdAt: sub(new Date(), { hours: 3, minutes: 30 }),
@@ -46,8 +46,8 @@ const NOTIFICATIONS = [
   },
   {
     id: faker.string.uuid(),
-    title: 'You have new message',
-    description: '5 unread messages',
+    title: '通知信息3',
+    description: '通知描述 3',
     avatar: null,
     type: 'chat_message',
     createdAt: sub(new Date(), { days: 1, hours: 3, minutes: 30 }),
@@ -55,8 +55,8 @@ const NOTIFICATIONS = [
   },
   {
     id: faker.string.uuid(),
-    title: 'You have new mail',
-    description: 'sent from Guido Padberg',
+    title: '通知信息4',
+    description: '通知描述 4',
     avatar: null,
     type: 'mail',
     createdAt: sub(new Date(), { days: 2, hours: 3, minutes: 30 }),
@@ -64,8 +64,8 @@ const NOTIFICATIONS = [
   },
   {
     id: faker.string.uuid(),
-    title: 'Delivery processing',
-    description: 'Your order is being shipped',
+    title: '通知信息5',
+    description: '通知描述 5',
     avatar: null,
     type: 'order_shipped',
     createdAt: sub(new Date(), { days: 3, hours: 3, minutes: 30 }),
@@ -121,9 +121,9 @@ export default function NotificationsPopover() {
       >
         <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="subtitle1">Notifications</Typography>
+            <Typography variant="subtitle1">通知</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              You have {totalUnRead} unread messages
+              你有 {totalUnRead} 未读消息
             </Typography>
           </Box>
 
@@ -143,7 +143,7 @@ export default function NotificationsPopover() {
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                New
+                最新
               </ListSubheader>
             }
           >
@@ -156,7 +156,7 @@ export default function NotificationsPopover() {
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                Before that
+                之前
               </ListSubheader>
             }
           >
@@ -170,7 +170,7 @@ export default function NotificationsPopover() {
 
         <Box sx={{ p: 1 }}>
           <Button fullWidth disableRipple>
-            View All
+            查看全部
           </Button>
         </Box>
       </Popover>

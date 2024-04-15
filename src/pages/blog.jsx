@@ -8,7 +8,7 @@ export default function BlogPage() {
   return (
     <>
       <Helmet>
-        <title> Blog | Minimal UI </title>
+        <title> 社区管理 | 虚拟宠物互动平台 </title>
       </Helmet>
 
       <BlogView />
