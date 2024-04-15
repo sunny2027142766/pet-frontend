@@ -2,7 +2,7 @@ import { Paper, Box, Typography } from '@mui/material'
 
 const SideBar = () => {
   return (
-    <div>
+    <>
       <Paper elevation={3} sx={{ padding: 2, marginBottom: 2 }}>
         <Typography variant="h6">公告板</Typography>
         <Box component="div">
@@ -17,7 +17,7 @@ const SideBar = () => {
           <Typography>有任何建议，请告诉我们。</Typography>
         </Box>
       </Paper>
-    </div>
+    </>
   )
 }
 

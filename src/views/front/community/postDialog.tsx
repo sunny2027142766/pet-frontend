@@ -73,17 +73,17 @@ const PostDialog = ({ open, onClose }: any) => {
         <TextField
           autoFocus
           margin="dense"
-          variant="outlined"
+          variant="standard"
           fullWidth
           label="帖子标题"
-          value={content}
+          value={title}
           onChange={handleTitleChange}
         />
         <TextField
           multiline
           rows={4}
           margin="dense"
-          variant="outlined"
+          variant="standard"
           fullWidth
           label="帖子内容"
           value={content}

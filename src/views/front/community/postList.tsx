@@ -10,13 +10,54 @@ const posts = [
     author: '小明',
     content: '今天我家的狗狗又做了一件可爱的事情...',
     likes: 5,
-    alt: '我家的狗狗'
+    alt: '我家的狗狗',
+    image: 'https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg'
   },
-  { id: 2, title: '关于猫咪的饮食', author: '猫奴', content: '猫咪应该怎么喂养呢？', likes: 3, alt: '关于猫咪的饮食' },
-  { id: 3, title: '关于猫咪的饮食', author: '猫奴', content: '猫咪应该怎么喂养呢？', likes: 3, alt: '关于猫咪的饮食' },
-  { id: 4, title: '关于猫咪的饮食', author: '猫奴', content: '猫咪应该怎么喂养呢？', likes: 3, alt: '关于猫咪的饮食' },
-  { id: 5, title: '关于猫咪的饮食', author: '猫奴', content: '猫咪应该怎么喂养呢？', likes: 3, alt: '关于猫咪的饮食' },
-  { id: 6, title: '关于猫咪的饮食', author: '猫奴', content: '猫咪应该怎么喂养呢？', likes: 3, alt: '关于猫咪的饮食' }
+  {
+    id: 2,
+    title: '关于猫咪的饮食',
+    author: '猫奴',
+    content: '猫咪应该怎么喂养呢？',
+    likes: 3,
+    alt: '关于猫咪的饮食',
+    image: 'https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg'
+  },
+  {
+    id: 3,
+    title: '关于猫咪的饮食',
+    author: '猫奴',
+    content: '猫咪应该怎么喂养呢？',
+    likes: 3,
+    alt: '关于猫咪的饮食',
+    image: 'https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg'
+  },
+  {
+    id: 4,
+    title: '关于猫咪的饮食',
+    author: '猫奴',
+    content: '猫咪应该怎么喂养呢？',
+    likes: 3,
+    alt: '关于猫咪的饮食',
+    image: 'https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg'
+  },
+  {
+    id: 5,
+    title: '关于猫咪的饮食',
+    author: '猫奴',
+    content: '猫咪应该怎么喂养呢？',
+    likes: 3,
+    alt: '关于猫咪的饮食',
+    image: 'https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg'
+  },
+  {
+    id: 6,
+    title: '关于猫咪的饮食',
+    author: '猫奴',
+    content: '猫咪应该怎么喂养呢？',
+    likes: 3,
+    alt: '关于猫咪的饮食',
+    image: 'https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_1280.jpg'
+  }
   // 可以添加更多帖子...
 ]
 const pageSize = 5 // 每页显示的帖子数
