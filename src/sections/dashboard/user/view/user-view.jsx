@@ -11,6 +11,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TablePagination from "@mui/material/TablePagination";
 
 import { users } from "src/_mock/user";
+import { getDemo } from "src/api/modules/demo";
 
 import Iconify from "src/components/iconify";
 import Scrollbar from "src/components/scrollbar";
@@ -104,6 +105,18 @@ export default function UserPage() {
       >
         <Typography variant="h4">用户信息管理</Typography>
 
+        <Button
+          variant="contained"
+          color="inherit"
+          startIcon={<Iconify icon="eva:send-fill" />}
+          onClick={async() => {
+            const res = await getDemo();
+            console.log(res);
+          }}
+        >
+          测试请求
+        </Button>
+        
         <Button
           variant="contained"
           color="inherit"

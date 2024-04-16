@@ -15,7 +15,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { useRouter } from 'src/routes/hooks';
 
+import { validateEmail } from 'src/utils/vaildate';
+
 import { bgGradient } from 'src/theme/css';
+import { loginApi } from 'src/api/modules/auth';
 
 import Iconify from 'src/components/iconify';
 
@@ -26,20 +29,86 @@ export default function LoginView() {
 
   const router = useRouter();
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [emailErrorHelper, setEmailErrorHelper] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleClick = () => {
-    router.push('/');
+  const handleSubmit = async (event) => {
+    // TODO: 登录逻辑
+    event.preventDefault();
+    let hasError = false;
+    if (email.trim() === '') {
+      console.log(email.trim());
+      setEmailError(true);
+      setEmailErrorHelper('邮箱不能为空')
+      hasError = true;
+    } else if (!validateEmail(email)) { 
+      setEmailError(true);
+      setEmailErrorHelper('')
+      setEmailErrorHelper('邮箱格式不正确')
+      hasError = true;
+    } else {
+      setEmailError(false);
+    }
+    if (password.trim() === '') {
+      setPasswordError(true);
+      hasError = true;
+    } else {
+      setPasswordError(false);
+    }
+
+    if (!hasError) {
+      // 调用登录接口
+      await loginApi({
+        email,
+        password,
+      })
+      // ...
+      // 假设登录成功，跳转到首页
+      router.push('/');
+    }
+    
   };
 
   const renderForm = (
     <>
       <Stack spacing={3}>
-        <TextField name="username" label="用户名" />
-
         <TextField
-          name="password"
+          label="邮箱"
+          variant="outlined"
+          type='email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          error={emailError}
+          helperText={emailErrorHelper}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {email && (
+                  <IconButton onClick={() => {
+                    setEmail('');
+                    setEmailError(false);
+                    setEmailErrorHelper('');
+                  }}>
+                    <Iconify icon='ic:outline-clear' />
+                  </IconButton>
+                )}
+              </InputAdornment>
+            ),
+          }}
+        />
+        <TextField
           label="密码"
+          variant="outlined"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          error={passwordError}
+          helperText={passwordError ? '密码不能为空' : ''}
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
@@ -47,6 +116,14 @@ export default function LoginView() {
                 <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
                   <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
                 </IconButton>
+                {password && (
+                  <IconButton onClick={() => {
+                    setPassword('');
+                    setPasswordError(false);
+                  }}>
+                    <Iconify icon='ic:outline-clear' />
+                  </IconButton>
+                )}
               </InputAdornment>
             ),
           }}
@@ -54,7 +131,7 @@ export default function LoginView() {
       </Stack>
 
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 3 }}>
-        <Link variant="subtitle2" sx={{ cursor:'pointer' }}>
+        <Link variant="subtitle2" sx={{ cursor: 'pointer' }} onClick={()=>router.push('/register') }>
              还没有账户? 去注册
         </Link>
 
@@ -69,7 +146,7 @@ export default function LoginView() {
         type="submit"
         variant="contained"
         color="inherit"
-        onClick={handleClick}
+        onClick={handleSubmit}
       >
         登录
       </LoadingButton>
