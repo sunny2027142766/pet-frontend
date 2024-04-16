@@ -1,15 +1,28 @@
-import { lazy, Suspense } from 'react';
-import { Outlet, Navigate, useRoutes } from 'react-router-dom';
+import { lazy, Suspense } from "react";
+import { Outlet, Navigate, useRoutes } from "react-router-dom";
 
-import DashboardLayout from 'src/layouts/dashboard';
+import FrontEndLayout from "src/layouts/frontend";
+import DashboardLayout from "src/layouts/dashboard";
 
-export const IndexPage = lazy(() => import('src/pages/app'));
-export const BlogPage = lazy(() => import('src/pages/blog'));
-export const UserPage = lazy(() => import('src/pages/user'));
-export const LoginPage = lazy(() => import('src/pages/login'));
-export const RegisterPage = lazy(() => import('src/pages/register'));
-export const ProductsPage = lazy(() => import('src/pages/products'));
-export const Page404 = lazy(() => import('src/pages/page-not-found'));
+// dashboard
+export const IndexPage = lazy(() => import("src/pages/dashboard/app"));
+export const BlogPage = lazy(() => import("src/pages/dashboard/blog"));
+export const UserPage = lazy(() => import("src/pages/dashboard/user"));
+export const ProductsPage = lazy(() => import("src/pages/dashboard/products"));
+// frontend
+export const HomePage = lazy(() => import("src/pages/frontend/home"));
+export const InteractionPage = lazy(
+  () => import("src/pages/frontend/interaction")
+);
+export const ShowPage = lazy(() => import("src/pages/frontend/show"));
+export const ArchivePage = lazy(() => import("src/pages/frontend/archive"));
+export const CommunityPage = lazy(() => import("src/pages/frontend/community"));
+export const PostAddPage = lazy(() => import("src/pages/frontend/post-add"));
+export const EmotionPage = lazy(() => import("src/pages/frontend/emotion"));
+
+export const LoginPage = lazy(() => import("src/pages/login"));
+export const RegisterPage = lazy(() => import("src/pages/register"));
+export const Page404 = lazy(() => import("src/pages/page-not-found"));
 
 // ----------------------------------------------------------------------
 
@@ -25,25 +38,44 @@ export default function Router() {
       ),
       children: [
         { element: <IndexPage />, index: true },
-        { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
+        { path: "user", element: <UserPage /> },
+        { path: "products", element: <ProductsPage /> },
+        { path: "blog", element: <BlogPage /> },
       ],
     },
     {
-      path: 'login',
+      path: "front",
+      element: (
+        <FrontEndLayout>
+          <Suspense>
+            <Outlet />
+          </Suspense>
+        </FrontEndLayout>
+      ),
+      children: [
+        { path: "home", element: <HomePage />, index: true },
+        { path: "interaction", element: <InteractionPage /> },
+        { path: "show", element: <ShowPage /> },
+        { path: "archive", element: <ArchivePage /> },
+        { path: "community", element: <CommunityPage /> },
+        { path: "community/add", element: <PostAddPage /> },
+        { path: "emotion", element: <EmotionPage /> },
+      ],
+    },
+    {
+      path: "login",
       element: <LoginPage />,
     },
-     {
-      path: 'register',
+    {
+      path: "register",
       element: <RegisterPage />,
     },
     {
-      path: '404',
+      path: "404",
       element: <Page404 />,
     },
     {
-      path: '*',
+      path: "*",
       element: <Navigate to="/404" replace />,
     },
   ]);
