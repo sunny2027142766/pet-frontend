@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
-import { forwardRef } from 'react';
+import PropTypes from "prop-types";
+import { forwardRef } from "react";
 
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
+import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
 // import { useTheme } from '@mui/material/styles';
 
-import { RouterLink } from 'src/routes/components';
+import { RouterLink } from "src/routes/components";
 
 // ----------------------------------------------------------------------
 
-const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
+const Logo = forwardRef(({ disabledLink = true, sx, ...other }, ref) => {
   // const theme = useTheme();
 
   // const PRIMARY_LIGHT = theme.palette.primary.light;
@@ -23,8 +23,8 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
   const logo = (
     <Box
       component="img"
-      src="/logo/logo_dashboard.svg"
-      sx={{ width: 40, height: 40, cursor: 'pointer', ...sx }}
+      src="/logo/logo.svg"
+      sx={{ width: 40, height: 40, cursor: "pointer", ...sx }}
     />
   );
 
@@ -81,7 +81,7 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
   }
 
   return (
-    <Link component={RouterLink} href="/" sx={{ display: 'contents' }}>
+    <Link component={RouterLink} href="/" sx={{ display: "contents" }}>
       {logo}
     </Link>
   );

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { styled } from "@mui/material/styles";
 import Iconify from "src/components/iconify";
 import { Fab, Stack } from "@mui/material";
@@ -11,54 +12,63 @@ const StyledRoot = styled("div")(({ theme }) => ({
   cursor: "pointer",
   position: "fixed",
   alignItems: "center",
-  top: theme.spacing(40),
+  top: theme.spacing(50),
   height: theme.spacing(5),
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
   paddingTop: theme.spacing(1.25),
-  boxShadow: theme.customShadows.z20,
-  color: theme.palette.secondary.main,
-  backgroundColor: theme.palette.background.paper,
-  borderTopLeftRadius: Number(theme.shape.borderRadius) * 2,
-  borderBottomLeftRadius: Number(theme.shape.borderRadius) * 2,
-  transition: theme.transitions.create("opacity"),
-  "&:hover": { opacity: 0.72 },
 }));
 
 // ----------------------------------------------------------------------
 
-export default function FunctionWidget() {
+export default function FunctionWidget({ onToggleAnimation }) {
   return (
     <StyledRoot>
       <Stack spacing={2}>
-        <Fab variant="extended">
-          <Iconify
-            icon="streamline:pet-paw-solid"
-            width={24}
-            height={24}
-            mr={2}
-          />
-          添加档案信息
+        <Fab variant="extended" onClick={onToggleAnimation}>
+          <Iconify icon="openmoji:guide-dog" width={24} height={24} mr={1} />
+          动画
         </Fab>
         <Fab variant="extended">
           <Iconify
-            icon="streamline:pet-paw-solid"
+            icon="fluent-emoji:leftwards-hand"
             width={24}
             height={24}
-            mr={2}
+            mr={1}
           />
-          添加档案信息
+          抚摸
         </Fab>
         <Fab variant="extended">
           <Iconify
-            icon="streamline:pet-paw-solid"
+            icon="streamline-emojis:cat-face-with-tears-of-joy"
             width={24}
             height={24}
-            mr={2}
+            mr={1}
           />
-          添加档案信息
+          表情
+        </Fab>
+        <Fab variant="extended">
+          <Iconify icon="twemoji:canned-food" width={24} height={24} mr={1} />
+          喂食
+        </Fab>
+        <Fab variant="extended">
+          <Iconify
+            icon="fluent-emoji:petri-dish"
+            width={24}
+            height={24}
+            mr={1}
+          />
+          喝水
+        </Fab>
+        <Fab variant="extended">
+          <Iconify icon="icon-park:clear" width={24} height={24} mr={1} />
+          清洁
         </Fab>
       </Stack>
     </StyledRoot>
   );
 }
+
+FunctionWidget.propTypes = {
+  onToggleAnimation: PropTypes.func,
+};

@@ -52,7 +52,7 @@ export default function PostAddDialog({ open, handleClose }) {
           value={postDesc}
           onChange={(e) => setPostDesc(e.target.value)}
         />
-        <TextField
+        {/* <TextField
           margin="dense"
           multiline
           rows={2}
@@ -63,12 +63,15 @@ export default function PostAddDialog({ open, handleClose }) {
           variant="outlined"
           value={postContent}
           onChange={(e) => setPostContent(e.target.value)}
-        />
+        /> */}
         <Stack spacing={2}>
           <Button color="secondary" variant="info">
             帖子内容
           </Button>
-          <RichTextEditor />
+          <RichTextEditor
+            text={postContent}
+            setText={(text) => setPostContent(text)}
+          />
         </Stack>
       </DialogContent>
       <DialogActions>

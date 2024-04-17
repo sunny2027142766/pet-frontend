@@ -1,17 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import PropTypes from "prop-types";
 import ReactQuill from "react-quill";
-import React, { useState } from "react";
+import React from "react";
 
 import "./style.css";
 import "react-quill/dist/quill.snow.css";
 
 import { Box } from "@mui/material";
 
-function RichTextEditor() {
-  const [editorHtml, setEditorHtml] = useState("");
-
+export default function RichTextEditor({ text, setText }) {
   const handleChange = (html) => {
-    setEditorHtml(html);
+    setText(html);
   };
 
   return (
@@ -23,9 +22,12 @@ function RichTextEditor() {
         border: "1px solid rgba(145, 158, 171, 0.2)",
       }}
     >
-      <ReactQuill theme="snow" value={editorHtml} onChange={handleChange} />
+      <ReactQuill theme="snow" value={text} onChange={handleChange} />
     </Box>
   );
 }
 
-export default RichTextEditor;
+RichTextEditor.propTypes = {
+  text: PropTypes.string,
+  setText: PropTypes.func,
+};

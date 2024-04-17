@@ -1,23 +1,21 @@
-import { Box, Paper, Container, Typography } from "@mui/material";
-
+import { Box } from "@mui/material";
+import { useState } from "react";
 import FunctionWidget from "../function-widget";
-
-const Banner = (
-  <Paper elevation={3} sx={{ p: 2 }}>
-    <Typography variant="h4" gutterBottom>
-      欢迎 来到 虚拟宠物互动平台
-    </Typography>
-    <Typography variant="body1">这是首页板块.</Typography>
-  </Paper>
-);
+import InteractionCard from "../interaction-card";
+import HealthCard from "../health-card";
 
 export default function InteractionView() {
+  const [playAnimation, setPlayAnimation] = useState(false);
+
+  const handleToggleAnimation = () => {
+    setPlayAnimation(!playAnimation);
+  };
+
   return (
-    <Container sx={{ height: 1 }}>
-      <Box display="flex" flex="1" flexDirection="column">
-        {Banner}
-      </Box>
-      <FunctionWidget />
-    </Container>
+    <Box sx={{ height: 1 }}>
+      <InteractionCard playAnimation={playAnimation} />
+      <FunctionWidget onToggleAnimation={handleToggleAnimation} />
+      <HealthCard />
+    </Box>
   );
 }

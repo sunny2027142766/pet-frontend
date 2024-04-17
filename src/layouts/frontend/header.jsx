@@ -18,6 +18,7 @@ import { useResponsive } from "src/hooks/use-responsive";
 import { bgBlur } from "src/theme/css";
 
 import Iconify from "src/components/iconify";
+import Logo from "src/components/logo";
 
 import { HEADER } from "./config-layout";
 import navConfig from "./config-navigation";
@@ -38,9 +39,7 @@ export default function Header({ onOpenNav }) {
       component="div"
       sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
     >
-      <Box component="div" sx={{ display: { xs: "none", md: "flex" } }}>
-        <img alt="Logo" style={{ height: "50px", marginRight: "10px" }} />
-      </Box>
+      <Logo sx={{ mt: 2, ml: 3 }} />
 
       {navConfig.map((page) => (
         <Button

@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 
 import Nav from "./nav";
 import Main from "./main";
-import Footer from "./footer";
+// import Footer from "./footer";
 import Header from "./header";
 
 // ----------------------------------------------------------------------
@@ -27,7 +27,7 @@ export default function FrontEndLayout({ children }) {
         <Main>{children}</Main>
       </Box>
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

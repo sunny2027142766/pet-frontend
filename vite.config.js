@@ -35,8 +35,6 @@ export default defineConfig({
         changeOrigin: true,
         // rewrite: path => path.replace(/^\/api/, '')
       },
-    },
-    proxy: {
       "/chat": {
         target: "https://mindfulpals-user-backend.onrender.com",
         changeOrigin: true,
