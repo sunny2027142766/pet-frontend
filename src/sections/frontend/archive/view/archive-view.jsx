@@ -1,20 +1,20 @@
-import { Box, Paper, Container, Typography } from "@mui/material";
-
-const Banner = (
-  <Paper elevation={3} sx={{ p: 2 }}>
-    <Typography variant="h4" gutterBottom>
-      欢迎 来到 虚拟宠物互动平台
-    </Typography>
-    <Typography variant="body1">这是首页板块.</Typography>
-  </Paper>
-);
+import { Container } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
+import { pets } from "src/_mock/pet";
+import PetCard from "../pet-card";
+import FunctionWidget from "../function-widget";
 
 export default function ArchiveView() {
   return (
     <Container>
-      <Box component="div" display="flex" flex="1" flexDirection="column">
-        {Banner}
-      </Box>
+      <Grid container spacing={3}>
+        {pets.map((pet) => (
+          <Grid key={pet.id} xs={12} sm={6} md={3}>
+            <PetCard pet={pet} />
+          </Grid>
+        ))}
+      </Grid>
+      <FunctionWidget />
     </Container>
   );
 }
