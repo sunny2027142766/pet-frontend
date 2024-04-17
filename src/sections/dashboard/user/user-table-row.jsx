@@ -17,13 +17,14 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({
-  selected,
-  name,
   avatarUrl,
-  company,
+  username,
+  password,
+  email,
+  phone,
   role,
-  isVerified,
-  status,
+  isVaild,
+  selected,
   handleClick,
 }) {
   const [open, setOpen] = useState(null);
@@ -45,21 +46,19 @@ export default function UserTableRow({
 
         <TableCell component="th" scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
+            <Avatar alt={username} src={avatarUrl} />
             <Typography variant="subtitle2" noWrap>
-              {name}
+              {username}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
-
+        <TableCell>{password}</TableCell>
+        <TableCell>{email}</TableCell>
+        <TableCell>{phone}</TableCell>
         <TableCell>{role}</TableCell>
-
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
-
         <TableCell>
-          <Label color={(status === '禁用' && 'error') || 'success'}>{status}</Label>
+          <Label color={(isVaild === 0 && 'error') || 'success'}>{isVaild === 0 ? '禁用' : '正常'}</Label>
         </TableCell>
 
         <TableCell align="right">
@@ -75,18 +74,16 @@ export default function UserTableRow({
         onClose={handleCloseMenu}
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          sx: { width: 140 },
-        }}
+        sx={{ width: 140 }}
       >
         <MenuItem onClick={handleCloseMenu}>
           <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
-          Edit
+          编辑
         </MenuItem>
 
         <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
           <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
-          Delete
+          删除
         </MenuItem>
       </Popover>
     </>
@@ -94,12 +91,13 @@ export default function UserTableRow({
 }
 
 UserTableRow.propTypes = {
-  avatarUrl: PropTypes.any,
-  company: PropTypes.any,
+  avatarUrl: PropTypes.string,
+  username: PropTypes.string,
+  password: PropTypes.string,
+  email: PropTypes.string,
+  phone: PropTypes.string,
+  role: PropTypes.string,
+  isVaild: PropTypes.number,
+  selected: PropTypes.bool,
   handleClick: PropTypes.func,
-  isVerified: PropTypes.any,
-  name: PropTypes.any,
-  role: PropTypes.any,
-  selected: PropTypes.any,
-  status: PropTypes.string,
 };

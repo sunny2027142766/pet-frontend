@@ -67,7 +67,7 @@ UserTableHead.propTypes = {
   orderBy: PropTypes.string,
   rowCount: PropTypes.number,
   headLabel: PropTypes.array,
-  numSelected: PropTypes.number,
-  onRequestSort: PropTypes.func,
-  onSelectAllClick: PropTypes.func,
+  numSelected: PropTypes.number, // 选中数量
+  onRequestSort: PropTypes.func, // 排序请求
+  onSelectAllClick: PropTypes.func, // 全选
 };
