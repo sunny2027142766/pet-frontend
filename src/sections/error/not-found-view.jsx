@@ -45,12 +45,11 @@ export default function NotFoundView() {
           }}
         >
           <Typography variant="h3" sx={{ mb: 3 }}>
-            Sorry, page not found!
+            对不起,页面不存在
           </Typography>
 
           <Typography sx={{ color: 'text.secondary' }}>
-            Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be
-            sure to check your spelling.
+            很抱歉，我们未能找到您查找的页面。也许您输入了错误的 URL？请务必检查您的拼写。
           </Typography>
 
           <Box
@@ -64,7 +63,7 @@ export default function NotFoundView() {
           />
 
           <Button href="/" size="large" variant="contained" component={RouterLink}>
-            Go to Home
+            去首页
           </Button>
         </Box>
       </Container>
