@@ -13,7 +13,7 @@ const Banner = (
 
 export default function InteractionView() {
   return (
-    <Container>
+    <Container sx={{ height: 1 }}>
       <Box display="flex" flex="1" flexDirection="column">
         {Banner}
       </Box>

@@ -13,10 +13,15 @@ const navConfig = [
     icon: <Iconify icon="eva:menu-2-fill" />,
   },
   {
-    title: "宠物展示",
-    path: "show",
+    title: "情感互动",
+    path: "emotion",
     icon: <Iconify icon="eva:menu-2-fill" />,
   },
+  // {
+  //   title: "宠物展示",
+  //   path: "show",
+  //   icon: <Iconify icon="eva:menu-2-fill" />,
+  // },
   {
     title: "档案馆",
     path: "archive",
@@ -25,11 +30,6 @@ const navConfig = [
   {
     title: "社区",
     path: "community",
-    icon: <Iconify icon="eva:menu-2-fill" />,
-  },
-  {
-    title: "情感互动",
-    path: "emotion",
     icon: <Iconify icon="eva:menu-2-fill" />,
   },
 ];
