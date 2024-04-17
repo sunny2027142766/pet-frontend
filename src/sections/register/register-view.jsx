@@ -2,7 +2,7 @@ import { useState } from 'react';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
-import { Box, Link, Card, Stack, TextField, Typography, IconButton } from '@mui/material'; 
+import { Box, Link, Card, Alert, Stack, Snackbar, TextField, Typography, IconButton } from '@mui/material'; 
 import { useRouter } from 'src/routes/hooks';
 import { validateEmail } from 'src/utils/vaildate';
 import { bgGradient } from 'src/theme/css';
@@ -24,6 +24,7 @@ export default function RegisterView() {
 
   const [verificationCode, setVerificationCode] = useState('');
   const [verificationCodeError, setVerificationCodeError] = useState(false);
+  const [isCodeSending, setIsCodeSending] = useState(false);
 
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
@@ -34,6 +35,9 @@ export default function RegisterView() {
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
   const [confirmPasswordErrorHelper, setConfirmPasswordErrorHelper] = useState('');
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const [tip, setTip] = useState('');
+  const [tipOpen, setTipOpen] = useState(false);
 
 
   const validateFields = () => {
@@ -114,12 +118,16 @@ export default function RegisterView() {
         password
       }
       const res = await registerApi(registerData);
-      if (res.success) {
+      if (res.code===200 && res.msg === '注册成功') {
         // 注册成功，跳转到登录页面或其他页面
-        router.push('/login');
+        setTip("注册成功")
+        setTipOpen(true);
+        setTimeout(() => {
+          router.push('/login');
+        },2000)
       } else {
-        // 注册失败，处理失败情况，可能是后端返回的错误信息，也可能是网络等问题
-        // 弹出错误提示或者设置状态来提示用户
+        setTip(res.msg)
+        setTipOpen(true);
       }
     } 
 
@@ -177,6 +185,7 @@ export default function RegisterView() {
                 <LoadingButton
                   variant="contained"
                   color="secondary"
+                  disabled={ isCodeSending }
                   onClick={async () => {
                     if (email.trim() === '') {
                       setEmailError(true);
@@ -184,10 +193,17 @@ export default function RegisterView() {
                     } else if (!validateEmail(email)) {
                       setEmailError(true);
                       setEmailErrorHelper('请输入正确的邮箱');
+                    } else {
+                      setIsCodeSending(true)
+                      const res = await sendCodeApi(email);
+                      if (res.code === 200 ) {
+                        console.log('发送验证码', res);
+                        setTip(res.msg)
+                        setTipOpen(true);
+                        setIsCodeSending(false)
+                      }
+                      
                     }
-
-                    const res = await sendCodeApi(email);
-                    console.log('发送验证码', res);
                   }}
                 >
                   发送验证码
@@ -285,6 +301,20 @@ export default function RegisterView() {
 
         </Card>
       </Stack>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={tipOpen}
+        onClose={() => setTipOpen(false)}
+        autoHideDuration={1000}
+      >
+        <Alert
+          severity={tip === '注册成功' ? 'success' : 'error'}
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          { tip }
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

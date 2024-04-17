@@ -1,26 +1,24 @@
 import { useState } from 'react';
-
-import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { alpha, useTheme } from '@mui/material/styles';
-import InputAdornment from '@mui/material/InputAdornment';
-
-import { useRouter } from 'src/routes/hooks';
-
-import { validateEmail } from 'src/utils/vaildate';
-
+import {
+  Box,
+  Link,
+  Card,
+  Alert,
+  Stack,
+  Button,
+  Divider,
+  Snackbar,
+  TextField,
+  Typography,
+  IconButton,
+  InputAdornment
+} from '@mui/material';
 import { bgGradient } from 'src/theme/css';
-import { loginApi } from 'src/api/modules/auth';
-
+import { useRouter } from 'src/routes/hooks';
 import Iconify from 'src/components/iconify';
+import { loginApi } from 'src/api/modules/auth';
+import { validateEmail } from 'src/utils/vaildate';
+import { alpha, useTheme } from '@mui/material/styles';
 
 // ----------------------------------------------------------------------
 
@@ -35,6 +33,9 @@ export default function LoginView() {
   const [emailErrorHelper, setEmailErrorHelper] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const [tipOpen, setTipOpen] = useState(false);
+  const [tip, setTip] = useState('');
 
   const handleSubmit = async (event) => {
     // TODO: 登录逻辑
@@ -62,13 +63,22 @@ export default function LoginView() {
 
     if (!hasError) {
       // 调用登录接口
-      await loginApi({
+      const res = await loginApi({
         email,
         password,
       })
-      // ...
-      // 假设登录成功，跳转到首页
-      router.push('/');
+      if (res.code === 200 && res.msg === "登录成功") {
+        // 登录成功，保存用户信息到本地存储
+        localStorage.setItem('userInfo', JSON.stringify(res.data));
+        setTip("登录成功");
+        setTipOpen(true);
+        setTimeout(() => {
+          // 存储用户信息到redux
+          // dispatch(setUserInfo(res.data));
+          // 跳转到前台
+          router.push('/front');
+        },1000)
+      }
     }
     
   };
@@ -140,7 +150,7 @@ export default function LoginView() {
         </Link>
       </Stack>
 
-      <LoadingButton
+      <Button
         fullWidth
         size="large"
         type="submit"
@@ -149,7 +159,7 @@ export default function LoginView() {
         onClick={handleSubmit}
       >
         登录
-      </LoadingButton>
+      </Button>
     </>
   );
 
@@ -215,6 +225,20 @@ export default function LoginView() {
 
         </Card>
       </Stack>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={tipOpen}
+        onClose={() => setTipOpen(false)}
+        autoHideDuration={1000}
+      >
+        <Alert
+          severity={tip === '登录成功' ? 'success' : 'error'}
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          { tip }
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import TableBody from "@mui/material/TableBody";
 import Typography from "@mui/material/Typography";
 import TableContainer from "@mui/material/TableContainer";
-import Pagination from "@mui/material/Pagination";
+import TablePagination from "@mui/material/TablePagination";
 
 import { users } from "src/_mock/user";
 import { getDemo } from "src/api/modules/demo";
@@ -215,7 +215,7 @@ export default function UserPage() {
           </TableContainer>
         </Scrollbar>
 
-        <Pagination
+        <TablePagination
           page={page}
           component="div"
           count={tableData.length / rowsPerPage + 1}

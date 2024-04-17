@@ -18,8 +18,8 @@ axios.interceptors.request.use(
 // 响应拦截
 axios.interceptors.response.use(
   response => {
-    console.log('请求成功,请求结果为===>',response);
     const { data } = response
+    console.log('请求成功,请求结果为===>',data);
     return Promise.resolve(data)
   },
   err => {
