@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import { pets } from "src/_mock/pet";
 import PetCard from "../pet-card";
-import FunctionWidget from "../function-widget";
+// import FunctionWidget from "../function-widget";
 
 export default function ArchiveView() {
   return (
@@ -14,7 +14,7 @@ export default function ArchiveView() {
           </Grid>
         ))}
       </Grid>
-      <FunctionWidget />
+      {/* <FunctionWidget /> */}
     </Container>
   );
 }
