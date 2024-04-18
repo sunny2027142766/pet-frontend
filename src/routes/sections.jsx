@@ -9,6 +9,11 @@ import RequireAuth from "./auth/require-auth";
 export const IndexPage = lazy(() => import("src/pages/dashboard/app"));
 export const BlogPage = lazy(() => import("src/pages/dashboard/blog"));
 export const UserPage = lazy(() => import("src/pages/dashboard/user"));
+export const RolePage = lazy(() => import("src/pages/dashboard/role"));
+export const PermPage = lazy(() => import("src/pages/dashboard/perm"));
+export const ShequPage = lazy(() => import("src/pages/dashboard/shequ"));
+export const InfoPage = lazy(() => import("src/pages/dashboard/info"));
+export const ModelPage = lazy(() => import("src/pages/dashboard/model"));
 export const ProductsPage = lazy(() => import("src/pages/dashboard/products"));
 // frontend
 export const HomePage = lazy(() => import("src/pages/frontend/home"));
@@ -42,6 +47,11 @@ export default function Router() {
       children: [
         { element: <IndexPage />, index: true },
         { path: "user", element: <UserPage /> },
+        { path: "role", element: <RolePage /> },
+        { path: "perm", element: <PermPage /> },
+        { path: "shequ", element: <ShequPage /> },
+        { path: "info", element: <InfoPage /> },
+        { path: "model", element: <ModelPage /> },
         { path: "products", element: <ProductsPage /> },
         { path: "blog", element: <BlogPage /> },
       ],
