@@ -3,6 +3,7 @@ import { useState } from "react";
 import FunctionWidget from "../function-widget";
 import InteractionCard from "../interaction-card";
 import HealthCard from "../health-card";
+import BottomCard from "../bottom-card";
 
 export default function InteractionView() {
   const [playAnimation, setPlayAnimation] = useState(false);
@@ -15,6 +16,7 @@ export default function InteractionView() {
     <Box sx={{ height: 1 }}>
       <InteractionCard playAnimation={playAnimation} />
       <FunctionWidget onToggleAnimation={handleToggleAnimation} />
+      <BottomCard onToggleAnimation={handleToggleAnimation} />
       <HealthCard />
     </Box>
   );
