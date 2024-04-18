@@ -1,18 +1,17 @@
 import { useState } from "react";
-
-import Card from "@mui/material/Card";
-import Stack from "@mui/material/Stack";
-import Table from "@mui/material/Table";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import TableBody from "@mui/material/TableBody";
-import Typography from "@mui/material/Typography";
-import TableContainer from "@mui/material/TableContainer";
-import TablePagination from "@mui/material/TablePagination";
+import {
+  Card,
+  Stack,
+  Table,
+  Button,
+  Container,
+  TableBody,
+  Typography,
+  TableContainer,
+  TablePagination,
+} from "@mui/material";
 
 import { users } from "src/_mock/user";
-import { getDemo } from "src/api/modules/demo";
-
 import Iconify from "src/components/iconify";
 import Scrollbar from "src/components/scrollbar";
 
@@ -21,6 +20,7 @@ import UserTableRow from "../user-table-row";
 import UserTableHead from "../user-table-head";
 import TableEmptyRows from "../table-empty-rows";
 import UserTableToolbar from "../user-table-toolbar";
+
 import { emptyRows, applyFilter, getComparator } from "../utils";
 import UserAddDialog from "../add/user-add-dialog";
 
@@ -38,35 +38,37 @@ export default function UserPage() {
   const [filterName, setFilterName] = useState("");
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  // 
+  //
   const [addOpen, setAddOpen] = useState(false);
 
   const tableRes = {
-    data:[{
-      id: "1",
-      username: "张三",
-      password: "123456",
-      email: "zhangsan@example.com",
-      phone: "13812345678",
-      role: "管理员",
-      isValid: 1,
-      avatarUrl:"https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    },
-    {
-      id: "2",
-      username: "李四",
-      password: "123456",
-      email: "lisi@example.com",
-      phone: "13812345678",
-      role: "普通用户",
-      isValid: 1,
-      avatarUrl:"https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-    }
+    data: [
+      {
+        id: "1",
+        username: "张三",
+        password: "123456",
+        email: "zhangsan@example.com",
+        phone: "13812345678",
+        role: "管理员",
+        isValid: 1,
+        avatarUrl:
+          "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
+      },
+      {
+        id: "2",
+        username: "李四",
+        password: "123456",
+        email: "lisi@example.com",
+        phone: "13812345678",
+        role: "普通用户",
+        isValid: 1,
+        avatarUrl:
+          "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
+      },
     ],
-    count: 15, 
-  }
-  const { data: tableData, count } = tableRes
-  
+    total: 15,
+  };
+  const { data: tableData, total } = tableRes;
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === "asc";
@@ -78,7 +80,7 @@ export default function UserPage() {
   // 全选
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = tableData.map((data) => data.username);
+      const newSelecteds = tableData.map((data) => data.id);
       setSelected(newSelecteds);
       return;
     }
@@ -125,8 +127,6 @@ export default function UserPage() {
 
   const notFound = !dataFiltered.length && !!filterName;
 
-
-
   return (
     <Container>
       <Stack
@@ -140,25 +140,13 @@ export default function UserPage() {
         <Button
           variant="contained"
           color="inherit"
-          startIcon={<Iconify icon="eva:send-fill" />}
-          onClick={async() => {
-            const res = await getDemo();
-            console.log(res);
-          }}
-        >
-          测试请求
-        </Button>
-        
-        <Button
-          variant="contained"
-          color="inherit"
           startIcon={<Iconify icon="eva:plus-fill" />}
           onClick={() => setAddOpen(true)}
         >
           添加用户
         </Button>
       </Stack>
-      <UserAddDialog open={ addOpen } onClose={() => setAddOpen(false)} />
+      <UserAddDialog open={addOpen} onClose={() => setAddOpen(false)} />
 
       <Card>
         <UserTableToolbar
@@ -173,7 +161,7 @@ export default function UserPage() {
               <UserTableHead
                 order={order}
                 orderBy={orderBy}
-                rowCount={count}
+                rowCount={total}
                 numSelected={selected.length}
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
@@ -188,21 +176,20 @@ export default function UserPage() {
                 ]}
               />
               <TableBody>
-                {tableData
-                  .map((row) => (
-                    <UserTableRow
-                      key={row.id}
-                      username={row.username}
-                      avatarUrl={row.avatarUrl}
-                      password={row.password}
-                      email={row.email}
-                      phone={row.phone}
-                      role={row.role}
-                      isValid={row.isValid}
-                      selected={selected.indexOf(row.id) !== -1}
-                      handleClick={(event) => handleClick(event, row.id)}
-                    />
-                  ))}
+                {tableData.map((row) => (
+                  <UserTableRow
+                    key={row.id}
+                    username={row.username}
+                    avatarUrl={row.avatarUrl}
+                    password={row.password}
+                    email={row.email}
+                    phone={row.phone}
+                    role={row.role}
+                    isValid={row.isValid}
+                    selected={selected.indexOf(row.id) !== -1}
+                    handleClick={(event) => handleClick(event, row.id)}
+                  />
+                ))}
 
                 <TableEmptyRows
                   height={77}
@@ -218,7 +205,8 @@ export default function UserPage() {
         <TablePagination
           page={page}
           component="div"
-          count={tableData.length / rowsPerPage + 1}
+          labelRowsPerPage="每页行数"
+          count={total}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}
