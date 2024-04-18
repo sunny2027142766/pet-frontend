@@ -3,6 +3,7 @@ import { Outlet, Navigate, useRoutes } from "react-router-dom";
 
 import FrontEndLayout from "src/layouts/frontend";
 import DashboardLayout from "src/layouts/dashboard";
+import RequireAuth from "./auth/require-auth";
 
 // dashboard
 export const IndexPage = lazy(() => import("src/pages/dashboard/app"));
@@ -30,11 +31,13 @@ export default function Router() {
   const routes = useRoutes([
     {
       element: (
-        <DashboardLayout>
-          <Suspense>
-            <Outlet />
-          </Suspense>
-        </DashboardLayout>
+        <RequireAuth>
+          <DashboardLayout>
+            <Suspense>
+              <Outlet />
+            </Suspense>
+          </DashboardLayout>
+        </RequireAuth>
       ),
       children: [
         { element: <IndexPage />, index: true },
@@ -46,11 +49,13 @@ export default function Router() {
     {
       path: "front",
       element: (
-        <FrontEndLayout>
-          <Suspense>
-            <Outlet />
-          </Suspense>
-        </FrontEndLayout>
+        <RequireAuth>
+          <FrontEndLayout>
+            <Suspense>
+              <Outlet />
+            </Suspense>
+          </FrontEndLayout>
+        </RequireAuth>
       ),
       children: [
         { path: "home", element: <HomePage />, index: true },

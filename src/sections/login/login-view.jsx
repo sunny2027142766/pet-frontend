@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Box,
   Link,
@@ -11,14 +11,15 @@ import {
   TextField,
   Typography,
   IconButton,
-  InputAdornment
-} from '@mui/material';
-import { bgGradient } from 'src/theme/css';
-import { useRouter } from 'src/routes/hooks';
-import Iconify from 'src/components/iconify';
-import { loginApi } from 'src/api/modules/auth';
-import { validateEmail } from 'src/utils/vaildate';
-import { alpha, useTheme } from '@mui/material/styles';
+  InputAdornment,
+} from "@mui/material";
+import { bgGradient } from "src/theme/css";
+import { useRouter } from "src/routes/hooks";
+import Iconify from "src/components/iconify";
+import { loginApi } from "src/api/modules/auth";
+import { validateEmail } from "src/utils/vaildate";
+import { setItem } from "src/utils/local-storage";
+import { alpha, useTheme } from "@mui/material/styles";
 
 // ----------------------------------------------------------------------
 
@@ -27,34 +28,34 @@ export default function LoginView() {
 
   const router = useRouter();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(false);
-  const [emailErrorHelper, setEmailErrorHelper] = useState('');
+  const [emailErrorHelper, setEmailErrorHelper] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const [tipOpen, setTipOpen] = useState(false);
-  const [tip, setTip] = useState('');
+  const [tip, setTip] = useState("");
 
   const handleSubmit = async (event) => {
     // TODO: 登录逻辑
     event.preventDefault();
     let hasError = false;
-    if (email.trim() === '') {
+    if (email.trim() === "") {
       console.log(email.trim());
       setEmailError(true);
-      setEmailErrorHelper('邮箱不能为空')
+      setEmailErrorHelper("邮箱不能为空");
       hasError = true;
-    } else if (!validateEmail(email)) { 
+    } else if (!validateEmail(email)) {
       setEmailError(true);
-      setEmailErrorHelper('')
-      setEmailErrorHelper('邮箱格式不正确')
+      setEmailErrorHelper("");
+      setEmailErrorHelper("邮箱格式不正确");
       hasError = true;
     } else {
       setEmailError(false);
     }
-    if (password.trim() === '') {
+    if (password.trim() === "") {
       setPasswordError(true);
       hasError = true;
     } else {
@@ -66,21 +67,21 @@ export default function LoginView() {
       const res = await loginApi({
         email,
         password,
-      })
+      });
       if (res.code === 200 && res.msg === "登录成功") {
-        // 登录成功，保存用户信息到本地存储
-        localStorage.setItem('userInfo', JSON.stringify(res.data));
         setTip("登录成功");
         setTipOpen(true);
+        const { accessToken, refreshToken } = res.data;
+        setItem("accessToken", accessToken);
+        setItem("refreshToken", refreshToken);
         setTimeout(() => {
-          // 存储用户信息到redux
-          // dispatch(setUserInfo(res.data));
-          // 跳转到前台
-          router.push('/front');
-        },1000)
+          router.push("/front/home");
+        }, 1000);
+      } else {
+        setTip(res.msg);
+        setTipOpen(true);
       }
     }
-    
   };
 
   const renderForm = (
@@ -89,7 +90,7 @@ export default function LoginView() {
         <TextField
           label="邮箱"
           variant="outlined"
-          type='email'
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -99,12 +100,14 @@ export default function LoginView() {
             endAdornment: (
               <InputAdornment position="end">
                 {email && (
-                  <IconButton onClick={() => {
-                    setEmail('');
-                    setEmailError(false);
-                    setEmailErrorHelper('');
-                  }}>
-                    <Iconify icon='ic:outline-clear' />
+                  <IconButton
+                    onClick={() => {
+                      setEmail("");
+                      setEmailError(false);
+                      setEmailErrorHelper("");
+                    }}
+                  >
+                    <Iconify icon="ic:outline-clear" />
                   </IconButton>
                 )}
               </InputAdornment>
@@ -118,20 +121,27 @@ export default function LoginView() {
           onChange={(e) => setPassword(e.target.value)}
           required
           error={passwordError}
-          helperText={passwordError ? '密码不能为空' : ''}
-          type={showPassword ? 'text' : 'password'}
+          helperText={passwordError ? "密码不能为空" : ""}
+          type={showPassword ? "text" : "password"}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                <IconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  <Iconify
+                    icon={showPassword ? "eva:eye-fill" : "eva:eye-off-fill"}
+                  />
                 </IconButton>
                 {password && (
-                  <IconButton onClick={() => {
-                    setPassword('');
-                    setPasswordError(false);
-                  }}>
-                    <Iconify icon='ic:outline-clear' />
+                  <IconButton
+                    onClick={() => {
+                      setPassword("");
+                      setPasswordError(false);
+                    }}
+                  >
+                    <Iconify icon="ic:outline-clear" />
                   </IconButton>
                 )}
               </InputAdornment>
@@ -140,12 +150,21 @@ export default function LoginView() {
         />
       </Stack>
 
-      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 3 }}>
-        <Link variant="subtitle2" sx={{ cursor: 'pointer' }} onClick={()=>router.push('/register') }>
-             还没有账户? 去注册
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        sx={{ my: 3 }}
+      >
+        <Link
+          variant="subtitle2"
+          sx={{ cursor: "pointer" }}
+          onClick={() => router.push("/register")}
+        >
+          还没有账户? 去注册
         </Link>
 
-        <Link variant="subtitle2" underline="hover" sx={{cursor:'pointer' }}>
+        <Link variant="subtitle2" underline="hover" sx={{ cursor: "pointer" }}>
           忘记密码?
         </Link>
       </Stack>
@@ -168,7 +187,7 @@ export default function LoginView() {
       sx={{
         ...bgGradient({
           color: alpha(theme.palette.background.default, 0.1),
-          imgUrl: '/assets/background/bg.png',
+          imgUrl: "/assets/background/bg.png",
         }),
         height: 1,
       }}
@@ -178,15 +197,17 @@ export default function LoginView() {
           sx={{
             p: 5,
             width: 1,
-            maxWidth: 420
-        }}
+            maxWidth: 420,
+          }}
         >
-          <Typography variant="h4" sx={{ mb: 2 }}>登录</Typography>
-          
+          <Typography variant="h4" sx={{ mb: 2 }}>
+            登录
+          </Typography>
+
           {renderForm}
 
           <Divider sx={{ my: 3 }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            <Typography variant="body2" sx={{ color: "text.secondary" }}>
               或
             </Typography>
           </Divider>
@@ -222,21 +243,20 @@ export default function LoginView() {
               <Iconify icon="simple-icons:alipay" color="#0188FB" />
             </Button>
           </Stack>
-
         </Card>
       </Stack>
       <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={tipOpen}
         onClose={() => setTipOpen(false)}
         autoHideDuration={1000}
       >
         <Alert
-          severity={tip === '登录成功' ? 'success' : 'error'}
+          severity={tip === "登录成功" ? "success" : "error"}
           variant="filled"
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
         >
-          { tip }
+          {tip}
         </Alert>
       </Snackbar>
     </Box>
