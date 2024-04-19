@@ -1,0 +1,11 @@
+Model Information:
+* title:	The pet cow of Honoka
+* source:	https://sketchfab.com/3d-models/the-pet-cow-of-honoka-42d2490b65ef4bd0be473dd4238a83fa
+* author:	systemmanager (https://sketchfab.com/systemmanager)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "The pet cow of Honoka" (https://sketchfab.com/3d-models/the-pet-cow-of-honoka-42d2490b65ef4bd0be473dd4238a83fa) by systemmanager (https://sketchfab.com/systemmanager) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

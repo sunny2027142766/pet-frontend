@@ -109,7 +109,7 @@ export default function Nav({ openNav, onCloseNav }) {
         </Box>
 
         <Button
-          href="/front"
+          href="/front/home"
           target="_blank"
           variant="contained"
           color="inherit"

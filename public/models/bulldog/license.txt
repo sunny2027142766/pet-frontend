@@ -1,0 +1,11 @@
+Model Information:
+* title:	Bulldog Puppy
+* source:	https://sketchfab.com/3d-models/bulldog-puppy-7081c9c27df244bf84774361888f58a2
+* author:	FainoDS (https://sketchfab.com/doinspire)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Bulldog Puppy" (https://sketchfab.com/3d-models/bulldog-puppy-7081c9c27df244bf84774361888f58a2) by FainoDS (https://sketchfab.com/doinspire) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

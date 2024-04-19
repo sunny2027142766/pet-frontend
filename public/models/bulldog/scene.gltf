@@ -1,0 +1,411 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 1092,
+      "max": [
+        4.974800109863281,
+        -17.896099090576172,
+        30.066999435424805
+      ],
+      "min": [
+        -4.967700004577637,
+        -20.576499938964844,
+        27.38409996032715
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 13104,
+      "componentType": 5126,
+      "count": 1092,
+      "max": [
+        0.9991466999053955,
+        0.9987841248512268,
+        1.0
+      ],
+      "min": [
+        -0.9991466999053955,
+        -0.9987841248512268,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 1092,
+      "max": [
+        0.27889999747276306,
+        0.761900007724762
+      ],
+      "min": [
+        0.044199999421834946,
+        0.1266999989748001
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 5760,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 26208,
+      "componentType": 5126,
+      "count": 2837,
+      "max": [
+        9.285400390625,
+        24.03459930419922,
+        35.04090118408203
+      ],
+      "min": [
+        -9.285900115966797,
+        -24.615800857543945,
+        -0.18150000274181366
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 60252,
+      "componentType": 5126,
+      "count": 2837,
+      "max": [
+        0.9998550415039063,
+        0.9697293639183044,
+        0.9969039559364319
+      ],
+      "min": [
+        -0.9996979832649231,
+        -0.9998020529747009,
+        -0.999728262424469
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 2837,
+      "max": [
+        0.999994695186615,
+        0.9960163831710815,
+        0.9980104565620422,
+        -1.0
+      ],
+      "min": [
+        -1.0,
+        -0.9989155530929565,
+        -0.999434232711792,
+        -1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 8736,
+      "componentType": 5126,
+      "count": 2837,
+      "max": [
+        0.9980000257492065,
+        0.9830999970436096
+      ],
+      "min": [
+        0.004100000020116568,
+        0.02759999968111515
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 23040,
+      "componentType": 5125,
+      "count": 11370,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 94296,
+      "componentType": 5126,
+      "count": 9246,
+      "max": [
+        9.919400215148926,
+        24.4060001373291,
+        35.86949920654297
+      ],
+      "min": [
+        -9.919400215148926,
+        -24.62529945373535,
+        -0.23180000483989716
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 205248,
+      "componentType": 5126,
+      "count": 9246,
+      "max": [
+        0.9998550415039063,
+        0.999816358089447,
+        0.9999996423721313
+      ],
+      "min": [
+        -0.9996079802513123,
+        -0.9998020529747009,
+        -0.9999194145202637
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 45392,
+      "componentType": 5126,
+      "count": 9246,
+      "max": [
+        1.0,
+        0.9997729659080505,
+        0.9932581186294556,
+        -1.0
+      ],
+      "min": [
+        -1.0,
+        -0.9999138712882996,
+        -0.999932587146759,
+        -1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 31432,
+      "componentType": 5126,
+      "count": 9246,
+      "max": [
+        0.9929999709129333,
+        0.9980000257492065
+      ],
+      "min": [
+        0.0020000000949949026,
+        0.016499999910593033
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 68520,
+      "componentType": 5125,
+      "count": 47688,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "FainoDS (https://sketchfab.com/doinspire)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/bulldog-puppy-7081c9c27df244bf84774361888f58a2",
+      "title": "Bulldog Puppy"
+    },
+    "generator": "Sketchfab-12.68.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 259272,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 105400,
+      "byteOffset": 259272,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 316200,
+      "byteOffset": 364672,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 193328,
+      "byteOffset": 680872,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 874200,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/Body_baseColor.png"
+    },
+    {
+      "uri": "textures/Body_normal.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "Body",
+      "normalTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.6
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Eyes",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.1175685976
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Object_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Object_1",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4,
+            "TANGENT": 6,
+            "TEXCOORD_0": 7
+          },
+          "indices": 8,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Object_2",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 10,
+            "POSITION": 9,
+            "TANGENT": 11,
+            "TEXCOORD_0": 12
+          },
+          "indices": 13,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2,
+        3,
+        4
+      ],
+      "name": "Bulldog_Puppy.obj.cleaner.materialmerger.gles"
+    },
+    {
+      "mesh": 0,
+      "name": "Object_2"
+    },
+    {
+      "mesh": 1,
+      "name": "Object_3"
+    },
+    {
+      "mesh": 2,
+      "name": "Object_4"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    }
+  ]
+}

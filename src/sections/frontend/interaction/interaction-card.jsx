@@ -6,21 +6,22 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as THREE from "three"; // 确保 THREE 被正确导入
+import { modelList } from "./modelList";
 
-const DogModel = ({ playAnimation }) => {
-  const fileUrl = "/models/dog/scene.gltf";
+const DogModel = ({ playAnimation, modelID }) => {
+  const fileUrl = modelList.find((model) => model.id === modelID).url;
   const mesh = useRef(null);
   const gltf = useLoader(GLTFLoader, fileUrl);
   const mixerRef = useRef(null);
   const actionsRef = useRef([]);
-
+  console.log(gltf);
   useEffect(() => {
     mixerRef.current = new THREE.AnimationMixer(gltf.scene);
     actionsRef.current = gltf.animations.map((clip) =>
       mixerRef.current.clipAction(clip)
     );
-    actionsRef.current.forEach((action) => action.play()); // Play all animations initially
-    return () => actionsRef.current.forEach((action) => action.stop());
+    // actionsRef.current.forEach((action) => action.play()); // Play all animations initially
+    // return () => actionsRef.current.forEach((action) => action.stop());
   }, [gltf]);
 
   useFrame((state, delta) => {
@@ -51,9 +52,10 @@ const DogModel = ({ playAnimation }) => {
 
 DogModel.propTypes = {
   playAnimation: PropTypes.bool,
+  modelID: PropTypes.number,
 };
 
-export default function Interaction({ playAnimation }) {
+export default function Interaction({ playAnimation, modelID }) {
   return (
     <Canvas
       style={{
@@ -67,7 +69,7 @@ export default function Interaction({ playAnimation }) {
         <OrbitControls />
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
-        <DogModel playAnimation={playAnimation} />
+        <DogModel playAnimation={playAnimation} modelID={modelID} />
       </Suspense>
     </Canvas>
   );
@@ -75,4 +77,5 @@ export default function Interaction({ playAnimation }) {
 
 Interaction.propTypes = {
   playAnimation: PropTypes.bool,
+  modelID: PropTypes.number,
 };

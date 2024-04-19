@@ -4,13 +4,15 @@ import { styled } from "@mui/material/styles";
 // import Iconify from "src/components/iconify";
 // import { Fab, Stack } from "@mui/material";
 import { Box, Chip, Stack } from "@mui/material";
+import { modelList } from "./modelList";
 
 // ----------------------------------------------------------------------
 
 const StyledRoot = styled("div")(({ theme }) => ({
   zIndex: 999,
   bottom: 20,
-  right: theme.spacing(100),
+  left: "50%",
+  transform: "translateX(-50%)",
   cursor: "pointer",
   position: "fixed",
   paddingTop: theme.spacing(1.25),
@@ -18,7 +20,7 @@ const StyledRoot = styled("div")(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function BottomCard({ onToggleAnimation }) {
+export default function BottomCard({ onChangeModel }) {
   const render3DStatus = (
     <Chip
       label="3D"
@@ -26,25 +28,10 @@ export default function BottomCard({ onToggleAnimation }) {
       size="small"
       sx={{
         zIndex: 9,
-        top: 16,
-        right: 16,
+        top: 3,
+        right: 3,
         position: "absolute",
         textTransform: "uppercase",
-      }}
-    />
-  );
-
-  const renderImg = (
-    <Box
-      component="img"
-      alt="模型"
-      src="/assets/model/shiba.png"
-      sx={{
-        top: 0,
-        width: 1,
-        height: 1,
-        objectFit: "cover",
-        position: "absolute",
       }}
     />
   );
@@ -93,7 +80,7 @@ export default function BottomCard({ onToggleAnimation }) {
         </Fab>
       </Stack> */}
       <Stack direction="row" spacing={2}>
-        {[1, 2, 3, 4].map(() => (
+        {modelList.map((model) => (
           <Box
             key={Math.random()}
             sx={{
@@ -104,7 +91,19 @@ export default function BottomCard({ onToggleAnimation }) {
             }}
           >
             {render3DStatus}
-            {renderImg}
+            <Box
+              component="img"
+              alt="模型"
+              src={model.img}
+              sx={{
+                top: 0,
+                width: 1,
+                height: 1,
+                objectFit: "cover",
+                position: "absolute",
+              }}
+              onClick={() => onChangeModel(model.id)}
+            />
           </Box>
         ))}
       </Stack>
@@ -113,5 +112,5 @@ export default function BottomCard({ onToggleAnimation }) {
 }
 
 BottomCard.propTypes = {
-  onToggleAnimation: PropTypes.func,
+  onChangeModel: PropTypes.func,
 };

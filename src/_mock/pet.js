@@ -20,13 +20,13 @@ const PET_BREEDS = {
   兔: ["荷兰矮耳兔", "安哥拉兔"],
 };
 
-export const pets = [...Array(8)].map((_, index) => {
+export const pets = [...Array(12)].map((_, index) => {
   const type = faker.helpers.arrayElement(PET_TYPES);
   const breed = faker.helpers.arrayElement(PET_BREEDS[type]);
 
   return {
     id: faker.string.uuid(),
-    photo: `/assets/images/pets/pet_${(index % 4) + 1}.jpg`,
+    photo: `/assets/images/pets/pet_${index + 1}.png`,
     name: PET_NAME[index],
     type,
     breed,
