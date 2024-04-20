@@ -11,7 +11,7 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function UserTableToolbar({ numSelected, handleQuery }) {
+export default function RoleTableToolbar({ numSelected, handleQuery }) {
   const [username, setUsername] = useState('');
 
   return (
@@ -42,7 +42,7 @@ export default function UserTableToolbar({ numSelected, handleQuery }) {
               console.log(event.target.value);
               setUsername(event.target.value);
             }}
-            placeholder="请输入用户名"
+            placeholder="请输入角色"
             startAdornment={
               <InputAdornment position="start">
                 <Iconify
@@ -71,7 +71,7 @@ export default function UserTableToolbar({ numSelected, handleQuery }) {
   );
 }
 
-UserTableToolbar.propTypes = {
+RoleTableToolbar.propTypes = {
   numSelected: PropTypes.number,
   handleQuery: PropTypes.func
 };

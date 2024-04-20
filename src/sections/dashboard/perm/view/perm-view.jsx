@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 import {
   Card,
   Stack,
@@ -9,78 +9,76 @@ import {
   Typography,
   TableContainer,
   TablePagination,
-} from "@mui/material";
+  CircularProgress
+} from '@mui/material';
+import Iconify from 'src/components/iconify';
+import Scrollbar from 'src/components/scrollbar';
+import { getAllPermListApi } from 'src/api/modules/perm';
+import { emptyRows } from '../utils';
 
-import { users } from "src/_mock/user";
-import Iconify from "src/components/iconify";
-import Scrollbar from "src/components/scrollbar";
-
-import TableNoData from "../table-no-data";
-import UserTableRow from "../user-table-row";
-import UserTableHead from "../user-table-head";
-import TableEmptyRows from "../table-empty-rows";
-import UserTableToolbar from "../user-table-toolbar";
-
-import { emptyRows, applyFilter, getComparator } from "../utils";
-import UserAddDialog from "../add/user-add-dialog";
+import PermTableHead from '../perm-table-head';
+import PermTableRow from '../perm-table-row';
+import PermTableToolbar from '../perm-table-toolbar';
+import PermAddDialog from '../perm-add-dialog';
+import TableEmptyRows from '../table-empty-rows';
 
 // ----------------------------------------------------------------------
 
-export default function RolePage() {
-  const [page, setPage] = useState(0);
-
+export default function PermView() {
   // 选中的数据
   const [selected, setSelected] = useState([]);
   // 排序
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("username");
-
-  const [filterName, setFilterName] = useState("");
-
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  //
+  const [order, setOrder] = useState('asc');
+  const [orderBy, setOrderBy] = useState('username');
+  // 查询条件
+  const [pageNum, setPageNum] = useState(0);
+  const [pageSize, setPageSize] = useState(5);
+  // 新增用户弹框
   const [addOpen, setAddOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  // table数据
+  const [tableData, setTableData] = useState({
+    list: [],
+    total: 0
+  });
 
-  const tableRes = {
-    data: [
-      {
-        id: "1",
-        username: "张三",
-        password: "123456",
-        email: "zhangsan@example.com",
-        phone: "13812345678",
-        role: "管理员",
-        isValid: 1,
-        avatarUrl:
-          "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-      },
-      {
-        id: "2",
-        username: "李四",
-        password: "123456",
-        email: "lisi@example.com",
-        phone: "13812345678",
-        role: "普通用户",
-        isValid: 1,
-        avatarUrl:
-          "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-      },
-    ],
-    total: 15,
+  const getTableData = async (username = '') => {
+    try {
+      setLoading(true);
+      const userPageQuery = {
+        pageNum,
+        pageSize,
+        username
+      };
+      const res = await getAllPermListApi(userPageQuery);
+      if (res.success) {
+        setTableData(res.data);
+      } else {
+        setTableData({ list: [], total: 0 });
+      }
+    } catch (error) {
+      console.log(error);
+      setTableData({ list: [], total: 0 });
+    }
+    setLoading(false);
   };
-  const { data: tableData, total } = tableRes;
+
+  useEffect(() => {
+    getTableData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSort = (event, id) => {
-    const isAsc = orderBy === id && order === "asc";
-    if (id !== "") {
-      setOrder(isAsc ? "desc" : "asc");
+    const isAsc = orderBy === id && order === 'asc';
+    if (id !== '') {
+      setOrder(isAsc ? 'desc' : 'asc');
       setOrderBy(id);
     }
   };
   // 全选
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = tableData.map((data) => data.id);
+      const newSelecteds = tableData.list.map((data) => data.pid);
       setSelected(newSelecteds);
       return;
     }
@@ -97,35 +95,19 @@ export default function RolePage() {
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
+      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
     }
     setSelected(newSelected);
   };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+  // 页码改变
+  const handlePageNumChange = (_event, newPage) => {
+    setPageNum(newPage);
   };
-
-  const handleChangeRowsPerPage = (event) => {
-    setPage(0);
-    setRowsPerPage(parseInt(event.target.value, 10));
+  // 每页数量改变
+  const handlePageSizeChange = (event) => {
+    setPageNum(0);
+    setPageSize(parseInt(event.target.value, 10));
   };
-
-  const handleFilterByName = (event) => {
-    setPage(0);
-    setFilterName(event.target.value);
-  };
-
-  const dataFiltered = applyFilter({
-    inputData: users,
-    comparator: getComparator(order, orderBy),
-    filterName,
-  });
-
-  const notFound = !dataFiltered.length && !!filterName;
 
   return (
     <Container>
@@ -143,76 +125,82 @@ export default function RolePage() {
           startIcon={<Iconify icon="eva:plus-fill" />}
           onClick={() => setAddOpen(true)}
         >
-          添加用户
+          添加权限
         </Button>
       </Stack>
-      <UserAddDialog open={addOpen} onClose={() => setAddOpen(false)} />
 
-      <Card>
-        <UserTableToolbar
-          numSelected={selected.length}
-          filterName={filterName}
-          onFilterName={handleFilterByName}
-        />
-
-        <Scrollbar>
-          <TableContainer sx={{ overflow: "unset" }}>
-            <Table sx={{ minWidth: 800 }}>
-              <UserTableHead
-                order={order}
-                orderBy={orderBy}
-                rowCount={total}
-                numSelected={selected.length}
-                onRequestSort={handleSort}
-                onSelectAllClick={handleSelectAllClick}
-                headLabel={[
-                  { id: "username", label: "用户名" },
-                  { id: "password", label: "密码" },
-                  { id: "email", label: "邮箱" },
-                  { id: "phone", label: "电话" },
-                  { id: "role", label: "角色" },
-                  { id: "isValid", label: "状态" },
-                  { id: "" },
-                ]}
-              />
-              <TableBody>
-                {tableData.map((row) => (
-                  <UserTableRow
-                    key={row.id}
-                    username={row.username}
-                    avatarUrl={row.avatarUrl}
-                    password={row.password}
-                    email={row.email}
-                    phone={row.phone}
-                    role={row.role}
-                    isValid={row.isValid}
-                    selected={selected.indexOf(row.id) !== -1}
-                    handleClick={(event) => handleClick(event, row.id)}
-                  />
-                ))}
-
-                <TableEmptyRows
-                  height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, users.length)}
+      {loading ? (
+        <CircularProgress color="success" />
+      ) : (
+        <Card>
+          <PermTableToolbar
+            numSelected={selected.length}
+            handleQuery={(username) => getTableData(username)}
+          />
+          <Scrollbar>
+            <TableContainer sx={{ overflow: 'unset' }}>
+              <Table sx={{ minWidth: 800 }}>
+                <PermTableHead
+                  order={order}
+                  orderBy={orderBy}
+                  rowCount={tableData.total}
+                  numSelected={selected.length}
+                  onRequestSort={handleSort}
+                  onSelectAllClick={handleSelectAllClick}
+                  headLabel={[
+                    { id: 'permissionName', label: '权限名' },
+                    { id: 'desc', label: '描述' },
+                    { id: 'isValid', label: '状态' },
+                    { id: '' }
+                  ]}
                 />
+                <TableBody>
+                  {tableData.list.map((row) => (
+                    <PermTableRow
+                      key={row.uid}
+                      permissionName={row.permissionName}
+                      desc={row.desc}
+                      isValid={row.isValid}
+                      selected={selected.indexOf(row.pid) !== -1}
+                      handleClick={(event) => handleClick(event, row.pid)}
+                    />
+                  ))}
 
-                {notFound && <TableNoData query={filterName} />}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Scrollbar>
+                  <TableEmptyRows
+                    height={50}
+                    emptyRows={emptyRows(pageNum, pageSize, tableData.total)}
+                  />
 
-        <TablePagination
-          page={page}
-          component="div"
-          labelRowsPerPage="每页行数"
-          count={total}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          rowsPerPageOptions={[5, 10, 25]}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Card>
+                  {tableData.total === 0 && (
+                    <Typography
+                      variant="h6"
+                      paragraph
+                    >
+                      没有找到
+                    </Typography>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Scrollbar>
+
+          <TablePagination
+            page={pageNum}
+            component="div"
+            labelRowsPerPage="每页行数"
+            count={tableData.total}
+            rowsPerPage={pageSize}
+            onPageChange={handlePageNumChange}
+            rowsPerPageOptions={[5, 10, 25]}
+            onRowsPerPageChange={handlePageSizeChange}
+          />
+        </Card>
+      )}
+
+      <PermAddDialog
+        open={addOpen}
+        onClose={() => setAddOpen(false)}
+      />
     </Container>
   );
 }

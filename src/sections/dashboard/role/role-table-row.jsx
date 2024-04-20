@@ -2,7 +2,6 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
 import Popover from '@mui/material/Popover';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
@@ -16,17 +15,7 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function UserTableRow({
-  avatarUrl,
-  username,
-  password,
-  email,
-  phone,
-  role,
-  isVaild,
-  selected,
-  handleClick,
-}) {
+export default function RoleTableRow({ roleName, roleRemark, desc, isValid,  selected, handleClick }) {
   const [open, setOpen] = useState(null);
 
   const handleOpenMenu = (event) => {
@@ -39,26 +28,43 @@ export default function UserTableRow({
 
   return (
     <>
-      <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
+      <TableRow
+        hover
+        tabIndex={-1}
+        role="checkbox"
+        selected={selected}
+      >
         <TableCell padding="checkbox">
-          <Checkbox disableRipple checked={selected} onChange={handleClick} />
+          <Checkbox
+            disableRipple
+            checked={selected}
+            onChange={handleClick}
+          />
         </TableCell>
 
-        <TableCell component="th" scope="row" padding="none">
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={username} src={avatarUrl} />
-            <Typography variant="subtitle2" noWrap>
-              {username}
+        <TableCell
+          component="th"
+          scope="row"
+          padding="none"
+        >
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={2}
+          >
+            <Typography
+              variant="subtitle2"
+              noWrap
+            >
+              {roleName}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{password}</TableCell>
-        <TableCell>{email}</TableCell>
-        <TableCell>{phone}</TableCell>
-        <TableCell>{role}</TableCell>
+        <TableCell>{roleRemark}</TableCell>
+        <TableCell>{desc}</TableCell>
         <TableCell>
-          <Label color={(isVaild === 0 && 'error') || 'success'}>{isVaild === 0 ? '禁用' : '正常'}</Label>
+          <Label color={(isValid === 0 && 'error') || 'success'}>{isValid === 0 ? '禁用' : '正常'}</Label>
         </TableCell>
 
         <TableCell align="right">
@@ -77,12 +83,21 @@ export default function UserTableRow({
         sx={{ width: 140 }}
       >
         <MenuItem onClick={handleCloseMenu}>
-          <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
+          <Iconify
+            icon="eva:edit-fill"
+            sx={{ mr: 2 }}
+          />
           编辑
         </MenuItem>
 
-        <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
-          <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
+        <MenuItem
+          onClick={handleCloseMenu}
+          sx={{ color: 'error.main' }}
+        >
+          <Iconify
+            icon="eva:trash-2-outline"
+            sx={{ mr: 2 }}
+          />
           删除
         </MenuItem>
       </Popover>
@@ -90,14 +105,11 @@ export default function UserTableRow({
   );
 }
 
-UserTableRow.propTypes = {
-  avatarUrl: PropTypes.string,
-  username: PropTypes.string,
-  password: PropTypes.string,
-  email: PropTypes.string,
-  phone: PropTypes.string,
-  role: PropTypes.string,
-  isVaild: PropTypes.number,
+RoleTableRow.propTypes = {
+  roleName: PropTypes.string,
+  roleRemark: PropTypes.string,
+  desc: PropTypes.string,
+  isValid: PropTypes.number,
   selected: PropTypes.bool,
-  handleClick: PropTypes.func,
+  handleClick: PropTypes.func
 };

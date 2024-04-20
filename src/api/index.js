@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getToken } from 'src/utils/auth'
 
 axios.defaults.baseURL = '/api'
 axios.defaults.timeout = 30000
@@ -6,9 +7,9 @@ axios.defaults.timeout = 30000
 // 请求拦截
 axios.interceptors.request.use(
   config => {
-    if (config.url !== '/login') {
-      // config.headers['Authorization'] = `Bearer ${getToken()}` // 携带token
-      config.headers['Content-Type'] = 'application/json'
+    if (config.url !== '/login' || config.url !== '/register') {
+      config.headers.Authorization = `Bearer ${getToken()}`; // 携带token
+      config.headers['Content-Type'] = 'application/json';
     }
     return config
   },
@@ -19,7 +20,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     const { data } = response
-    console.log('请求成功,请求结果为===>',data);
+    // console.log('请求成功,请求结果为===>',data);
     return Promise.resolve(data)
   },
   err => {
@@ -28,7 +29,8 @@ axios.interceptors.response.use(
       // 显示提示信息
       // 清除token
       // 跳转到登录页面
-      // window.location.href = '/login'
+      window.alert('登录已过期,请重新登录')
+      window.location.href = '/login'
     }
     // 错误处理
     return Promise.reject(err)

@@ -40,7 +40,7 @@ export default function UserAddDialog({ open, onClose }) {
 
   return (
     <Dialog fullWidth open={open} onClose={onClose}>
-      <DialogTitle>添加用户</DialogTitle>
+      <DialogTitle>添加角色</DialogTitle>
       <DialogContent>
         <TextField
           margin="dense"
