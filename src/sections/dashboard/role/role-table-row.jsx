@@ -9,6 +9,11 @@ import MenuItem from '@mui/material/MenuItem';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
@@ -17,6 +22,7 @@ import Iconify from 'src/components/iconify';
 
 export default function RoleTableRow({ roleName, roleRemark, desc, isValid, selected, handleClick, onEdit, onDelete }) {
   const [open, setOpen] = useState(null);
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -24,6 +30,20 @@ export default function RoleTableRow({ roleName, roleRemark, desc, isValid, sele
 
   const handleCloseMenu = () => {
     setOpen(null);
+  };
+
+  const handleConfirmDeleteOpen = () => {
+    handleCloseMenu();
+    setConfirmDeleteOpen(true);
+  };
+
+  const handleConfirmDeleteClose = () => {
+    setConfirmDeleteOpen(false);
+  };
+
+  const handleDelete = () => {
+    onDelete();
+    handleConfirmDeleteClose();
   };
 
   return (
@@ -41,7 +61,6 @@ export default function RoleTableRow({ roleName, roleRemark, desc, isValid, sele
             onChange={handleClick}
           />
         </TableCell>
-
         <TableCell
           component="th"
           scope="row"
@@ -60,13 +79,11 @@ export default function RoleTableRow({ roleName, roleRemark, desc, isValid, sele
             </Typography>
           </Stack>
         </TableCell>
-
         <TableCell>{roleRemark}</TableCell>
         <TableCell>{desc}</TableCell>
         <TableCell>
           <Label color={(isValid === 0 && 'error') || 'success'}>{isValid === 0 ? '禁用' : '正常'}</Label>
         </TableCell>
-
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
             <Iconify icon="eva:more-vertical-fill" />
@@ -96,10 +113,7 @@ export default function RoleTableRow({ roleName, roleRemark, desc, isValid, sele
         </MenuItem>
 
         <MenuItem
-          onClick={() => {
-            onDelete();
-            handleCloseMenu();
-          }}
+          onClick={handleConfirmDeleteOpen}
           sx={{ color: 'error.main' }}
         >
           <Iconify
@@ -109,6 +123,36 @@ export default function RoleTableRow({ roleName, roleRemark, desc, isValid, sele
           删除
         </MenuItem>
       </Popover>
+
+      <Dialog
+        open={confirmDeleteOpen}
+        onClose={handleConfirmDeleteClose}
+      >
+        <DialogTitle>确认删除</DialogTitle>
+        <DialogContent>
+          <Typography
+            variant="body1"
+            sx={{ mb: 2 }}
+          >
+            确定要删除 {roleName} 这个角色吗？
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleConfirmDeleteClose}
+            color="info"
+          >
+            取消
+          </Button>
+          <Button
+            onClick={handleDelete}
+            variant="outlined"
+            color="error"
+          >
+            删除
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

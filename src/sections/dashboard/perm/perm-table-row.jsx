@@ -9,6 +9,11 @@ import MenuItem from '@mui/material/MenuItem';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
@@ -17,6 +22,7 @@ import Iconify from 'src/components/iconify';
 
 export default function RoleTableRow({ permissionName, desc, isValid, selected, handleClick, onEdit, onDelete }) {
   const [open, setOpen] = useState(null);
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
@@ -24,6 +30,20 @@ export default function RoleTableRow({ permissionName, desc, isValid, selected, 
 
   const handleCloseMenu = () => {
     setOpen(null);
+  };
+
+  const handleConfirmDeleteOpen = () => {
+    handleCloseMenu();
+    setConfirmDeleteOpen(true);
+  };
+
+  const handleConfirmDeleteClose = () => {
+    setConfirmDeleteOpen(false);
+  };
+
+  const handleDelete = () => {
+    onDelete();
+    handleConfirmDeleteClose();
   };
 
   return (
@@ -92,10 +112,7 @@ export default function RoleTableRow({ permissionName, desc, isValid, selected, 
         </MenuItem>
 
         <MenuItem
-          onClick={() => {
-            onDelete();
-            handleCloseMenu();
-          }}
+          onClick={handleConfirmDeleteOpen}
           sx={{ color: 'error.main' }}
         >
           <Iconify
@@ -105,6 +122,36 @@ export default function RoleTableRow({ permissionName, desc, isValid, selected, 
           删除
         </MenuItem>
       </Popover>
+
+      <Dialog
+        open={confirmDeleteOpen}
+        onClose={handleConfirmDeleteClose}
+      >
+        <DialogTitle>确认删除</DialogTitle>
+        <DialogContent>
+          <Typography
+            variant="body1"
+            sx={{ mb: 2 }}
+          >
+            确定要删除这条记录吗？
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleConfirmDeleteClose}
+            color="info"
+          >
+            取消
+          </Button>
+          <Button
+            onClick={handleDelete}
+            variant="outlined"
+            color="error"
+          >
+            删除
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
