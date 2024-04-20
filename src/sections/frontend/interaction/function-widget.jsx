@@ -5,18 +5,19 @@ import { Fab, Stack } from "@mui/material";
 
 // ----------------------------------------------------------------------
 
-const StyledRoot = styled("div")(({ theme }) => ({
+const StyledRoot = styled('div')(({ theme }) => ({
   zIndex: 999,
   right: 10,
-  display: "flex",
-  cursor: "pointer",
-  position: "fixed",
-  alignItems: "center",
-  top: theme.spacing(50),
+  top: '50%',
+  transform: 'translateY(-50%)',
+  display: 'flex',
+  cursor: 'pointer',
+  position: 'fixed',
+  alignItems: 'center',
   height: theme.spacing(5),
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
-  paddingTop: theme.spacing(1.25),
+  paddingTop: theme.spacing(1.25)
 }));
 
 // ----------------------------------------------------------------------

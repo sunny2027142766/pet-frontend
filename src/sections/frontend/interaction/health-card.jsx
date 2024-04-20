@@ -6,17 +6,18 @@ import Iconify from "src/components/iconify";
 
 // ----------------------------------------------------------------------
 
-const StyledRoot = styled("div")(({ theme }) => ({
+const StyledRoot = styled('div')(({ theme }) => ({
   zIndex: 999,
   left: 10,
-  display: "flex",
-  position: "fixed",
-  alignItems: "center",
-  top: theme.spacing(50),
+  display: 'flex',
+  position: 'fixed',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  alignItems: 'center',
   height: theme.spacing(5),
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
-  paddingTop: theme.spacing(1.25),
+  paddingTop: theme.spacing(1.25)
 }));
 
 // ----------------------------------------------------------------------
