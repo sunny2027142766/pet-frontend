@@ -42,7 +42,7 @@ export default function RoleTableToolbar({ numSelected, handleQuery }) {
               console.log(event.target.value);
               setUsername(event.target.value);
             }}
-            placeholder="请输入角色"
+            placeholder="请输入权限名"
             startAdornment={
               <InputAdornment position="start">
                 <Iconify

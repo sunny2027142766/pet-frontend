@@ -109,6 +109,19 @@ export default function RoleView() {
     setPageSize(parseInt(event.target.value, 10));
   };
 
+  const [editData, setEditData] = useState(undefined);
+  // 编辑
+  const handleEdit = (row) => {
+    console.log('点击编辑===>', row);
+    setEditData(row);
+    // 显示弹框
+    setAddOpen(true);
+  };
+  // 删除
+  const handleDelete = (id) => {
+    console.log('点击删除===>', id);
+  };
+
   return (
     <Container>
       <Stack
@@ -165,6 +178,8 @@ export default function RoleView() {
                       isValid={row.isValid}
                       selected={selected.indexOf(row.rid) !== -1}
                       handleClick={(event) => handleClick(event, row.rid)}
+                      onEdit={() => handleEdit(row)}
+                      onDelete={() => handleDelete(row.rid)}
                     />
                   ))}
 
@@ -201,7 +216,11 @@ export default function RoleView() {
 
       <RoleAddDialog
         open={addOpen}
-        onClose={() => setAddOpen(false)}
+        onClose={() => {
+          setAddOpen(false);
+          setEditData(undefined);
+        }}
+        initialData={editData}
       />
     </Container>
   );

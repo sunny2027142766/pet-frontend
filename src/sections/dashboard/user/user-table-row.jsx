@@ -26,6 +26,8 @@ export default function UserTableRow({
   isVaild,
   selected,
   handleClick,
+  onEdit,
+  onDelete
 }) {
   const [open, setOpen] = useState(null);
 
@@ -39,15 +41,38 @@ export default function UserTableRow({
 
   return (
     <>
-      <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
+      <TableRow
+        hover
+        tabIndex={-1}
+        role="checkbox"
+        selected={selected}
+      >
         <TableCell padding="checkbox">
-          <Checkbox disableRipple checked={selected} onChange={handleClick} />
+          <Checkbox
+            disableRipple
+            checked={selected}
+            onChange={handleClick}
+          />
         </TableCell>
 
-        <TableCell component="th" scope="row" padding="none">
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={username} src={avatarUrl} />
-            <Typography variant="subtitle2" noWrap>
+        <TableCell
+          component="th"
+          scope="row"
+          padding="none"
+        >
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={2}
+          >
+            <Avatar
+              alt={username}
+              src={avatarUrl}
+            />
+            <Typography
+              variant="subtitle2"
+              noWrap
+            >
               {username}
             </Typography>
           </Stack>
@@ -76,13 +101,30 @@ export default function UserTableRow({
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{ width: 140 }}
       >
-        <MenuItem onClick={handleCloseMenu}>
-          <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
+        <MenuItem
+          onClick={() => {
+            onEdit();
+            handleCloseMenu();
+          }}
+        >
+          <Iconify
+            icon="eva:edit-fill"
+            sx={{ mr: 2 }}
+          />
           编辑
         </MenuItem>
 
-        <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
-          <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
+        <MenuItem
+          onClick={() => {
+            onDelete();
+            handleCloseMenu();
+          }}
+          sx={{ color: 'error.main' }}
+        >
+          <Iconify
+            icon="eva:trash-2-outline"
+            sx={{ mr: 2 }}
+          />
           删除
         </MenuItem>
       </Popover>
@@ -100,4 +142,6 @@ UserTableRow.propTypes = {
   isVaild: PropTypes.number,
   selected: PropTypes.bool,
   handleClick: PropTypes.func,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
 };

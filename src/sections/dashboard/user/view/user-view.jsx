@@ -19,7 +19,7 @@ import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows } from '../utils';
-import UserAddDialog from '../add/user-add-dialog';
+import UserAddDialog from '../user-add-dialog';
 
 // ----------------------------------------------------------------------
 
@@ -108,6 +108,19 @@ export default function UserView() {
     setPageSize(parseInt(event.target.value, 10));
   };
 
+  const [editData, setEditData] = useState(undefined)
+  // 编辑
+  const handleEdit = (row) => {
+    console.log('点击编辑===>', row);
+    setEditData(row)
+    // 显示弹框
+    setAddOpen(true);
+  };
+  // 删除
+  const handleDelete = (id) => {
+    console.log('点击删除===>', id);
+  };
+
   return (
     <Container>
       <Stack
@@ -169,6 +182,8 @@ export default function UserView() {
                       isValid={row.isValid}
                       selected={selected.indexOf(row.uid) !== -1}
                       handleClick={(event) => handleClick(event, row.uid)}
+                      onEdit={() => handleEdit(row)}
+                      onDelete={() => handleDelete(row.uid)}
                     />
                   ))}
 
@@ -205,7 +220,11 @@ export default function UserView() {
 
       <UserAddDialog
         open={addOpen}
-        onClose={() => setAddOpen(false)}
+        onClose={() => {
+          setAddOpen(false);
+          setEditData(undefined);
+        }}
+        initialData={editData}
       />
     </Container>
   );

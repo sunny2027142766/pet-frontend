@@ -109,6 +109,19 @@ export default function PermView() {
     setPageSize(parseInt(event.target.value, 10));
   };
 
+  const [editData, setEditData] = useState(undefined);
+  // 编辑
+  const handleEdit = (row) => {
+    console.log('点击编辑===>', row);
+    setEditData(row);
+    // 显示弹框
+    setAddOpen(true);
+  };
+  // 删除
+  const handleDelete = (id) => {
+    console.log('点击删除===>', id);
+  };
+
   return (
     <Container>
       <Stack
@@ -163,6 +176,8 @@ export default function PermView() {
                       isValid={row.isValid}
                       selected={selected.indexOf(row.pid) !== -1}
                       handleClick={(event) => handleClick(event, row.pid)}
+                      onEdit={() => handleEdit(row)}
+                      onDelete={() => handleDelete(row.pid)}
                     />
                   ))}
 
@@ -199,7 +214,11 @@ export default function PermView() {
 
       <PermAddDialog
         open={addOpen}
-        onClose={() => setAddOpen(false)}
+        onClose={() => {
+          setAddOpen(false);
+          setEditData(undefined);
+        }}
+        initialData={editData}
       />
     </Container>
   );

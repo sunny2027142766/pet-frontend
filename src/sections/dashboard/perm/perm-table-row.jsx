@@ -15,7 +15,7 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function RoleTableRow({ permissionName, desc, isValid, selected, handleClick }) {
+export default function RoleTableRow({ permissionName, desc, isValid, selected, handleClick, onEdit, onDelete }) {
   const [open, setOpen] = useState(null);
 
   const handleOpenMenu = (event) => {
@@ -78,7 +78,12 @@ export default function RoleTableRow({ permissionName, desc, isValid, selected, 
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         sx={{ width: 140 }}
       >
-        <MenuItem onClick={handleCloseMenu}>
+        <MenuItem
+          onClick={() => {
+            onEdit();
+            handleCloseMenu();
+          }}
+        >
           <Iconify
             icon="eva:edit-fill"
             sx={{ mr: 2 }}
@@ -87,7 +92,10 @@ export default function RoleTableRow({ permissionName, desc, isValid, selected, 
         </MenuItem>
 
         <MenuItem
-          onClick={handleCloseMenu}
+          onClick={() => {
+            onDelete();
+            handleCloseMenu();
+          }}
           sx={{ color: 'error.main' }}
         >
           <Iconify
@@ -106,5 +114,7 @@ RoleTableRow.propTypes = {
   desc: PropTypes.string,
   isValid: PropTypes.number,
   selected: PropTypes.bool,
-  handleClick: PropTypes.func
+  handleClick: PropTypes.func,
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func
 };

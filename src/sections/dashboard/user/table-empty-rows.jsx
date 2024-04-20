@@ -16,7 +16,7 @@ export default function TableEmptyRows({ emptyRows, height }) {
         ...(height && {
           height: height * emptyRows,
         }),
-      }}
+      }}s
     >
       <TableCell colSpan={9} />
     </TableRow>

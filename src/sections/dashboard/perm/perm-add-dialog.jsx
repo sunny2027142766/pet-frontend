@@ -1,114 +1,162 @@
-import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   Box,
   Dialog,
   Button,
+  Select,
   MenuItem,
   TextField,
+  InputLabel,
+  FormControl,
   DialogTitle,
   DialogContent,
-  DialogActions,
-} from "@mui/material";
+  DialogActions
+} from '@mui/material';
 
-const roles = [
-  {
-    value: 0,
-    label: "普通用户",
-  },
-  {
-    value: 1,
-    label: "管理员",
-  },
+const menuOptions = [
+  { id: 1, name: 'Dashboard' },
+  { id: 2, name: 'Users' },
+  { id: 3, name: 'Settings' }
+  // Add more menu options as needed
 ];
 
-export default function UserAddDialog({ open, onClose }) {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default function PermAddDialog({ open, onClose, initialData }) {
+  const [pid, setPid] = useState('');
+  const [permissionName, setPermissionName] = useState('');
+  const [permissionCode, setPermissionCode] = useState('');
+  const [description, setDescription] = useState('');
+  const [selectedMenuOptions, setSelectedMenuOptions] = useState([]);
   const [canSend, setCanSend] = useState(false);
 
   useEffect(() => {
-    // 检查所有字段是否已填写
-    setCanSend(username.trim() && email.trim() && password.trim());
-  }, [username, email, password]); // 当这些依赖项变化时重新运行
+    // Check if all fields are filled
+    setCanSend(permissionName.trim() && permissionCode.trim() && description.trim() && selectedMenuOptions.length > 0);
+  }, [permissionName, permissionCode, description, selectedMenuOptions]);
+
+  useEffect(() => {
+    if (open) {
+      // fetchPerms();
+      if (initialData) {
+        setPid(initialData.pid || '');
+        setPermissionName(initialData.permissionName || '');
+        setPermissionCode(initialData.code || '');
+        setDescription(initialData.desc || '');
+        setSelectedMenuOptions(initialData.menus || []);
+      }
+    } else {
+      setPid(undefined);
+      setPermissionName('');
+      setPermissionCode('');
+      setDescription('');
+      setSelectedMenuOptions([]);
+    }
+  }, [open, initialData]);
 
   const handleAdd = () => {
-    console.log("表单数据:", { username, email, password });
+    console.log('添加信息:', { permissionName, permissionCode, description, selectedMenuOptions });
+    onClose();
+  };
+
+  const handleMenuOptionsChange = (event) => {
+    setSelectedMenuOptions(event.target.value);
+  };
+
+  const handleUpdate = () => {
+    console.log('编辑信息:', { pid, permissionName, permissionCode, description, selectedMenuOptions });
     onClose();
   };
 
   return (
-    <Dialog fullWidth open={open} onClose={onClose}>
-      <DialogTitle>添加角色</DialogTitle>
+    <Dialog
+      fullWidth
+      open={open}
+      onClose={onClose}
+    >
+      <DialogTitle>添加权限</DialogTitle>
       <DialogContent>
         <TextField
           margin="dense"
-          id="username"
-          label="用户名"
+          id="permission-name"
+          label="权限名"
           type="text"
           color="secondary"
           fullWidth
           variant="outlined"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={permissionName}
+          onChange={(e) => setPermissionName(e.target.value)}
         />
         <TextField
           margin="dense"
-          id="email"
-          label="邮箱"
+          id="permission-code"
+          label="权限代码"
+          type="text"
           color="secondary"
           fullWidth
           variant="outlined"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={permissionCode}
+          onChange={(e) => setPermissionCode(e.target.value)}
         />
-        <TextField
-          margin="dense"
-          id="password"
-          label="密码"
-          color="secondary"
+        <FormControl
           fullWidth
+          margin="dense"
           variant="outlined"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <TextField
-          margin="dense"
-          fullWidth
-          id="role"
-          select
           color="secondary"
-          label="角色"
         >
-          {roles.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <Box sx={{ color: "red", fontSize: "12px", p: 1 }}>
-          新增用户只是建立一条数据,后续还要用户自己设置个人信息
-        </Box>
+          <InputLabel id="menu-options-label">关联菜单</InputLabel>
+          <Select
+            labelId="menu-options-label"
+            id="menu-options"
+            multiple
+            value={selectedMenuOptions}
+            onChange={handleMenuOptionsChange}
+            label="关联菜单"
+          >
+            {menuOptions.map((option) => (
+              <MenuItem
+                key={option.id}
+                value={option.id}
+              >
+                {option.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <TextField
+          margin="dense"
+          id="description"
+          label="描述"
+          type="text"
+          color="secondary"
+          fullWidth
+          variant="outlined"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <Box sx={{ color: 'red', fontSize: '12px', p: 1 }}>注意：权限一旦创建后，可能需要进行更细致的配置。</Box>
       </DialogContent>
       <DialogActions>
-        <Button color="info" onClick={onClose}>
+        <Button
+          color="info"
+          onClick={onClose}
+        >
           取消
         </Button>
         <Button
           disabled={!canSend}
           variant="outlined"
           color="secondary"
-          onClick={handleAdd}
+          onClick={initialData ? handleUpdate : handleAdd}
         >
-          添加
+          {initialData ? '保存' : '添加'}
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
 
-UserAddDialog.propTypes = {
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
+PermAddDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  initialData: PropTypes.object
 };
