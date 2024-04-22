@@ -1,38 +1,38 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from "react";
+import PropTypes from "prop-types";
 
-import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
-import Popover from '@mui/material/Popover';
-import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import MenuItem from '@mui/material/MenuItem';
-import TableCell from '@mui/material/TableCell';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
+import Stack from "@mui/material/Stack";
+import Avatar from "@mui/material/Avatar";
+import Popover from "@mui/material/Popover";
+import TableRow from "@mui/material/TableRow";
+import Checkbox from "@mui/material/Checkbox";
+import MenuItem from "@mui/material/MenuItem";
+import TableCell from "@mui/material/TableCell";
+import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
 
-import Label from 'src/components/label';
-import Iconify from 'src/components/iconify';
+import Label from "src/components/label";
+import Iconify from "src/components/iconify";
 
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({
-  avatarUrl,
+  avatar,
   username,
   password,
   email,
   phone,
-  role,
-  isVaild,
+  status,
+  roleNames,
   selected,
   handleClick,
   onEdit,
-  onDelete
+  onDelete,
 }) {
   const [open, setOpen] = useState(null);
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
@@ -61,37 +61,14 @@ export default function UserTableRow({
 
   return (
     <>
-      <TableRow
-        hover
-        tabIndex={-1}
-        role="checkbox"
-        selected={selected}
-      >
+      <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
         <TableCell padding="checkbox">
-          <Checkbox
-            disableRipple
-            checked={selected}
-            onChange={handleClick}
-          />
+          <Checkbox disableRipple checked={selected} onChange={handleClick} />
         </TableCell>
-        <TableCell
-          component="th"
-          scope="row"
-          padding="none"
-        >
-          <Stack
-            direction="row"
-            alignItems="center"
-            spacing={2}
-          >
-            <Avatar
-              alt={username}
-              src={avatarUrl}
-            />
-            <Typography
-              variant="subtitle2"
-              noWrap
-            >
+        <TableCell component="th" scope="row" padding="none">
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Avatar alt={username} src={avatar} />
+            <Typography variant="subtitle2" noWrap>
               {username}
             </Typography>
           </Stack>
@@ -99,9 +76,11 @@ export default function UserTableRow({
         <TableCell>{password}</TableCell>
         <TableCell>{email}</TableCell>
         <TableCell>{phone}</TableCell>
-        <TableCell>{role}</TableCell>
+        <TableCell>{roleNames}</TableCell>
         <TableCell>
-          <Label color={(isVaild === 0 && 'error') || 'success'}>{isVaild === 0 ? '禁用' : '正常'}</Label>
+          <Label color={(status === 0 && "error") || "success"}>
+            {status === 0 ? "禁用" : "正常"}
+          </Label>
         </TableCell>
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
@@ -114,8 +93,8 @@ export default function UserTableRow({
         open={!!open}
         anchorEl={open}
         onClose={handleCloseMenu}
-        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        anchorOrigin={{ vertical: "top", horizontal: "left" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
         sx={{ width: 140 }}
       >
         <MenuItem
@@ -124,50 +103,31 @@ export default function UserTableRow({
             handleCloseMenu();
           }}
         >
-          <Iconify
-            icon="eva:edit-fill"
-            sx={{ mr: 2 }}
-          />
+          <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
           编辑
         </MenuItem>
 
         <MenuItem
           onClick={handleConfirmDeleteOpen}
-          sx={{ color: 'error.main' }}
+          sx={{ color: "error.main" }}
         >
-          <Iconify
-            icon="eva:trash-2-outline"
-            sx={{ mr: 2 }}
-          />
+          <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
           删除
         </MenuItem>
       </Popover>
 
-      <Dialog
-        open={confirmDeleteOpen}
-        onClose={handleConfirmDeleteClose}
-      >
+      <Dialog open={confirmDeleteOpen} onClose={handleConfirmDeleteClose}>
         <DialogTitle>确认删除</DialogTitle>
         <DialogContent>
-          <Typography
-            variant="body1"
-            sx={{ mb: 2 }}
-          >
+          <Typography variant="body1" sx={{ mb: 2 }}>
             确定要删除 {username} 这个用户吗？
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={handleConfirmDeleteClose}
-            color="info"
-          >
+          <Button onClick={handleConfirmDeleteClose} color="info">
             取消
           </Button>
-          <Button
-            onClick={handleDelete}
-            variant="outlined"
-            color="error"
-          >
+          <Button onClick={handleDelete} variant="outlined" color="error">
             删除
           </Button>
         </DialogActions>
@@ -177,15 +137,15 @@ export default function UserTableRow({
 }
 
 UserTableRow.propTypes = {
-  avatarUrl: PropTypes.string,
+  avatar: PropTypes.string,
   username: PropTypes.string,
   password: PropTypes.string,
   email: PropTypes.string,
   phone: PropTypes.string,
-  role: PropTypes.string,
-  isVaild: PropTypes.number,
+  status: PropTypes.number,
+  roleNames: PropTypes.string,
   selected: PropTypes.bool,
   handleClick: PropTypes.func,
   onEdit: PropTypes.func,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
 };

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import {
   Card,
   Stack,
@@ -9,17 +9,17 @@ import {
   Typography,
   TableContainer,
   TablePagination,
-  CircularProgress
-} from '@mui/material';
-import Iconify from 'src/components/iconify';
-import Scrollbar from 'src/components/scrollbar';
-import { getAllUserListApi } from 'src/api/modules/user';
-import UserTableRow from '../user-table-row';
-import UserTableHead from '../user-table-head';
-import TableEmptyRows from '../table-empty-rows';
-import UserTableToolbar from '../user-table-toolbar';
-import { emptyRows } from '../utils';
-import UserAddDialog from '../user-add-dialog';
+  CircularProgress,
+} from "@mui/material";
+import Iconify from "src/components/iconify";
+import Scrollbar from "src/components/scrollbar";
+import { getAllUserListApi } from "src/api/modules/user";
+import UserTableRow from "../user-table-row";
+import UserTableHead from "../user-table-head";
+import TableEmptyRows from "../table-empty-rows";
+import UserTableToolbar from "../user-table-toolbar";
+import { emptyRows } from "../utils";
+import UserAddDialog from "../user-add-dialog";
 
 // ----------------------------------------------------------------------
 
@@ -27,8 +27,8 @@ export default function UserView() {
   // 选中的数据
   const [selected, setSelected] = useState([]);
   // 排序
-  const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('username');
+  const [order, setOrder] = useState("asc");
+  const [orderBy, setOrderBy] = useState("username");
   // 查询条件
   const [pageNum, setPageNum] = useState(0);
   const [pageSize, setPageSize] = useState(5);
@@ -38,16 +38,16 @@ export default function UserView() {
   // table数据
   const [tableData, setTableData] = useState({
     list: [],
-    total: 0
+    total: 0,
   });
 
-  const getTableData = async (username = '') => {
+  const getTableData = async (keywords = "") => {
     try {
       setLoading(true);
       const userPageQuery = {
         pageNum,
         pageSize,
-        username
+        keywords,
       };
       const res = await getAllUserListApi(userPageQuery);
       if (res.success) {
@@ -68,9 +68,9 @@ export default function UserView() {
   }, []);
 
   const handleSort = (event, id) => {
-    const isAsc = orderBy === id && order === 'asc';
-    if (id !== '') {
-      setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === id && order === "asc";
+    if (id !== "") {
+      setOrder(isAsc ? "desc" : "asc");
       setOrderBy(id);
     }
   };
@@ -94,7 +94,10 @@ export default function UserView() {
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
+      newSelected = newSelected.concat(
+        selected.slice(0, selectedIndex),
+        selected.slice(selectedIndex + 1)
+      );
     }
     setSelected(newSelected);
   };
@@ -108,17 +111,17 @@ export default function UserView() {
     setPageSize(parseInt(event.target.value, 10));
   };
 
-  const [editData, setEditData] = useState(undefined)
+  const [editData, setEditData] = useState(undefined);
   // 编辑
   const handleEdit = (row) => {
-    console.log('点击编辑===>', row);
-    setEditData(row)
+    console.log("点击编辑===>", row);
+    setEditData(row);
     // 显示弹框
     setAddOpen(true);
   };
   // 删除
   const handleDelete = (id) => {
-    console.log('点击删除===>', id);
+    console.log("点击删除===>", id);
   };
 
   return (
@@ -147,11 +150,11 @@ export default function UserView() {
         <Card>
           <UserTableToolbar
             numSelected={selected.length}
-            handleQuery={(username) => getTableData(username)}
+            handleQuery={(keywords) => getTableData(keywords)}
           />
           <Scrollbar>
-            <TableContainer sx={{ overflow: 'unset' }}>
-              <Table sx={{ minWidth: 800 }}>
+            <TableContainer sx={{ overflow: "unset" }}>
+              <Table sx={{ minWidth: 1000 }}>
                 <UserTableHead
                   order={order}
                   orderBy={orderBy}
@@ -160,13 +163,13 @@ export default function UserView() {
                   onRequestSort={handleSort}
                   onSelectAllClick={handleSelectAllClick}
                   headLabel={[
-                    { id: 'username', label: '用户名' },
-                    { id: 'password', label: '密码' },
-                    { id: 'email', label: '邮箱' },
-                    { id: 'phone', label: '电话' },
-                    { id: 'role', label: '角色' },
-                    { id: 'isValid', label: '状态' },
-                    { id: '' }
+                    { id: "username", label: "用户名" },
+                    { id: "password", label: "密码" },
+                    { id: "email", label: "邮箱" },
+                    { id: "phone", label: "电话" },
+                    { id: "roleNames", label: "角色" },
+                    { id: "isValid", label: "状态" },
+                    { id: "" },
                   ]}
                 />
                 <TableBody>
@@ -174,12 +177,12 @@ export default function UserView() {
                     <UserTableRow
                       key={row.uid}
                       username={row.username}
-                      avatarUrl={row.avatarUrl}
+                      avatar={row.avatar}
                       password={row.password}
                       email={row.email}
                       phone={row.phone}
-                      role={row.role}
-                      isValid={row.isValid}
+                      roleNames={row.roleNames}
+                      status={row.status}
                       selected={selected.indexOf(row.uid) !== -1}
                       handleClick={(event) => handleClick(event, row.uid)}
                       onEdit={() => handleEdit(row)}
@@ -193,10 +196,7 @@ export default function UserView() {
                   />
 
                   {tableData.total === 0 && (
-                    <Typography
-                      variant="h6"
-                      paragraph
-                    >
+                    <Typography variant="h6" paragraph>
                       没有找到
                     </Typography>
                   )}

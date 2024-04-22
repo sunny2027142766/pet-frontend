@@ -38,7 +38,7 @@ export default function AccountPopover() {
   const router = useRouter();
 
   const { userInfo: account } = useSelector((state) => state.userInfo);
-
+  console.log("用户信息:===>", account);
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };

@@ -85,7 +85,8 @@ export default function LoginView() {
             payload: userInfoRes.data,
           });
           setTimeout(() => {
-            router.push("/front/home");
+            // router.push("/front/home");
+            router.push("/");
           }, 1000);
         }
       } else {
