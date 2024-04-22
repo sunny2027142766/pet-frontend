@@ -17,9 +17,11 @@ import { bgGradient } from "src/theme/css";
 import { useRouter } from "src/routes/hooks";
 import Iconify from "src/components/iconify";
 import { loginApi } from "src/api/modules/auth";
+import { getUserInfoApi } from "src/api/modules/user";
 import { validateEmail } from "src/utils/vaildate";
 import { setItem } from "src/utils/local-storage";
 import { alpha, useTheme } from "@mui/material/styles";
+import { useDispatch } from "react-redux";
 
 // ----------------------------------------------------------------------
 
@@ -27,6 +29,7 @@ export default function LoginView() {
   const theme = useTheme();
 
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -74,9 +77,17 @@ export default function LoginView() {
         const { accessToken, refreshToken } = res.data;
         setItem("accessToken", accessToken);
         setItem("refreshToken", refreshToken);
-        setTimeout(() => {
-          router.push("/front/home");
-        }, 1000);
+        const userInfoRes = await getUserInfoApi();
+        console.log("用户信息请求结果===>", userInfoRes);
+        if (userInfoRes.code === 200) {
+          dispatch({
+            type: "userInfo/setUserInfo",
+            payload: userInfoRes.data,
+          });
+          setTimeout(() => {
+            router.push("/front/home");
+          }, 1000);
+        }
       } else {
         setTip(res.msg);
         setTipOpen(true);

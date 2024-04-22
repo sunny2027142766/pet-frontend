@@ -11,8 +11,8 @@ import IconButton from "@mui/material/IconButton";
 
 import { useRouter } from "src/routes/hooks";
 
-import { account } from "src/_mock/account";
 import { clearStorage } from "src/utils/local-storage";
+import { useSelector } from "react-redux";
 
 // ----------------------------------------------------------------------
 
@@ -36,6 +36,8 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
   const router = useRouter();
+
+  const { userInfo: account } = useSelector((state) => state.userInfo);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -65,15 +67,15 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={account.photoURL}
-          alt={account.displayName}
+          src={account.avatar}
+          alt={account.username}
           sx={{
             width: 36,
             height: 36,
             border: (theme) => `solid 2px ${theme.palette.background.default}`,
           }}
         >
-          {account.displayName.charAt(0).toUpperCase()}
+          {account.username.charAt(0).toUpperCase()}
         </Avatar>
       </IconButton>
 
@@ -87,7 +89,7 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {account.username}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
             {account.email}
