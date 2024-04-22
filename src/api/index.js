@@ -55,11 +55,19 @@ export const post = (url, params, config) => {
   return axios.post(url, { ...params }, config)
 }
 
+export const put = (url, params, config) => {
+  if (Array.isArray(params)) {
+    return axios.put(url, [...params], config);
+  }
+  return axios.put(url, { ...params }, config);
+};
+
 
 export const del = (url, config) => axios.delete(url, config)
 
 export default {
   get,
   post,
+  put,
   del
 }
