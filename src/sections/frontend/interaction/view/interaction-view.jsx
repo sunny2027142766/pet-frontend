@@ -5,6 +5,7 @@ import InteractionCard from "../interaction-card";
 import HealthCard from "../health-card";
 import BottomCard from "../bottom-card";
 
+
 export default function InteractionView() {
   const [playAnimation, setPlayAnimation] = useState(false);
 
