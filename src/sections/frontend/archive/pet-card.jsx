@@ -1,13 +1,21 @@
 import PropTypes from "prop-types";
-import { Box, Card, Chip, Link, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  Chip,
+  Link,
+  Stack,
+  Typography,
+  LinearProgress,
+} from "@mui/material";
 
 // ----------------------------------------------------------------------
 
 export default function PetCard({ pet }) {
   const render3DStatus = (
     <Chip
-      label={pet.is3D ? "3D" : "2D"}
-      color={pet.is3D ? "secondary" : "info"}
+      label={pet.isVirtual ? "3D" : "2D"}
+      color={pet.isVirtual ? "secondary" : "info"}
       size="small"
       sx={{
         zIndex: 9,
@@ -23,7 +31,7 @@ export default function PetCard({ pet }) {
     <Box
       component="img"
       alt={pet.name}
-      src={pet.photo}
+      src={`/preview/${pet.img}`}
       sx={{
         top: 0,
         width: 1,
@@ -46,10 +54,6 @@ export default function PetCard({ pet }) {
           {pet.name}
         </Link>
 
-        <Typography variant="body2" color="text.secondary">
-          {pet.type} - {pet.breed}
-        </Typography>
-
         <Stack
           direction="row"
           alignItems="center"
@@ -59,11 +63,56 @@ export default function PetCard({ pet }) {
           <Typography variant="body2">体重: {pet.weight} kg</Typography>
         </Stack>
 
-        <Typography variant="body2">健康状况: {pet.health}</Typography>
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={1}
+          sx={{ width: "100%" }}
+        >
+          <Typography variant="body2" sx={{ minWidth: 100 }}>
+            健康度:
+          </Typography>
+          <LinearProgress
+            variant="determinate"
+            value={pet.health || 10}
+            sx={{ flexGrow: 1 }}
+          />
+        </Stack>
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={1}
+          sx={{ width: "100%" }}
+        >
+          <Typography variant="body2" sx={{ minWidth: 100 }}>
+            快乐度:
+          </Typography>
+          <LinearProgress
+            variant="determinate"
+            value={pet.happy || 10}
+            sx={{ flexGrow: 1 }}
+          />
+        </Stack>
+        <Stack
+          direction="row"
+          alignItems="center"
+          spacing={1}
+          sx={{ width: "100%" }}
+        >
+          <Typography variant="body2" sx={{ minWidth: 100 }}>
+            饥饿度:
+          </Typography>
+          <LinearProgress
+            variant="determinate"
+            value={pet.health || 100}
+            sx={{ flexGrow: 1 }}
+          />
+        </Stack>
       </Stack>
     </Card>
   );
 }
+
 PetCard.propTypes = {
   pet: PropTypes.object,
 };

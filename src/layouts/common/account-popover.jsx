@@ -11,8 +11,7 @@ import IconButton from "@mui/material/IconButton";
 
 import { useRouter } from "src/routes/hooks";
 
-import { clearStorage } from "src/utils/local-storage";
-import { useSelector } from "react-redux";
+import { getItem, clearStorage } from "src/utils/local-storage";
 
 // ----------------------------------------------------------------------
 
@@ -37,8 +36,8 @@ export default function AccountPopover() {
   const [open, setOpen] = useState(null);
   const router = useRouter();
 
-  const { userInfo: account } = useSelector((state) => state.userInfo);
-  console.log("用户信息:===>", account);
+  const account = getItem("userInfo");
+
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };

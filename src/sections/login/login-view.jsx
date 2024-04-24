@@ -21,7 +21,6 @@ import { getUserInfoApi } from "src/api/modules/user";
 import { validateEmail } from "src/utils/vaildate";
 import { setItem } from "src/utils/local-storage";
 import { alpha, useTheme } from "@mui/material/styles";
-import { useDispatch } from "react-redux";
 
 // ----------------------------------------------------------------------
 
@@ -29,7 +28,6 @@ export default function LoginView() {
   const theme = useTheme();
 
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -80,13 +78,10 @@ export default function LoginView() {
         const userInfoRes = await getUserInfoApi();
         console.log("用户信息请求结果===>", userInfoRes);
         if (userInfoRes.code === 200) {
-          dispatch({
-            type: "userInfo/setUserInfo",
-            payload: userInfoRes.data,
-          });
+          setItem("userInfo", userInfoRes.data);
           setTimeout(() => {
-            // router.push("/front/home");
-            router.push("/");
+            router.push("/front/home");
+            // router.push("/");
           }, 1000);
         }
       } else {
