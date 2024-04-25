@@ -9,20 +9,37 @@ import { fShortenNumber } from "src/utils/format-number";
 
 import Iconify from "src/components/iconify";
 import SvgColor from "src/components/svg-color";
+import { useRouter } from "src/routes/hooks";
 
 // ----------------------------------------------------------------------
 
 export default function PostCard({ post, index }) {
-  const { cover, title, view, comment, share, author, createdAt } = post;
+  const {
+    pid,
+    title,
+    img,
+    commentNum,
+    likeNum,
+    shareNum,
+    username,
+    avatar,
+    createTime,
+  } = post;
+
+  const router = useRouter();
 
   const latestPostLarge = index === 0;
 
   const latestPost = index === 1 || index === 2;
 
+  const navToPostDetail = () => {
+    router.push(`/front/community/${pid}`);
+  };
+
   const renderAvatar = (
     <Avatar
-      alt={author.name}
-      src={author.avatarUrl}
+      alt={username}
+      src={avatar}
       sx={{
         zIndex: 9,
         width: 32,
@@ -52,11 +69,14 @@ export default function PostCard({ post, index }) {
         WebkitLineClamp: 2,
         display: "-webkit-box",
         WebkitBoxOrient: "vertical",
+        // 设置鼠标抓手
+        cursor: "pointer",
         ...(latestPostLarge && { typography: "h5", height: 60 }),
         ...((latestPostLarge || latestPost) && {
           color: "common.white",
         }),
       }}
+      onClick={navToPostDetail}
     >
       {title}
     </Link>
@@ -74,9 +94,9 @@ export default function PostCard({ post, index }) {
       }}
     >
       {[
-        { number: comment, icon: "eva:message-circle-fill" },
-        { number: view, icon: "eva:eye-fill" },
-        { number: share, icon: "eva:share-fill" },
+        { number: commentNum, icon: "eva:message-circle-fill" },
+        { number: likeNum, icon: "iconamoon:like-duotone" },
+        { number: shareNum, icon: "eva:share-fill" },
       ].map((info, _index) => (
         <Stack
           key={_index}
@@ -101,7 +121,7 @@ export default function PostCard({ post, index }) {
     <Box
       component="img"
       alt={title}
-      src={cover}
+      src={`/preview${img}`}
       sx={{
         top: 0,
         width: 1,
@@ -125,7 +145,7 @@ export default function PostCard({ post, index }) {
         }),
       }}
     >
-      {fDate(createdAt)}
+      {fDate(createTime, "yyyy-MM-dd")}
     </Typography>
   );
 

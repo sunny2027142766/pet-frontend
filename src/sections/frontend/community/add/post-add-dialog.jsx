@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 
 import Iconify from "src/components/iconify";
-import {addPost} from "src/api/modules/post"
+import { addPost } from "src/api/modules/post";
 import { getItem } from "src/utils/local-storage";
 
 import RichTextEditor from "./rich-text-editor";
@@ -29,7 +29,7 @@ export default function PostAddDialog({ open, handleClose }) {
   const [tip, setTip] = useState("");
 
   const handlePost = async () => {
-    console.log('帖子内容:', { postTitle, postDesc, postContent, postImg });
+    console.log("帖子内容:", { postTitle, postDesc, postContent, postImg });
     // 从localStroage获取当前发帖的用户
     const userInfo = getItem("userInfo");
 
@@ -37,33 +37,32 @@ export default function PostAddDialog({ open, handleClose }) {
       title: postTitle,
       description: postDesc,
       content: postContent,
-      img: postImg ,
-      uid:userInfo.uid,
+      img: postImg,
+      uid: userInfo.uid,
     };
     const res = await addPost(addPostParams);
-    console.log('res:', res);
+    console.log("res:", res);
     if (res.code === 200) {
+      setTip("发帖成功");
+      setTipOpen(true);
       // 提示添加成功
       handleClose();
-      setTip('发帖成功');
-      setTipOpen(true);
     }
   };
 
   const handleImageUpload = async (file) => {
     try {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
 
       // 使用你的上传图片的 API 地址
-      const response = await fetch('/api/file/upload', {
-        method: 'POST',
-        body: formData
+      const response = await fetch("/api/file/upload", {
+        method: "POST",
+        body: formData,
       });
-      
 
       if (!response.ok) {
-        throw new Error('上传图片出错');
+        throw new Error("上传图片出错");
       }
 
       const responseData = await response.json();
@@ -73,20 +72,15 @@ export default function PostAddDialog({ open, handleClose }) {
       // 设置帖子图片 URL
       setPostImg(imageUrl);
     } catch (error) {
-      setTip('上传图片出错');
+      setTip("上传图片出错");
       setTipOpen(true);
-      console.error('图片上传错误:', error.message);
+      console.error("图片上传错误:", error.message);
     }
   };
 
   return (
     <>
-      <Dialog
-        fullWidth
-        open={open}
-        onClose={handleClose}
-        maxWidth="lg"
-      >
+      <Dialog fullWidth open={open} onClose={handleClose} maxWidth="lg">
         <DialogTitle>发表帖子</DialogTitle>
         <DialogContent>
           <TextField
@@ -123,10 +117,7 @@ export default function PostAddDialog({ open, handleClose }) {
             onChange={(e) => handleImageUpload(e.target.files[0])}
           />
           <Stack spacing={2}>
-            <Button
-              color="secondary"
-              variant="info"
-            >
+            <Button color="secondary" variant="info">
               帖子内容
             </Button>
             <RichTextEditor
@@ -136,10 +127,7 @@ export default function PostAddDialog({ open, handleClose }) {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button
-            color="info"
-            onClick={handleClose}
-          >
+          <Button color="info" onClick={handleClose}>
             取消
           </Button>
           <Button
@@ -154,15 +142,15 @@ export default function PostAddDialog({ open, handleClose }) {
       </Dialog>
 
       <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={tipOpen}
         onClose={() => setTipOpen(false)}
         autoHideDuration={1000}
       >
         <Alert
-          severity={tip === '发帖成功' ? 'success' : 'error'}
+          severity={tip === "发帖成功" ? "success" : "error"}
           variant="filled"
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
         >
           {tip}
         </Alert>

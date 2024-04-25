@@ -24,7 +24,7 @@ export default function FrontEndLayout({ children }) {
           display: "flex",
         }}
       >
-        <Main>{children}</Main>
+        <Main sx={{ pt: 12 }}>{children}</Main>
       </Box>
 
       {/* <Footer /> */}

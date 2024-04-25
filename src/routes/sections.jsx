@@ -23,7 +23,9 @@ export const InteractionPage = lazy(
 export const ShowPage = lazy(() => import("src/pages/frontend/show"));
 export const ArchivePage = lazy(() => import("src/pages/frontend/archive"));
 export const CommunityPage = lazy(() => import("src/pages/frontend/community"));
-export const PostAddPage = lazy(() => import("src/pages/frontend/post-add"));
+export const PostDetailPage = lazy(
+  () => import("src/pages/frontend/post-detail")
+);
 export const EmotionPage = lazy(() => import("src/pages/frontend/emotion"));
 
 export const LoginPage = lazy(() => import("src/pages/login"));
@@ -73,7 +75,7 @@ export default function Router() {
         { path: "show", element: <ShowPage /> },
         { path: "archive", element: <ArchivePage /> },
         { path: "community", element: <CommunityPage /> },
-        { path: "community/add", element: <PostAddPage /> },
+        { path: "community/:pid", element: <PostDetailPage /> },
         { path: "emotion", element: <EmotionPage /> },
       ],
     },

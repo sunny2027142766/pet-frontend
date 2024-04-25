@@ -1,53 +1,45 @@
 import PropTypes from "prop-types";
-
-import TextField from "@mui/material/TextField";
-import InputAdornment from "@mui/material/InputAdornment";
-import Autocomplete, { autocompleteClasses } from "@mui/material/Autocomplete";
-
+import { useState } from "react";
+import { Box, InputBase, IconButton } from "@mui/material";
 import Iconify from "src/components/iconify";
 
-// ----------------------------------------------------------------------
+const PostSearch = ({ onSearch }) => {
+  const [text, setText] = useState("");
 
-PostSearch.propTypes = {
-  posts: PropTypes.array.isRequired,
+  const handleSearch = () => {
+    onSearch(text);
+  };
+
+  const handleChange = (event) => {
+    setText(event.target.value);
+  };
+
+  return (
+    <Box
+      component="div"
+      display="flex"
+      borderRadius="10px"
+      sx={{
+        width: { md: "auto" },
+        backgroundColor: "#fff",
+        border: "1px solid #8E33FF",
+      }}
+    >
+      <InputBase
+        value={text}
+        onChange={handleChange}
+        sx={{ ml: 2, flex: 1 }}
+        placeholder="搜索"
+      />
+      <IconButton type="button" sx={{ p: 1 }} onClick={handleSearch}>
+        <Iconify icon="eva:search-fill" />
+      </IconButton>
+    </Box>
+  );
 };
 
-export default function PostSearch({ posts }) {
-  return (
-    <Autocomplete
-      sx={{ width: 280 }}
-      autoHighlight
-      popupIcon={null}
-      slotProps={{
-        paper: {
-          sx: {
-            width: 320,
-            [`& .${autocompleteClasses.option}`]: {
-              typography: "body2",
-            },
-          },
-        },
-      }}
-      options={posts}
-      getOptionLabel={(post) => post.title}
-      isOptionEqualToValue={(option, value) => option.id === value.id}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          placeholder="请输入帖子标题"
-          InputProps={{
-            ...params.InputProps,
-            startAdornment: (
-              <InputAdornment position="start">
-                <Iconify
-                  icon="eva:search-fill"
-                  sx={{ ml: 1, width: 20, height: 20, color: "text.disabled" }}
-                />
-              </InputAdornment>
-            ),
-          }}
-        />
-      )}
-    />
-  );
-}
+export default PostSearch;
+
+PostSearch.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
