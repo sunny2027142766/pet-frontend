@@ -39,12 +39,12 @@ export default function PostCard({ post, index }) {
   const renderAvatar = (
     <Avatar
       alt={username}
-      src={avatar}
+      src={`/preview/${avatar}`}
       sx={{
         zIndex: 9,
         width: 32,
         height: 32,
-        position: "absolute",
+        position: 'absolute',
         left: (theme) => theme.spacing(3),
         bottom: (theme) => theme.spacing(-2),
         ...((latestPostLarge || latestPost) && {
@@ -52,8 +52,8 @@ export default function PostCard({ post, index }) {
           top: 24,
           left: 24,
           width: 40,
-          height: 40,
-        }),
+          height: 40
+        })
       }}
     />
   );
