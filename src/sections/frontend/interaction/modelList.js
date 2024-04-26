@@ -2,7 +2,7 @@ export const modelList = [
   {
     id: 1,
     name: "柯基",
-    url: "/models/keji/scene.gltf",
+    url: "/preview/Myfile/models/keji/scene.gltf",
     img: "/assets/model/model_1.png",
   },
   {

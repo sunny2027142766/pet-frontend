@@ -3,68 +3,98 @@ import { styled } from "@mui/material/styles";
 import Iconify from "src/components/iconify";
 import { Fab, Stack } from "@mui/material";
 
-// ----------------------------------------------------------------------
-
-const StyledRoot = styled('div')(({ theme }) => ({
+// StyledRoot definition remains the same
+const StyledRoot = styled("div")(({ theme }) => ({
   zIndex: 999,
   right: 10,
-  top: '50%',
-  transform: 'translateY(-50%)',
-  display: 'flex',
-  cursor: 'pointer',
-  position: 'fixed',
-  alignItems: 'center',
+  top: "50%",
+  transform: "translateY(-50%)",
+  display: "flex",
+  cursor: "pointer",
+  position: "fixed",
+  alignItems: "center",
   height: theme.spacing(5),
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
-  paddingTop: theme.spacing(1.25)
+  paddingTop: theme.spacing(1.25),
 }));
 
-// ----------------------------------------------------------------------
+const buttonConfig = [
+  {
+    id: 1,
+    icon: "openmoji:guide-dog",
+    img: "Myfile/func/1.png",
+    label: "动画",
+    onClick: "onToggleAnimation",
+  },
+  {
+    id: 2,
+    icon: "fluent-emoji:leftwards-hand",
+    img: "Myfile/func/2.png",
+    label: "抚摸",
+    onClick: "onStroke",
+  },
+  {
+    id: 3,
+    icon: "streamline-emojis:cat-face-with-tears-of-joy",
+    img: "Myfile/func/3.png",
+    label: "表情",
+    onClick: "onExpress",
+  },
+  {
+    id: 4,
+    icon: "twemoji:canned-food",
+    img: "Myfile/func/4.png",
+    label: "喂食",
+    onClick: "onFeed",
+  },
+  {
+    id: 5,
+    icon: "fluent-emoji:petri-dish",
+    img: "Myfile/func/5.png",
+    label: "喝水",
+    onClick: "onDrink",
+  },
+  {
+    id: 6,
+    icon: "icon-park:clear",
+    img: "Myfile/func/6.png",
+    label: "清洁",
+    onClick: "onClean",
+  },
+];
 
-export default function FunctionWidget({ onToggleAnimation }) {
+function FunctionWidget({
+  onToggleAnimation,
+  onStroke,
+  onExpress,
+  onFeed,
+  onDrink,
+  onClean,
+}) {
+  // Map actions to their function props
+  const actionHandlers = {
+    onToggleAnimation,
+    onStroke,
+    onExpress,
+    onFeed,
+    onDrink,
+    onClean,
+  };
+
   return (
     <StyledRoot>
       <Stack spacing={2}>
-        <Fab variant="extended" onClick={onToggleAnimation}>
-          <Iconify icon="openmoji:guide-dog" width={24} height={24} mr={1} />
-          动画
-        </Fab>
-        <Fab variant="extended">
-          <Iconify
-            icon="fluent-emoji:leftwards-hand"
-            width={24}
-            height={24}
-            mr={1}
-          />
-          抚摸
-        </Fab>
-        <Fab variant="extended">
-          <Iconify
-            icon="streamline-emojis:cat-face-with-tears-of-joy"
-            width={24}
-            height={24}
-            mr={1}
-          />
-          表情
-        </Fab>
-        <Fab variant="extended">
-          <Iconify icon="twemoji:canned-food" width={24} height={24} mr={1} />
-          喂食
-        </Fab>
-        <Fab variant="extended">
-          <Iconify
-            icon="fluent-emoji:petri-dish"
-            width={24}
-            height={24}
-            mr={1}
-          />
-          喝水
-        </Fab>
-        <Fab variant="extended">
-          <Iconify icon="icon-park:clear" width={24} height={24} mr={1} />
-          清洁
-        </Fab>
+        {buttonConfig.map((button) => (
+          <Fab
+            key={button.label}
+            variant="extended"
+            onClick={actionHandlers[button.onClick]}
+          >
+            <Iconify icon={button.icon} width={24} height={24} mr={1} />
+            {button.label}
+          </Fab>
+        ))}
       </Stack>
     </StyledRoot>
   );
@@ -72,4 +102,11 @@ export default function FunctionWidget({ onToggleAnimation }) {
 
 FunctionWidget.propTypes = {
   onToggleAnimation: PropTypes.func,
+  onStroke: PropTypes.func,
+  onExpress: PropTypes.func,
+  onFeed: PropTypes.func,
+  onDrink: PropTypes.func,
+  onClean: PropTypes.func,
 };
+
+export default FunctionWidget;
