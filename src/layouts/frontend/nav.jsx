@@ -1,27 +1,36 @@
 import { useEffect } from "react";
 import PropTypes from "prop-types";
-
-import { alpha } from "@mui/material/styles";
-import { Box, Stack, Drawer, ListItemButton } from "@mui/material";
-
+import { Box, Stack, Drawer } from "@mui/material";
 import { usePathname } from "src/routes/hooks";
-import { RouterLink } from "src/routes/components";
-
 import { useResponsive } from "src/hooks/use-responsive";
-
 import Logo from "src/components/logo";
 import Scrollbar from "src/components/scrollbar";
-
+import SvgColor from "src/components/svg-color";
+import { getItem } from "src/utils/local-storage";
 import { NAV } from "./config-layout";
-import navConfig from "./config-navigation";
+import NavItem from "./nav-item";
 
 // ----------------------------------------------------------------------
+
+const icon = (name) => (
+  <SvgColor
+    src={`/preview/Myfile/icons/${name}.svg`}
+    sx={{ width: 1, height: 1 }}
+  />
+);
 
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
 
   const upLg = useResponsive("up", "lg");
 
+  const frontMenu = getItem("frontMenu");
+  const navConfig = frontMenu.map(menu => ({
+      title: menu.title,
+      path: menu.path,
+      icon: icon(menu.icon)
+    }));
+  
   useEffect(() => {
     if (openNav) {
       onCloseNav();
@@ -80,45 +89,4 @@ export default function Nav({ openNav, onCloseNav }) {
 Nav.propTypes = {
   openNav: PropTypes.bool,
   onCloseNav: PropTypes.func,
-};
-
-// ----------------------------------------------------------------------
-
-function NavItem({ item }) {
-  const pathname = usePathname();
-
-  const active = item.path === pathname;
-
-  return (
-    <ListItemButton
-      component={RouterLink}
-      href={item.path}
-      sx={{
-        minHeight: 44,
-        borderRadius: 0.75,
-        typography: "body2",
-        color: "text.secondary",
-        textTransform: "capitalize",
-        fontWeight: "fontWeightMedium",
-        ...(active && {
-          color: "primary.main",
-          fontWeight: "fontWeightSemiBold",
-          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
-          "&:hover": {
-            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
-          },
-        }),
-      }}
-    >
-      <Box component="span" sx={{ width: 24, height: 24, mr: 2 }}>
-        {item.icon}
-      </Box>
-
-      <Box component="span">{item.title} </Box>
-    </ListItemButton>
-  );
-}
-
-NavItem.propTypes = {
-  item: PropTypes.object,
 };

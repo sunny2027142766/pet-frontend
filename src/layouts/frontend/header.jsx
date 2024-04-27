@@ -1,62 +1,53 @@
-import React from "react";
 import PropTypes from "prop-types";
-import { useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import {  useTheme  } from "@mui/material/styles";
 
-import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Stack,
-  Button,
   AppBar,
   Toolbar,
-  InputBase,
   IconButton,
 } from "@mui/material";
-
 import { useResponsive } from "src/hooks/use-responsive";
-
 import { bgBlur } from "src/theme/css";
-
 import Iconify from "src/components/iconify";
 import Logo from "src/components/logo";
-
+import SvgColor from "src/components/svg-color";
+import { getItem } from "src/utils/local-storage";
 import { HEADER } from "./config-layout";
-import navConfig from "./config-navigation";
 import AccountPopover from "../common/account-popover";
 import LanguagePopover from "../common/language-popover";
 import NotificationsPopover from "../common/notifications-popover";
+import NavItem from "./nav-item";
+
+const icon = (name) => (
+  <SvgColor
+    src={`/preview/Myfile/icons/${name}.svg`}
+    sx={{ width: 1, height: 1 }}
+  />
+);
+
 
 export default function Header({ onOpenNav }) {
   const lgUp = useResponsive("up", "lg");
-  const navigate = useNavigate();
-  const location = useLocation();
-  const toPage = (page) => {
-    // 进行路由跳转
-    navigate(page);
-  };
+
+  const frontMenu = getItem("frontMenu");
+  const navConfig = frontMenu.map(menu => ({
+      title: menu.title,
+      path: menu.path,
+      icon: icon(menu.icon)
+  }));
+  
   const navList = (
     <Box
       component="div"
       sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
     >
-      <Logo sx={{ mt: 2, ml: 3 }} />
+      <Logo sx={{ mt: 2, ml: 3,mr:20 }} />
 
-      {navConfig.map((page) => (
-        <Button
-          color={page.selected ? "secondary" : "success"}
-          key={page.title}
-          onClick={() => toPage(page.path)}
-          sx={{
-            my: 2,
-            color:
-              location.pathname.split("front")[1] === `/${page.path}`
-                ? "#FFAE01"
-                : "white",
-            display: "block",
-          }}
-        >
-          {page.title}
-        </Button>
+      {navConfig.map((item) => (
+         <NavItem key={item.title} item={item} />
       ))}
     </Box>
   );
@@ -67,20 +58,22 @@ export default function Header({ onOpenNav }) {
     <>
       {!lgUp && (
         <IconButton onClick={onOpenNav} sx={{ mr: 1 }}>
-          <Iconify icon="eva:menu-2-fill" sx={{ color: "white" }} />
+          <Iconify icon="eva:menu-2-fill" sx={{ color: "black" }} />
         </IconButton>
       )}
 
-      {lgUp ? navList : null}
+      <Box>
+          {lgUp ? navList : null}
+      </Box>
 
-      <Box sx={{ flexGrow: 1 }} />
-      <SearchBar />
-
-      <Stack direction="row" alignItems="center" spacing={1}>
-        <LanguagePopover />
-        <NotificationsPopover />
-        <AccountPopover />
-      </Stack>
+      <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+        {/* <SearchBar /> */}
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <LanguagePopover />
+          <NotificationsPopover />
+          <AccountPopover />
+        </Stack>
+      </Box>
     </>
   );
 
@@ -91,7 +84,7 @@ export default function Header({ onOpenNav }) {
         height: HEADER.H_MOBILE,
         zIndex: theme.zIndex.appBar + 1,
         ...bgBlur({
-          color: "#6E2987",
+          color: "#fff",
         }),
         transition: theme.transitions.create(["height"], {
           duration: theme.transitions.duration.shorter,
@@ -102,7 +95,7 @@ export default function Header({ onOpenNav }) {
         }),
       }}
     >
-      <Toolbar>{renderContent}</Toolbar>
+      <Toolbar sx={{display:"flex", justifyContent:"space-between"}}>{renderContent}</Toolbar>
     </AppBar>
   );
 }
@@ -110,19 +103,3 @@ Header.propTypes = {
   onOpenNav: PropTypes.func,
 };
 
-// ------------------------------------------------------
-function SearchBar() {
-  return (
-    <Box
-      component="div"
-      display="flex"
-      borderRadius="10px"
-      sx={{ width: { xs: "100%", md: "auto" }, backgroundColor: "#fff" }}
-    >
-      <InputBase sx={{ ml: 2, flex: 1 }} placeholder="搜索" />
-      <IconButton type="button" sx={{ p: 1 }}>
-        <Iconify icon="eva:search-fill" />
-      </IconButton>
-    </Box>
-  );
-}

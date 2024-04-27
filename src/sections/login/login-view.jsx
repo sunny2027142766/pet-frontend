@@ -38,6 +38,22 @@ export default function LoginView() {
 
   const [tipOpen, setTipOpen] = useState(false);
   const [tip, setTip] = useState("");
+  
+  const generateMenu = (menus) => {
+    const menuIds = {};
+      // 去重后的菜单列表
+      const uniqueMenus = [];
+      // 遍历菜单数组
+      menus.forEach(menu => {
+          // 检查是否已经存在相同的 mid
+          if (!Object.prototype.hasOwnProperty.call(menuIds, menu.mid)) {
+              // 如果不存在，则将菜单添加到结果数组和菜单 id 对象中
+              uniqueMenus.push(menu);
+              menuIds[menu.mid] = true;
+          }
+      });
+      return uniqueMenus;
+  }
 
   const handleSubmit = async (event) => {
     // TODO: 登录逻辑
@@ -78,11 +94,30 @@ export default function LoginView() {
         const userInfoRes = await getUserInfoApi();
         console.log("用户信息请求结果===>", userInfoRes);
         if (userInfoRes.code === 200) {
-          setItem("userInfo", userInfoRes.data);
-          setTimeout(() => {
-            router.push("/front/home");
-            // router.push("/");
-          }, 1000);
+          // 获取用户信息成功
+          // 根据用户信息过滤出前台的菜单
+          const menus = userInfoRes.data.menus.filter(item => item.isFront)
+          const frontMenu = generateMenu(menus);
+          // 如果前台菜单为空，则跳转到403页面
+          if (frontMenu.length === 0) {
+            setTip("您没有访问前台的权限");
+            setTipOpen(true);
+            setTimeout(() => {
+              router.push("/403");
+            }, 1000);
+            return;
+          }
+          // 如果前台菜单不为空，则跳转到对应菜单的第一项
+          if (frontMenu.length > 0) {
+            // 存储用户信息到本地
+            console.log("frontMenu===>", frontMenu);
+            setItem("frontMenu", frontMenu);
+            setItem("userInfo", userInfoRes.data);
+            const firstMenu = frontMenu[0];
+            setTimeout(() => {
+               router.push(firstMenu.path);
+            }, 1000);
+          }
         }
       } else {
         setTip(res.msg);

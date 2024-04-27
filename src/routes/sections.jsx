@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import { Outlet, Navigate, useRoutes } from "react-router-dom";
 
 import FrontEndLayout from "src/layouts/frontend";
-import DashboardLayout from "src/layouts/dashboard";
+// import DashboardLayout from "src/layouts/dashboard";
 import RequireAuth from "./auth/require-auth";
 
 // dashboard
@@ -31,35 +31,35 @@ export const EmotionPage = lazy(() => import("src/pages/frontend/emotion"));
 export const LoginPage = lazy(() => import("src/pages/login"));
 export const RegisterPage = lazy(() => import("src/pages/register"));
 export const Page404 = lazy(() => import("src/pages/page-not-found"));
+export const Page403 = lazy(() => import("src/pages/page-not-auth"));
 
 // ----------------------------------------------------------------------
 
 export default function Router() {
   const routes = useRoutes([
+    // {
+    //   element: (
+    //     <RequireAuth>
+    //       <DashboardLayout>
+    //         <Suspense>
+    //           <Outlet />
+    //         </Suspense>
+    //       </DashboardLayout>
+    //     </RequireAuth>
+    //   ),
+    //   children: [
+    //     { element: <IndexPage />, index: true },
+    //     { path: "user", element: <UserPage /> },
+    //     { path: "role", element: <RolePage /> },
+    //     { path: "perm", element: <PermPage /> },
+    //     { path: "shequ", element: <ShequPage /> },
+    //     { path: "info", element: <InfoPage /> },
+    //     { path: "model", element: <ModelPage /> },
+    //     { path: "products", element: <ProductsPage /> },
+    //     { path: "blog", element: <BlogPage /> },
+    //   ],
+    // },
     {
-      element: (
-        <RequireAuth>
-          <DashboardLayout>
-            <Suspense>
-              <Outlet />
-            </Suspense>
-          </DashboardLayout>
-        </RequireAuth>
-      ),
-      children: [
-        { element: <IndexPage />, index: true },
-        { path: "user", element: <UserPage /> },
-        { path: "role", element: <RolePage /> },
-        { path: "perm", element: <PermPage /> },
-        { path: "shequ", element: <ShequPage /> },
-        { path: "info", element: <InfoPage /> },
-        { path: "model", element: <ModelPage /> },
-        { path: "products", element: <ProductsPage /> },
-        { path: "blog", element: <BlogPage /> },
-      ],
-    },
-    {
-      path: "front",
       element: (
         <RequireAuth>
           <FrontEndLayout>
@@ -70,7 +70,7 @@ export default function Router() {
         </RequireAuth>
       ),
       children: [
-        { path: "home", element: <HomePage />, index: true },
+        { element: <HomePage />, index: true },
         { path: "interaction", element: <InteractionPage /> },
         { path: "show", element: <ShowPage /> },
         { path: "archive", element: <ArchivePage /> },
@@ -90,6 +90,10 @@ export default function Router() {
     {
       path: "404",
       element: <Page404 />,
+    },
+    {
+      path: "403",
+      element: <Page403 />,
     },
     {
       path: "*",

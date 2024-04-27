@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   // 初始的 userInfo 状态
+  userInfo: null,
+  navConfig:[]
 };
 
 const userInfoSlice = createSlice({
@@ -16,9 +18,12 @@ const userInfoSlice = createSlice({
     removeUserInfo: (state) => {
       state.userInfo = null;
     },
+    setNavConfig: (state, action) => {
+      state.navConfig = action.payload;
+    }
   },
 });
 
-export const { setUserInfo, removeUserInfo } = userInfoSlice.actions;
+export const { setUserInfo, removeUserInfo,setNavConfig } = userInfoSlice.actions;
 
 export default userInfoSlice.reducer;

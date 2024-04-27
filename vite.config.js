@@ -25,7 +25,7 @@ export default defineConfig({
     ],
   },
   server: {
-    port: 3030,
+    port: 3300,
     host: "0.0.0.0", // 服务器主机名，如果允许外部访问，可设置为"0.0.0.0"
     open: true,
     cors: true,
