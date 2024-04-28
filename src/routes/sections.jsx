@@ -72,7 +72,6 @@ export default function Router() {
       children: [
         { element: <HomePage />, index: true },
         { path: "interaction", element: <InteractionPage /> },
-        { path: "show", element: <ShowPage /> },
         { path: "archive", element: <ArchivePage /> },
         { path: "community", element: <CommunityPage /> },
         { path: "community/:pid", element: <PostDetailPage /> },

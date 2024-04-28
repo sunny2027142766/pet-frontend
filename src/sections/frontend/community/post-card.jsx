@@ -33,7 +33,7 @@ export default function PostCard({ post, index }) {
   const latestPost = index === 1 || index === 2;
 
   const navToPostDetail = () => {
-    router.push(`/front/community/${pid}`);
+    router.push(`/community/${pid}`);
   };
 
   const renderAvatar = (
@@ -44,7 +44,7 @@ export default function PostCard({ post, index }) {
         zIndex: 9,
         width: 32,
         height: 32,
-        position: 'absolute',
+        position: "absolute",
         left: (theme) => theme.spacing(3),
         bottom: (theme) => theme.spacing(-2),
         ...((latestPostLarge || latestPost) && {
@@ -52,8 +52,8 @@ export default function PostCard({ post, index }) {
           top: 24,
           left: 24,
           width: 40,
-          height: 40
-        })
+          height: 40,
+        }),
       }}
     />
   );

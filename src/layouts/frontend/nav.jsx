@@ -13,10 +13,7 @@ import NavItem from "./nav-item";
 // ----------------------------------------------------------------------
 
 const icon = (name) => (
-  <SvgColor
-    src={`/preview/Myfile/icons/${name}.svg`}
-    sx={{ width: 1, height: 1 }}
-  />
+  <SvgColor src={`/preview${name}`} sx={{ width: 1, height: 1 }} />
 );
 
 export default function Nav({ openNav, onCloseNav }) {
@@ -25,12 +22,12 @@ export default function Nav({ openNav, onCloseNav }) {
   const upLg = useResponsive("up", "lg");
 
   const frontMenu = getItem("frontMenu");
-  const navConfig = frontMenu.map(menu => ({
-      title: menu.title,
-      path: menu.path,
-      icon: icon(menu.icon)
-    }));
-  
+  const navConfig = frontMenu.map((menu) => ({
+    title: menu.title,
+    path: menu.path,
+    icon: icon(menu.icon),
+  }));
+
   useEffect(() => {
     if (openNav) {
       onCloseNav();

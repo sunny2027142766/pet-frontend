@@ -1,14 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-import {  useTheme  } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 
-import {
-  Box,
-  Stack,
-  AppBar,
-  Toolbar,
-  IconButton,
-} from "@mui/material";
+import { Box, Stack, AppBar, Toolbar, IconButton } from "@mui/material";
 import { useResponsive } from "src/hooks/use-responsive";
 import { bgBlur } from "src/theme/css";
 import Iconify from "src/components/iconify";
@@ -22,32 +16,28 @@ import NotificationsPopover from "../common/notifications-popover";
 import NavItem from "./nav-item";
 
 const icon = (name) => (
-  <SvgColor
-    src={`/preview/Myfile/icons/${name}.svg`}
-    sx={{ width: 1, height: 1 }}
-  />
+  <SvgColor src={`/preview${name}`} sx={{ width: 1, height: 1 }} />
 );
-
 
 export default function Header({ onOpenNav }) {
   const lgUp = useResponsive("up", "lg");
 
   const frontMenu = getItem("frontMenu");
-  const navConfig = frontMenu.map(menu => ({
-      title: menu.title,
-      path: menu.path,
-      icon: icon(menu.icon)
+  const navConfig = frontMenu.map((menu) => ({
+    title: menu.title,
+    path: menu.path,
+    icon: icon(menu.icon),
   }));
-  
+
   const navList = (
     <Box
       component="div"
       sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
     >
-      <Logo sx={{ mt: 2, ml: 3,mr:20 }} />
+      <Logo sx={{ mt: 2, ml: 3, mr: 20 }} />
 
       {navConfig.map((item) => (
-         <NavItem key={item.title} item={item} />
+        <NavItem key={item.title} item={item} />
       ))}
     </Box>
   );
@@ -62,11 +52,11 @@ export default function Header({ onOpenNav }) {
         </IconButton>
       )}
 
-      <Box>
-          {lgUp ? navList : null}
-      </Box>
+      <Box>{lgUp ? navList : null}</Box>
 
-      <Box sx={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
         {/* <SearchBar /> */}
         <Stack direction="row" alignItems="center" spacing={1}>
           <LanguagePopover />
@@ -95,11 +85,12 @@ export default function Header({ onOpenNav }) {
         }),
       }}
     >
-      <Toolbar sx={{display:"flex", justifyContent:"space-between"}}>{renderContent}</Toolbar>
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        {renderContent}
+      </Toolbar>
     </AppBar>
   );
 }
 Header.propTypes = {
   onOpenNav: PropTypes.func,
 };
-
