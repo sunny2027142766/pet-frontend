@@ -38,22 +38,22 @@ export default function LoginView() {
 
   const [tipOpen, setTipOpen] = useState(false);
   const [tip, setTip] = useState("");
-  
+
   const generateMenu = (menus) => {
     const menuIds = {};
-      // 去重后的菜单列表
-      const uniqueMenus = [];
-      // 遍历菜单数组
-      menus.forEach(menu => {
-          // 检查是否已经存在相同的 mid
-          if (!Object.prototype.hasOwnProperty.call(menuIds, menu.mid)) {
-              // 如果不存在，则将菜单添加到结果数组和菜单 id 对象中
-              uniqueMenus.push(menu);
-              menuIds[menu.mid] = true;
-          }
-      });
-      return uniqueMenus;
-  }
+    // 去重后的菜单列表
+    const uniqueMenus = [];
+    // 遍历菜单数组
+    menus.forEach((menu) => {
+      // 检查是否已经存在相同的 mid
+      if (!Object.prototype.hasOwnProperty.call(menuIds, menu.mid)) {
+        // 如果不存在，则将菜单添加到结果数组和菜单 id 对象中
+        uniqueMenus.push(menu);
+        menuIds[menu.mid] = true;
+      }
+    });
+    return uniqueMenus;
+  };
 
   const handleSubmit = async (event) => {
     // TODO: 登录逻辑
@@ -96,7 +96,7 @@ export default function LoginView() {
         if (userInfoRes.code === 200) {
           // 获取用户信息成功
           // 根据用户信息过滤出前台的菜单
-          const menus = userInfoRes.data.menus.filter(item => item.isFront)
+          const menus = userInfoRes.data.menus.filter((item) => item.isFront);
           const frontMenu = generateMenu(menus);
           // 如果前台菜单为空，则跳转到403页面
           if (frontMenu.length === 0) {
@@ -115,7 +115,7 @@ export default function LoginView() {
             setItem("userInfo", userInfoRes.data);
             const firstMenu = frontMenu[0];
             setTimeout(() => {
-               router.push(firstMenu.path);
+              router.push(firstMenu.path);
             }, 1000);
           }
         }
