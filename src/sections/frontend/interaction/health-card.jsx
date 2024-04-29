@@ -1,49 +1,31 @@
 /* eslint-disable import/no-extraneous-dependencies */
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
+import React from "react";
 import { styled } from "@mui/material/styles";
 import { Box, Chip, Stack, Rating, Divider } from "@mui/material";
 import Iconify from "src/components/iconify";
 
-// ----------------------------------------------------------------------
-
-const StyledRoot = styled('div')(({ theme }) => ({
+const StyledRoot = styled("div")(({ theme }) => ({
   zIndex: 999,
   left: 10,
-  display: 'flex',
-  position: 'fixed',
-  top: '50%',
-  transform: 'translateY(-50%)',
-  alignItems: 'center',
+  display: "flex",
+  position: "fixed",
+  top: "50%",
+  transform: "translateY(-50%)",
+  alignItems: "center",
   height: theme.spacing(5),
   paddingLeft: theme.spacing(2),
   paddingRight: theme.spacing(2),
-  paddingTop: theme.spacing(1.25)
+  paddingTop: theme.spacing(1.25),
 }));
 
-// ----------------------------------------------------------------------
+export default function HealthCard({ health, mood, hunger }) {
+  const petCardInfo = [
+    { name: "健康值", value: health, status: health > 3 ? "良好" : "正常" },
+    { name: "心情值", value: mood, status: mood > 3 ? "快乐" : "一般" },
+    { name: "饥饿度", value: hunger, status: hunger > 3 ? "非常饿" : "一般" },
+  ];
 
-const petCardInfo = [
-  {
-    name: "健康值",
-    type: "健康值",
-    value: 3,
-    status: "正常",
-  },
-  {
-    name: "心情值",
-    type: "心情值",
-    value: 2,
-    status: "一般",
-  },
-  {
-    name: "饥饿度",
-    type: "饥饿度",
-    value: 5,
-    status: "非常饿",
-  },
-];
-
-export default function HealthCard() {
   return (
     <StyledRoot>
       <Stack
@@ -117,6 +99,8 @@ export default function HealthCard() {
   );
 }
 
-// HealthCard.propTypes = {
-//   onToggleAnimation: PropTypes.func,
-// };
+HealthCard.propTypes = {
+  health: PropTypes.number,
+  mood: PropTypes.number,
+  hunger: PropTypes.number,
+};

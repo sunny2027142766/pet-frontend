@@ -113,6 +113,7 @@ export default function LoginView() {
             console.log("frontMenu===>", frontMenu);
             setItem("frontMenu", frontMenu);
             setItem("userInfo", userInfoRes.data);
+            setItem("config", userInfoRes.data.config);
             const firstMenu = frontMenu[0];
             setTimeout(() => {
               router.push(firstMenu.path);

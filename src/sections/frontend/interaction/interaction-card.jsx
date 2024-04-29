@@ -6,11 +6,13 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import * as THREE from "three"; // 确保 THREE 被正确导入
-import { modelList } from "./modelList";
+// import { modelList } from "./modelList";
+import Bubble from "./bubble";
 
-const DogModel = ({ playAnimation, modelID }) => {
-  const fileUrl = modelList.find((model) => model.id === modelID).url;
+const Model = ({ playAnimation, model }) => {
+  const fileUrl = `/preview${model.url}/scene.gltf`;
   const mesh = useRef(null);
+  console.log(fileUrl);
   const gltf = useLoader(GLTFLoader, fileUrl);
   const mixerRef = useRef(null);
   const actionsRef = useRef([]);
@@ -42,20 +44,24 @@ const DogModel = ({ playAnimation, modelID }) => {
     <mesh
       ref={mesh}
       scale={[2, 2, 2]} // 将模型放大两倍
-      position={[0, -1, 0]} // 将模型下移1单位
-      rotation={[0, Math.PI, 0]} // 将模型旋转180度
+      position={[0, 0, 0]} // 将模型下移1单位
+      // rotation={[0, Math.PI, 0]} // 将模型旋转180度
     >
       <primitive object={gltf.scene} />
     </mesh>
   );
 };
 
-DogModel.propTypes = {
+Model.propTypes = {
   playAnimation: PropTypes.bool,
-  modelID: PropTypes.number,
+  model: PropTypes.object,
 };
 
-export default function Interaction({ playAnimation, modelID }) {
+export default function Interaction({
+  playAnimation,
+  model,
+  interactionState,
+}) {
   return (
     <Canvas
       style={{
@@ -69,7 +75,12 @@ export default function Interaction({ playAnimation, modelID }) {
         <OrbitControls />
         <ambientLight />
         <pointLight position={[10, 10, 10]} />
-        <DogModel playAnimation={playAnimation} modelID={modelID} />
+        <Model playAnimation={playAnimation} model={model} />
+        <Bubble
+          message={interactionState.message}
+          position={interactionState.position}
+          visible={interactionState.visible}
+        />
       </Suspense>
     </Canvas>
   );
@@ -77,5 +88,6 @@ export default function Interaction({ playAnimation, modelID }) {
 
 Interaction.propTypes = {
   playAnimation: PropTypes.bool,
-  modelID: PropTypes.number,
+  model: PropTypes.object,
+  interactionState: PropTypes.object,
 };

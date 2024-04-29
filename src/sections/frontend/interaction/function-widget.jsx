@@ -71,6 +71,7 @@ function FunctionWidget({
   onFeed,
   onDrink,
   onClean,
+  funcs,
 }) {
   // Map actions to their function props
   const actionHandlers = {
@@ -85,16 +86,18 @@ function FunctionWidget({
   return (
     <StyledRoot>
       <Stack spacing={2}>
-        {buttonConfig.map((button) => (
-          <Fab
-            key={button.label}
-            variant="extended"
-            onClick={actionHandlers[button.onClick]}
-          >
-            <Iconify icon={button.icon} width={24} height={24} mr={1} />
-            {button.label}
-          </Fab>
-        ))}
+        {buttonConfig
+          .filter((item) => funcs.includes(item.id))
+          .map((button) => (
+            <Fab
+              key={button.label}
+              variant="extended"
+              onClick={actionHandlers[button.onClick]}
+            >
+              <Iconify icon={button.icon} width={24} height={24} mr={1} />
+              {button.label}
+            </Fab>
+          ))}
       </Stack>
     </StyledRoot>
   );
@@ -107,6 +110,7 @@ FunctionWidget.propTypes = {
   onFeed: PropTypes.func,
   onDrink: PropTypes.func,
   onClean: PropTypes.func,
+  funcs: PropTypes.array,
 };
 
 export default FunctionWidget;

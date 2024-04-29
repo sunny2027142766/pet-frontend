@@ -4,7 +4,7 @@ import { styled } from "@mui/material/styles";
 // import Iconify from "src/components/iconify";
 // import { Fab, Stack } from "@mui/material";
 import { Box, Chip, Stack } from "@mui/material";
-import { modelList } from "./modelList";
+// import { modelList } from "./modelList";
 
 // ----------------------------------------------------------------------
 
@@ -20,7 +20,7 @@ const StyledRoot = styled("div")(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function BottomCard({ onChangeModel }) {
+export default function BottomCard({ onChangeModel, modelList }) {
   const render3DStatus = (
     <Chip
       label="3D"
@@ -82,7 +82,7 @@ export default function BottomCard({ onChangeModel }) {
       <Stack direction="row" spacing={2}>
         {modelList.map((model) => (
           <Box
-            key={Math.random()}
+            key={model.pid}
             sx={{
               width: 150,
               height: 150,
@@ -94,7 +94,7 @@ export default function BottomCard({ onChangeModel }) {
             <Box
               component="img"
               alt="模型"
-              src={model.img}
+              src={`/preview${model.img}`}
               sx={{
                 top: 0,
                 width: 1,
@@ -102,7 +102,7 @@ export default function BottomCard({ onChangeModel }) {
                 objectFit: "cover",
                 position: "absolute",
               }}
-              onClick={() => onChangeModel(model.id)}
+              onClick={() => onChangeModel(model.pid)}
             />
           </Box>
         ))}
@@ -113,4 +113,5 @@ export default function BottomCard({ onChangeModel }) {
 
 BottomCard.propTypes = {
   onChangeModel: PropTypes.func,
+  modelList: PropTypes.array,
 };
