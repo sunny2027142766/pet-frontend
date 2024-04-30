@@ -16,10 +16,10 @@ import { getItem, clearStorage } from "src/utils/local-storage";
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
-  {
-    label: "主页",
-    icon: "eva:home-fill",
-  },
+  // {
+  //   label: "首页",
+  //   icon: "eva:home-fill",
+  // },
   {
     label: "个人信息",
     icon: "eva:person-fill",
@@ -46,6 +46,17 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
+  const handleClickMenu = (event, option) => {
+    setOpen(null);
+
+    if (option.label === "个人信息") {
+      router.push("/account/profile");
+    }
+    if (option.label === "设置") {
+      router.push("/account/settings");
+    }
+  };
+
   const handleLogout = () => {
     clearStorage();
     router.push("/login");
@@ -66,7 +77,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={account.avatar}
+          src={`/preview${account.avatar}`}
           alt={account.username}
           sx={{
             width: 36,
@@ -98,7 +109,12 @@ export default function AccountPopover() {
         <Divider sx={{ borderStyle: "dashed" }} />
 
         {MENU_OPTIONS.map((option) => (
-          <MenuItem key={option.label} onClick={handleClose}>
+          <MenuItem
+            key={option.label}
+            onClick={(event) => {
+              handleClickMenu(event, option);
+            }}
+          >
             {option.label}
           </MenuItem>
         ))}

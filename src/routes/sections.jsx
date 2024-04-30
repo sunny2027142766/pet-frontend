@@ -28,6 +28,8 @@ export const PostDetailPage = lazy(
 );
 export const EmotionPage = lazy(() => import("src/pages/frontend/emotion"));
 
+export const ProfilePage = lazy(() => import("src/pages/profile"));
+export const SettingsPage = lazy(() => import("src/pages/settings"));
 export const LoginPage = lazy(() => import("src/pages/login"));
 export const RegisterPage = lazy(() => import("src/pages/register"));
 export const Page404 = lazy(() => import("src/pages/page-not-found"));
@@ -76,6 +78,8 @@ export default function Router() {
         { path: "community", element: <CommunityPage /> },
         { path: "community/:pid", element: <PostDetailPage /> },
         { path: "emotion", element: <EmotionPage /> },
+        { path: "account/profile", element: <ProfilePage /> },
+        { path: "account/settings", element: <SettingsPage /> },
       ],
     },
     {

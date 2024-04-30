@@ -92,6 +92,9 @@ dependencies:
   simplebar-react:
     specifier: ^3.2.4
     version: 3.2.4(react@18.2.0)
+  swiper:
+    specifier: ^11.1.1
+    version: 11.1.1
   three:
     specifier: ^0.163.0
     version: 0.163.0
@@ -4171,6 +4174,11 @@ packages:
     engines: {node: '>= 0.8.0'}
     dependencies:
       svg.js: 2.7.1
+    dev: false
+
+  /swiper@11.1.1:
+    resolution: {integrity: sha512-jGmEA/fNz1lACIcY4/40ggm1Gcyv+EUivmgV/Jd2WFPsEJhbWXnRAwzZR8OPjkBLtDxmzcoYG/iiAMWfRs0YKQ==}
+    engines: {node: '>= 4.7.0'}
     dev: false
 
   /synckit@0.8.8:

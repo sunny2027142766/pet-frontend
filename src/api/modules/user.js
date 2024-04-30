@@ -15,3 +15,5 @@ export const updateUserApi = (userId, user) => put(`/user/${userId}`, user);
  * @returns
  */
 export const deleteUserApi = (ids) => del(`/user/${ids}`);
+
+export const getUserProfileApi = () => get(`/user/profile`);

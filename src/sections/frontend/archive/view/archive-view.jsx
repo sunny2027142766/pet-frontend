@@ -7,26 +7,33 @@ import PetCard from "../pet-card";
 
 export default function ArchiveView() {
   const [pets, setPets] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getPetInfo();
   }, []);
 
   const getPetInfo = () => {
+    setLoading(true);
     getAllPetInfoApi().then((res) => {
       setPets(res.data);
+      setLoading(false);
     });
   };
 
   return (
     <Container>
-      <Grid container spacing={3}>
-        {pets.map((pet) => (
-          <Grid key={pet.pid} xs={12} sm={6} md={3}>
-            <PetCard pet={pet} />
-          </Grid>
-        ))}
-      </Grid>
+      {loading ? (
+        <>加载中</>
+      ) : (
+        <Grid container spacing={3}>
+          {pets.map((pet) => (
+            <Grid key={pet.pid} xs={12} sm={6} md={3}>
+              <PetCard pet={pet} />
+            </Grid>
+          ))}
+        </Grid>
+      )}
       {/* <FunctionWidget /> */}
     </Container>
   );
