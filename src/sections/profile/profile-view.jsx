@@ -125,8 +125,11 @@ function ProfileView() {
 
   const handleSave = () => {
     // 保存用户信息到后端
-    // ...
-    updateUserApi(uid, userInfo);
+    const newInfo = {
+      ...userInfo,
+      sex: userInfo.sex === 2 ? 0 : userInfo.sex,
+    };
+    updateUserApi(uid, newInfo);
   };
 
   const getUserProfile = async () => {
@@ -383,7 +386,7 @@ function ProfileView() {
                         }
                       >
                         <MenuItem value={1}>男</MenuItem>
-                        <MenuItem value={0}>女</MenuItem>
+                        <MenuItem value={2}>女</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
@@ -391,6 +394,7 @@ function ProfileView() {
                     <TextField
                       fullWidth
                       label="电话号"
+                      name="phone"
                       value={phone || ""}
                       variant="outlined"
                       color="secondary"

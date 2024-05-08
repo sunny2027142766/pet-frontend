@@ -74,7 +74,7 @@ export default function PetCard({ pet }) {
           </Typography>
           <LinearProgress
             variant="determinate"
-            value={pet.health || 10}
+            value={pet.health * 20 || 0}
             sx={{ flexGrow: 1 }}
           />
         </Stack>
@@ -89,7 +89,7 @@ export default function PetCard({ pet }) {
           </Typography>
           <LinearProgress
             variant="determinate"
-            value={pet.happy || 10}
+            value={pet.happy * 20 || 0}
             sx={{ flexGrow: 1 }}
           />
         </Stack>
@@ -104,7 +104,7 @@ export default function PetCard({ pet }) {
           </Typography>
           <LinearProgress
             variant="determinate"
-            value={pet.health || 100}
+            value={pet.health * 20 || 100}
             sx={{ flexGrow: 1 }}
           />
         </Stack>

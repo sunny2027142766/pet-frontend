@@ -214,7 +214,7 @@ const PostDetail = ({ comments, postInfo, refresh }) => {
           {comments.map((com, index) => (
             <ListItem key={index} alignItems="flex-start">
               <ListItemAvatar>
-                <Avatar alt={com.avatar} />
+                <Avatar alt={com.avatar} src={`/preview${com.avatar}`} />
               </ListItemAvatar>
               <ListItemText
                 primary={com.username}

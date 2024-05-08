@@ -38,7 +38,7 @@ export default function InteractionView() {
     setCursorUrl("/assets/images/cursor/Stroke.svg");
     setInteractionState({
       message: "心情值增加!!!",
-      position: [0, 1.2, 0],
+      position: [0, 5.0, 0],
       visible: true,
     });
     const { data } = await updatePetHealthInfoApi(model.pid, {
@@ -54,7 +54,7 @@ export default function InteractionView() {
     setCursorUrl("/assets/images/cursor/Express.svg");
     setInteractionState({
       message: "心情值增加!!!",
-      position: [0, 1.2, 0],
+      position: [0, 5.0, 0],
       visible: true,
     });
     const { data } = await updatePetHealthInfoApi(model.pid, {
@@ -70,7 +70,7 @@ export default function InteractionView() {
     setCursorUrl("/assets/images/cursor/Feed.svg");
     setInteractionState({
       message: "饥饿值减少!!!",
-      position: [0, 1.2, 0],
+      position: [0, 5.0, 0],
       visible: true,
     });
     const { data } = await updatePetHealthInfoApi(model.pid, {
@@ -86,7 +86,7 @@ export default function InteractionView() {
     setCursorUrl("/assets/images/cursor/Drink.svg");
     setInteractionState({
       message: "健康值增加!!!",
-      position: [0, 1.2, 0],
+      position: [0, 5.0, 0],
       visible: true,
     });
     const { data } = await updatePetHealthInfoApi(model.pid, {
@@ -102,7 +102,7 @@ export default function InteractionView() {
     setCursorUrl("/assets/images/cursor/Clean.svg");
     setInteractionState({
       message: "健康值增加!!!",
-      position: [0, 1.2, 0],
+      position: [0, 5.0, 0],
       visible: true,
     });
     const { data } = await updatePetHealthInfoApi(model.pid, {
