@@ -166,12 +166,16 @@ export default function InteractionView() {
       sx={{ height: 1, cursor: `url(${cursorUrl}), auto` }}
       onContextMenu={handleRightClick}
     >
-      <InteractionCard
-        model={model}
-        playAnimation={playAnimation}
-        modelList={modelList}
-        interactionState={interactionState}
-      />
+      {
+       model && modelList.length > 0 && (
+          <InteractionCard
+            model={model}
+            playAnimation={playAnimation}
+            modelList={modelList}
+            interactionState={interactionState}
+          />
+        )
+      }
       <FunctionWidget
         onToggleAnimation={handleToggleAnimation}
         onStroke={handleStroke}
