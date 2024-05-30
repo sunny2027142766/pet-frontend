@@ -7,7 +7,7 @@ import Iconify from "src/components/iconify";
 
 const StyledRoot = styled("div")(({ theme }) => ({
   zIndex: 999,
-  left: 10,
+  left: 200,
   display: "flex",
   position: "fixed",
   top: "50%",

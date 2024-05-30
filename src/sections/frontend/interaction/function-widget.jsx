@@ -6,7 +6,7 @@ import { Fab, Stack } from "@mui/material";
 // StyledRoot definition remains the same
 const StyledRoot = styled("div")(({ theme }) => ({
   zIndex: 999,
-  right: 10,
+  right: 200,
   top: "50%",
   transform: "translateY(-50%)",
   display: "flex",
